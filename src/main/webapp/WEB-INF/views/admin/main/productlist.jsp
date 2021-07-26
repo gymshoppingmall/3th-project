@@ -19,7 +19,7 @@
   <!-- regdate 대상으로 groupby 해서 값 찾기? -->
 </div>
 <div class="container">
-  <h2>전체 회원 목록</h2>
+  <h2>전체 상품 목록</h2>
   <p>현재 등록된 상품 수는 총 <%=productList.size() %>건입니다. </p>
   <table class="table">
     <thead class="thead-dark">
