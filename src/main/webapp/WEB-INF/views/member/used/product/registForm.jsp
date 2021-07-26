@@ -192,11 +192,10 @@ ul li.tag-item{
 		}else{
 			if($("input[name='tag']").val() == "" || $("input[name='tag']").val() == null){
 				bootbox.confirm("Tag를 추가하시면 상품이 더 많은 사용자에게 노출됩니다.<br>tag없이 등록 하시겠습니까?", function(flag){
-					console.log("flag", flag);
-					if(flag) bootbox.alert("등록 성공", function(){});
+					if(flag) regist();
 				});
 			}else{
-				bootbox.alert("등록 성공", function(){});
+				regist();
 			}
 		}
 		
@@ -278,6 +277,9 @@ ul li.tag-item{
 			<div class="col-xl-6" style="font-size: 23px;">
 				<!-- 제품등록을 위한 입력 폼 -->
 				<form>
+					<!-- 데이터 전송 시 가져 갈 등록자 정보 -->
+					<input type="hidden" name="member_id" value="<%=member.getMember_id()%>">
+					
 					<table class="table table-bordered">
 						<tbody>
 							<tr>
@@ -322,8 +324,6 @@ ul li.tag-item{
 							</tr>
 						</tbody>
 					</table>
-					<!-- 데이터 전송 시 가져 갈 등록자 정보 -->
-					<input type="hidden" name="member_id" value="<%=member.getMember_id()%>">
 				</form>
 			</div>
 			<div class="btn-group"

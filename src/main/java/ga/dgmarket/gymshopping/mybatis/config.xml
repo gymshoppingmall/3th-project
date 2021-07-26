@@ -16,6 +16,7 @@
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedFavorites" alias="UsedFavorites"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedOrd" alias="UsedOrd"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedProduct" alias="UsedProduct"/>
+		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedProductMainImg" alias="UsedProductMainImg"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedProductImg" alias="UsedProductImg"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedReview" alias="UsedReview"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedTag" alias="UsedTag"/>
