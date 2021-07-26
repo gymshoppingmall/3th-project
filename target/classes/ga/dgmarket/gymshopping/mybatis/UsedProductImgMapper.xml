@@ -2,12 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="UsedProductImg">
 
+	<!-- 상품 등록 시 상품 이미지 디비에 저장 -->
 	<insert id="insert" parameterType="UsedProductImg">
 		insert into used_product_img(used_product_id, used_img, used_img_index)
 		values(#{used_product_id}, #{used_img}, #{used_img_index})
 	</insert>
-	
-	<select id="selectProduct" parameterType="int" resultType="UsedProductImg">
-		select * from used_product_img where used_product_id=#{used_product_id}
-	</select>
 </mapper>

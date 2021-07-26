@@ -11,4 +11,5 @@ import ga.dgmarket.gymshopping.domain.UsedProduct;
 public interface UsedProductService {
 
 	public void regist(UsedProduct usedProduct, ServletContext context);
+	public List selectAll();
 }

@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="UsedProduct">
+<mapper namespace="UsedProductMainImg">
 	
 	<!-- 상품을 등록할 때 이미지와 tag를 동시에 입력하려면 방금 insert한 used_product_id를 알아야 한다.
 	따라서 selectKey를 이용하여 마지막에 insert된 pk를 반환하는 작업을 해야한다 from.성일 -->
-	<insert id="insert" parameterType="UsedProduct">
+	<insert id="insert" parameterType="UsedProductMainImg">
 		insert into used_product(member_id, used_product_name, used_product_detail, used_product_price)
 		values(#{member_id}, #{used_product_name}, #{used_product_detail}, #{used_product_price})
 		<selectKey order="AFTER" resultType="int" keyProperty="used_product_id">
 			select last_insert_id()
 		</selectKey>
 	</insert>
-
+	
+	<!-- 상품을 조회 -->
+	<select id="selectAll" resultType="UsedProductMainImg">
+		select * from used_product p, used_product_img i where p.used_product_id=i.used_product_id and used_img_index=0
+		order by used_product_id desc
+	</select>
 </mapper>

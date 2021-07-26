@@ -63,7 +63,6 @@ public class UsedProductServiceImpl implements UsedProductService{
 			usedProductImgDAO.insert(usedProductImg); //디비에 넣기
 		}
 		
-		
 		//태그 디비에 넣기
 		String tag = usedProduct.getTag();
 		String[] tags = tag.split(",");
@@ -73,8 +72,11 @@ public class UsedProductServiceImpl implements UsedProductService{
 			usedTag.setTag_name(obj);
 			mybatisUsedTagDAO.insert(usedTag);
 		}
-		
 		System.out.println("등록 완료");
+	}
+	
+	public List selectAll() {
+		return usedProductDAO.selectAll();
 	}
 	
 	
