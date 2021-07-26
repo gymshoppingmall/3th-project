@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+
+	<!-- 로그인 체크 -->
+	<select id="login" parameterType="Member" resultType="Member">
+		select *
+		from member where user_id=#{user_id} and password=#{password}
+	</select>
+
+	<select id="detail" parameterType="int" resultType="Member">
+		select * from member where member_id=#{member_id}
+	</select>
+	
+	<select id="selectAll" resultType="Member">
+	 select * from member order by member_id desc
+	</select>
+	
+	<update id="update" parameterType="Member">
+	update member set user_id=#{user_id}, password=#{password}, name=#{name}, storename=#{storename}, profile_img=#{profile_img}, phone=#{phone}, addr=#{addr}, email=#{email} where member_id=#{member_id}
+	</update>
+	
+	<delete id="delete" parameterType="Member">
+		delete from member where
+		member_id=#{member_id}
+	</delete>
+	
+	<!-- 최근 한달 간 가입한 회원 수를 반환 -->
+	<select id="countUser" resultType="int">
+		select count(member_id) as cnt from member WHERE regdate>=date_add(now(), INTERVAL -1 MONTH )
+	</select>
+
+</mapper>

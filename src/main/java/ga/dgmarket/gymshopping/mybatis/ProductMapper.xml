@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Product">
+
+	<!-- 상품목록 불러오기 -->
+	<select id="selectAll" resultType="Product">
+		select * from product order by product_id desc
+	</select>
+	<!-- 단일상품 디테일 join문 이용해야 할 것 같아서..
+	<select id="select" resultType="Product" parameterType="int">
+		select * from product where product_id = #{product_id}
+	</select>
+	-->
+	<!-- 상품삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from product where product_id=#{product_id}
+	</delete>	
+	
+	<insert id="insert" parameterType="Product">
+		insert into product(sub_category_id, product_name, product_detail, price)
+		values (#{sub_category_id}, #{product_name}, #{product_detail}, #{price})
+	</insert>
+</mapper>

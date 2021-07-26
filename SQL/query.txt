@@ -1,0 +1,27 @@
+
+--product와 img 분할(한 제품에 여러 이미지가 들어갈 수 있으므로)
+alter table product drop column product_img;
+
+create table product_img(img_no int primary key auto_increment
+, img_name varchar(16));
+
+--Alter문 이용한 외래 키 설정
+alter table product_img add product_id int;  (<-- img테이블 생성 시 product의 primary키 누락..)
+alter table product_img add constraint product_img_product foreign key(product_id) references product(product_id);
+
+--관리자 계정
+create table admin(admin_id int primary key auto_increment
+, host_id varchar(32)
+, password varchar(32)
+, name varchar(16)
+, profile_img varchar(32)
+, regdate timestamp default now()
+) default character set utf8;
+
+--최근 한달 간 가입한 가입자의 수
+select count(member_id) from member WHERE regdate>=date_add(now(), INTERVAL -1 MONTH )
+
+--테스트용 product
+INSERT into product(sub_category_id, product_name, product_detail, price)
+values(1,'테스트용더미','데이터입니다',123000);
+
