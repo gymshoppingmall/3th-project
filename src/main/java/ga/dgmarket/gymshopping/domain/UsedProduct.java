@@ -13,6 +13,7 @@ public class UsedProduct {
 	private String used_product_detail;
 	private int used_product_price;
 	private String soldout;
+	private String tag;
 	private MultipartFile mainImg;
 	private MultipartFile subImg;
 }

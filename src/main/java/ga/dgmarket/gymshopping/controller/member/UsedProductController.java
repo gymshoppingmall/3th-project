@@ -42,7 +42,6 @@ public class UsedProductController {
 	public String regist(UsedProduct usedProduct, HttpServletRequest request) {
 		
 		usedProductService.regist(usedProduct, request.getServletContext());
-		
 		return "redirect:/member/used/main";
 	}
 	

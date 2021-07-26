@@ -22,7 +22,7 @@ public class MybatisUsedProductImgDAO implements UsedProductImgDAO{
 
 	//중고 상품을 등록할 때 필요한 이미지만을 insert
 	public void insert(UsedProductImg usedProductImg) throws DMLException{
-		int result = sqlSessionTemplate.insert("UsedProdcutImg.insert", usedProductImg);
+		int result = sqlSessionTemplate.insert("UsedProductImg.insert", usedProductImg);
 		if(result == 0) {
 			throw new DMLException("UsedProdcutImg insert 실패");
 		}
