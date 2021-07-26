@@ -26,4 +26,4 @@ INSERT into product(sub_category_id, product_name, product_detail, price)
 values(1,'테스트용더미','데이터입니다',123000);
 
 
---test
+--test 브런치 테스트
