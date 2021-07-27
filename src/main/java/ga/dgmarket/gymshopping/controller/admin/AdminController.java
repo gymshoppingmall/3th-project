@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ga.dgmarket.gymshopping.domain.Admin;
+import ga.dgmarket.gymshopping.domain.Member;
 import ga.dgmarket.gymshopping.exception.MemberExistException;
 import ga.dgmarket.gymshopping.model.service.admin.AdminService;
 import ga.dgmarket.gymshopping.model.service.member.MemberService;
@@ -51,6 +52,13 @@ public class AdminController {
 		model.addAttribute("memberList",memberList);
 		model.addAttribute("cnt",cnt);
 		return "admin/main/member";
+	}
+	//단일 회원 가져오기
+	@GetMapping("/main/member/detail")
+	public String getDetail(int member_id, Model model) {
+		Member member = memberService.select(member_id);
+		model.addAttribute("member",member);
+		return "admin/main/member/detail";
 	}
 	@GetMapping("/main/product")
 	public String admin_product() {

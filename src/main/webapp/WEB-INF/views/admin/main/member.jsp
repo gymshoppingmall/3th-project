@@ -43,7 +43,7 @@
     </thead>
     <tbody>
     <%for(Member member : memberList){ %>
-      <tr class= "product-bar">
+      <tr class= "product-bar" onclick="location.href='/admin/main/member/detail?member_id=<%=member.getMember_id()%>';">
         <td><%=member.getUser_id() %></td>
         <td><%=member.getName() %></td>
         <td><%=member.getStorename() %></td>
