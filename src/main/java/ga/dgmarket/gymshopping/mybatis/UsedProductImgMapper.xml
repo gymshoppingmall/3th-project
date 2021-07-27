@@ -13,12 +13,14 @@
 		select f.used_product_id as used_product_id, used_img 
 		from used_product_img i, used_favorites f 
 		where i.used_product_id=f.used_product_id and f.member_id=#{member_id} and i.used_img_index=0
+		order by f.used_product_id desc
 	</select>
 	
 	<!-- 내가 등록한 상품 이미지 조회하기 -->
 	<select id="productPre" parameterType="int" resultType="UsedProductImg">
 		select p.used_product_id as used_product_id, used_img 
 		from used_product_img i, used_product p 
-		where i.used_product_id=p.used_product_id and p.member_id=#{member_id} and i.used_img_index=0;
+		where i.used_product_id=p.used_product_id and p.member_id=#{member_id} and i.used_img_index=0
+		order by p.used_product_id desc
 	</select>
 </mapper>

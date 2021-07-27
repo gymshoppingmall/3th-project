@@ -3,7 +3,7 @@
 <mapper namespace="UsedReview">
 
 	<!-- 상점에서 리뷰 미리보기 조회 -->
-	<select id="select" resultType="UsedReview" parameterType="int">
+	<select id="selectAll" resultType="UsedReview" parameterType="int">
 		select * from used_review where member_id=#{member_id}
 	</select>
 </mapper>

@@ -1,5 +1,8 @@
 <%@page import="ga.dgmarket.gymshopping.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	Member member = (Member)session.getAttribute("member");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

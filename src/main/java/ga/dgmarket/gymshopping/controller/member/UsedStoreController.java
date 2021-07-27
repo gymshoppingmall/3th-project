@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import ga.dgmarket.gymshopping.domain.UsedProduct;
 import ga.dgmarket.gymshopping.exception.DMLException;
 import ga.dgmarket.gymshopping.exception.UploadException;
+import ga.dgmarket.gymshopping.model.service.usedStore.UsedStoreService;
 import ga.dgmarket.gymshopping.model.service.usedproduct.UsedProductService;
 
 @Controller
@@ -27,12 +28,15 @@ public class UsedStoreController {
 
 	@Autowired
 	private UsedProductService usedProductService;
+	@Autowired
+	private UsedStoreService usedStoreService;
 	
 	
 	@GetMapping("/used/store")
-	public String getStore(int member_id) {
+	public String getStore(int member_id, Model model) {
+		Map storeMap = usedStoreService.getStore(member_id);
 		
-		
+		model.addAttribute("storeMap", storeMap);
 		return "member/used/store/store";
 	}
 	
