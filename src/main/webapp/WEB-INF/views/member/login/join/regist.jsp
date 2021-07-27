@@ -1145,10 +1145,10 @@ button::-moz-focus-inner {
 							<input type="text" id="sample6_address" placeholder="주소" readonly><br>
 							<input type="text" id="sample6_detailAddress" placeholder="상세주소" name="">
 							<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
-							<input type="hidden" name="addr" placeholder="addr" required="" value="">
+							<input type="text" name="addr" placeholder="addr" required="" value="">
 						</div>
 						<div class="form-right-w3ls">
-							<input type="email" name="email" placeholder="Email" required="">
+							<input type="email" name="email" placeholder="Email" required="" onmousedown="sendAddr()">
 						</div>
 					</div>
 					<div class="btnn">
@@ -1293,10 +1293,12 @@ button::-moz-focus-inner {
                 document.getElementById("sample6_detailAddress").focus();
             }
         }).open();
-        
-        $("input[name='addr']").val(
-      	      $("#sample6_address").val()+" "+$("#sample6_detailAddress").val()+$("#sample6_extraAddress").val()
-      	);
+    }
+    
+    function sendAddr(){
+    	$("input[name='addr']").val(
+        	      $("#sample6_address").val()+$("#sample6_detailAddress").val()+$("#sample6_extraAddress").val()
+        	);
     }
 
 </script>

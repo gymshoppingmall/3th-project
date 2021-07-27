@@ -104,7 +104,7 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		session.setAttribute("member", member);
 		
-		return "member/main/index";
+		return "member/login/loginform";
 	}
 
 	// 회원정보상세 요청
