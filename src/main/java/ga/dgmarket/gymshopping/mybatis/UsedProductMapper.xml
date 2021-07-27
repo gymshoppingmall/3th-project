@@ -13,24 +13,17 @@
 	</insert>
 	
 	
-	<!-- UsedProduct안에 has a 관계로 있는 UsedFavorites에 대한 매핑 -->
+	<!-- 수정 해야함 -->
+	<!-- ============================================================= -->
+	<!-- UsedProduct안에 has a 관계로 있는 UsedFavorites에 대한 매핑
 	<resultMap type="UsedProductMainImg" id="UsedProductUsedFavorites">
 		<id column="used_product_id" property="used_product_id"/>
 		<result column="pmember_id" property="member_id"/>
-		<result column="pmember_id" property="member_id"/>
-		<result column="pmember_id" property="member_id"/>
-		<result column="pmember_id" property="member_id"/>		
 	</resultMap>
+	 -->
 	<!-- 상품을 조회 -->
-	<select id="selectAll" resultMap="UsedProductUsedFavorites">
-		select p.used_product_id as used_product_id, 
-		p.member_id as pmember_id, f.member_id as memer_id, 
-		used_product_name, used_product_price,
-		used_product_detail, used_img, used_favorites_id 
-		from used_product p, used_product_img i, used_favorites f 
-		where p.used_product_id=i.used_product_id and
-		p.used_product_id=f.used_product_id
-		and used_img_index=0 and soldout='no'
-		order by p.used_product_id desc
+	<select id="selectAll" resultType="UsedProductMainImg">
+		select * from used_product p, used_product_img i where p.used_product_id=i.used_product_id and used_img_index=0 order by p.used_product_id desc
 	</select>
+	<!-- ============================================================= -->
 </mapper>
