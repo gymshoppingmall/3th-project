@@ -10,6 +10,12 @@
 <meta charset="UTF-8">
 <title>관리자 페이지입니다..</title>
 <%@ include file="../inc/bootstrap.jsp" %>
+<style>
+/* Change background color of buttons on hover */
+.product-bar:hover {
+  background-color: #ddd;
+}
+</style>
 </head>
 <body>
 <%@ include file="../inc/top_navi.jsp" %>
@@ -37,7 +43,7 @@
     </thead>
     <tbody>
     <%for(Product product : productList){ %>
-      <tr>
+      <tr class= "product-bar">
         <td><%=product.getProduct_id() %></td>
         <td><%=product.getProduct_name() %></td>
         <td><%=product.getPrice() %></td>

@@ -12,6 +12,12 @@
 <title>관리자 페이지입니다..</title>
 <%@ include file="../inc/bootstrap.jsp" %>
 </head>
+<style>
+/* Change background color of buttons on hover */
+.product-bar:hover {
+  background-color: #ddd;
+}
+</style>
 <body>
 <%@ include file="../inc/top_navi.jsp" %>
 
@@ -37,7 +43,7 @@
     </thead>
     <tbody>
     <%for(Member member : memberList){ %>
-      <tr>
+      <tr class= "product-bar">
         <td><%=member.getUser_id() %></td>
         <td><%=member.getName() %></td>
         <td><%=member.getStorename() %></td>
