@@ -15,6 +15,6 @@
 	<!-- 상품을 조회 -->
 	<select id="selectAll" resultType="UsedProductMainImg">
 		select * from used_product p, used_product_img i where p.used_product_id=i.used_product_id and used_img_index=0
-		order by used_product_id desc
+		order by p.used_product_id desc
 	</select>
 </mapper>

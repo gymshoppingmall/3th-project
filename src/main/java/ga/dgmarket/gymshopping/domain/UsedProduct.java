@@ -16,4 +16,5 @@ public class UsedProduct {
 	private String tag;
 	private MultipartFile mainImg;
 	private MultipartFile subImg;
+	private UsedFavorites usedFavorites;
 }

@@ -6,7 +6,7 @@
 
 <%
 	Member member = new Member();
-	member.setMember_id(6);
+	member.setMember_id(5);
 	member.setUser_id("used_test");
 	member.setPassword("1234");
 	member.setName("성일");
@@ -153,7 +153,7 @@ function setFavorites(used_product_id){
                     <strong><%= usedProduct.getUsed_product_name() %></strong>
                 </div>
                 <!-- 상품 이미지가 올 곳 -->
-                <img src="/resources/data/product/img/<%= usedProduct.getUsed_img() %>" alt="">
+                <img src="/resources/data/used/product/img/<%= usedProduct.getUsed_img() %>" alt="">
                 <div class="card-body">
                     <!-- 상품 가격 올 곳 -->
                     <h5 class="card-title"><%= usedProduct.getUsed_product_price() %></h5>
