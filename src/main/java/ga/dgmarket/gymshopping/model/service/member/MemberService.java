@@ -11,5 +11,6 @@ public interface MemberService {
 	public void delete(Member member);//아이디, 패스워드가 모두 일치할 때 탈퇴
 	public List selectAll();
 	public Member select(int member_id);
+	public int idCheck(String memberId);
 	public int countUser();
 }

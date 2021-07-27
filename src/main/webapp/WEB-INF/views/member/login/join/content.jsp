@@ -1116,7 +1116,7 @@ button::-moz-focus-inner {
 							<input type="text" name="storename" required="" value="<%=member.getStorename() %>">
 						</div>
 						<div class="form-left-to-w3l">
-							<input type="text" name="store_id" required="" value="<%=member.getStore_id() %>">
+							<input type="text" name="store_id" required="" value="<%=member.getStore_id() %>" readonly>
 						</div>
 
 						<div class="form-left-to-w3l">
@@ -1147,11 +1147,6 @@ button::-moz-focus-inner {
 					</div>
 					<br><input type="file"
 						name="photo" required="" id="photo""/>
-
-					<script>
-						
-					</script>
-					<%=request.getRealPath("/")%>
 				</div>
 			</div>
 			</form>

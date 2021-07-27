@@ -9,25 +9,33 @@
 	</select>
 
 	<select id="detail" parameterType="int" resultType="Member">
-		select * from member where member_id=#{member_id}
+		select * from
+		member where member_id=#{member_id}
 	</select>
-	
+
 	<select id="selectAll" resultType="Member">
-	 select * from member order by member_id desc
+		select * from member order by member_id desc
 	</select>
-	
+
 	<update id="update" parameterType="Member">
-	update member set user_id=#{user_id}, password=#{password}, name=#{name}, storename=#{storename}, profile_img=#{profile_img}, phone=#{phone}, addr=#{addr}, email=#{email} where member_id=#{member_id}
+		update member set user_id=#{user_id}, password=#{password}, name=#{name},
+		storename=#{storename}, profile_img=#{profile_img}, phone=#{phone},
+		addr=#{addr}, email=#{email} where member_id=#{member_id}
 	</update>
-	
+
 	<delete id="delete" parameterType="Member">
-		delete from member where
-		member_id=#{member_id}
+		delete from member where user_id=#{user_id} and password=#{password}
 	</delete>
-	
+
+	<!-- 아이디 중복검사 -->
+  	<select id="idCheck" resultType="int" parameterType="String">
+  		select count(*) from member where user_id = #{user_id}
+  	</select>
+
 	<!-- 최근 한달 간 가입한 회원 수를 반환 -->
 	<select id="countUser" resultType="int">
-		select count(member_id) as cnt from member WHERE regdate>=date_add(now(), INTERVAL -1 MONTH )
+		select count(member_id) as cnt
+		from member WHERE regdate>=date_add(now(), INTERVAL -1 MONTH )
 	</select>
 
 </mapper>
