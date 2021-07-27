@@ -27,6 +27,16 @@ public class MybatisUsedProductImgDAO implements UsedProductImgDAO{
 			throw new DMLException("UsedProdcutImg insert 실패");
 		}
 	}
+	
+	//상점에서 판매 상품 미리보기 이미지 가져오기
+	public List productPre(int member_id) {
+		return sqlSessionTemplate.selectList("UsedProductImg.productPre", member_id);
+	}
+	
+	//상점에서 찜한 상품 미리보기 이미지 가져오기
+	public List favoritesPre(int member_id) {
+		return sqlSessionTemplate.selectList("UsedProductImg.favoritesPre", member_id);
+	}
 
 	@Override
 	public void delete(int usedProduct_id) {

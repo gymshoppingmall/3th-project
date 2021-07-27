@@ -84,10 +84,11 @@ public class UsedProductServiceImpl implements UsedProductService{
 		HttpSession session = request.getSession();
 		//임의로 값 넣기====================
 		Member member = new Member();
-		member.setMember_id(6);
+		member.setMember_id(5);
 		member.setUser_id("used_test");
 		member.setPassword("1234");
 		member.setName("성일");
+		member.setStorename("성일샵");
 
 		session.setAttribute("member", member);
 		//임의로 값 넣기====================

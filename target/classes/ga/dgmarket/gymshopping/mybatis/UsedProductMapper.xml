@@ -23,9 +23,10 @@
 	 -->
 	<!-- 상품을 조회 -->
 	<select id="selectAll" resultType="UsedProductExtend" parameterType="int">
-		select member_id, p.used_product_id as used_product_id, p.used_product_name as used_product_name, 
+		select p.member_id, p.used_product_id as used_product_id, p.used_product_name as used_product_name, 
 		p.used_product_price as used_product_price, used_img,
 		(select member_id from used_favorites f 
+		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
 		from used_product p, used_product_img i
 		where p.used_product_id=i.used_product_id and i.used_img_index=0

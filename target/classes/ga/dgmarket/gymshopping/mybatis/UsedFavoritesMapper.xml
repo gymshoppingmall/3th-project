@@ -4,5 +4,4 @@
 	<select id="select" parameterType="int" resultType="UsedFavorites">
 		select * from used_favorites where used_favorites_id=#{used_favorites_id}
 	</select>
-
 </mapper>

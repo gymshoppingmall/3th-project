@@ -5,16 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <%
-	Member member = new Member();
-	member.setMember_id(5);
-	member.setUser_id("used_test");
-	member.setPassword("1234");
-	member.setName("성일");
-	member.setStorename("성일GYM");
-
-	session.setAttribute("member", member);
-	
-	Member sessionMember =(Member) session.getAttribute("member");
+	Member member = (Member)session.getAttribute("member");
 	List<UsedProductExtend> usedProductList = (List)request.getAttribute("usedProductList");
 %>
 <!DOCTYPE html>
@@ -103,10 +94,14 @@ function loadProduct(e){
     }
 }
 
-//찜 상태를 변경하는 함수
-//매개 변수로 상품의 id를 넘겨받는다.
-function setFavorites(used_product_id){
+//찜을 추가하는 메서드
+function addFavorites(used_product_id, member_id){
+	alert("찜 추가하기 상품 번호는 : "+used_product_id+"추가하려는 고객 id : "+member_id);
+}
 
+//찜을 삭제하는 메서드
+function delFavorites(used_favorites_id){
+	alert("찜 삭제하기 상품 번호는 : "+used_favorites_id);
 }
 
 </script>
@@ -148,10 +143,17 @@ function setFavorites(used_product_id){
                 <div class="card-header">
                     <!-- 찜을 했냐 안했냐에 따라서 버튼의 색이 달라지고, 클릭 시 찜의 유무 바뀜 -->
                     <!-- 클릭 시 changeLike() 함수 호출 -->
-                    <%if %>
-                    <div class="btn-danger" style="font-size: 25px; margin-bottom: 5px;" onclick="">
+                    <%if(usedProduct.getFavorites_member()==0){ %>
+                    <div class="btn-success" style="font-size: 25px; margin-bottom: 5px;" 
+                    onclick="addFavorites(<%=usedProduct.getUsed_product_id()%>, <%=member.getMember_id()%>)">
                     ♥
                     </div>
+                    <%} else{ %>
+                    <div class="btn-danger" style="font-size: 25px; margin-bottom: 5px;"
+                    onclick="delFavorites(<%=usedProduct.getFavorites_id()%>)">
+                    ♥
+                    </div>
+                    <%} %>
                     <strong><%= usedProduct.getUsed_product_name() %></strong>
                 </div>
                 <!-- 상품 이미지가 올 곳 -->
@@ -161,7 +163,7 @@ function setFavorites(used_product_id){
                     <h5 class="card-title"><%= usedProduct.getUsed_product_price() %></h5>
                     <p class="card-text">
                         <!-- 판매자 아이디 올 곳+링크는 판매자 상점으로 이동 -->
-                        판매자 : <a href='#'>[<%=sessionMember.getStorename()%>]</a>
+                        판매자 : <a href='/member/used/store?member_id=<%=usedProduct.getMember_id()%>'>[<%=member.getStorename()%>]</a>
                     </p>
                     <!-- 상품의 상세보기로 이동 -->
                     <a href="#" class="btn btn-success">상세보기</a>
