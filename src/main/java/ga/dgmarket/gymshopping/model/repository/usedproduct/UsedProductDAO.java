@@ -6,5 +6,5 @@ import ga.dgmarket.gymshopping.domain.UsedProduct;
 
 public interface UsedProductDAO {
 	public UsedProduct insert(UsedProduct usedProduct);
-	public List selectAll();
+	public List selectAll(int member_id);
 }

@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import ga.dgmarket.gymshopping.domain.Member;
 import ga.dgmarket.gymshopping.domain.UsedProduct;
 import ga.dgmarket.gymshopping.domain.UsedProductImg;
 import ga.dgmarket.gymshopping.domain.UsedTag;
@@ -75,9 +78,25 @@ public class UsedProductServiceImpl implements UsedProductService{
 		System.out.println("등록 완료");
 	}
 	
-	public List selectAll() {
-		return usedProductDAO.selectAll();
-	}
-	
-	
+	//메인 화면에 보여줄 상품들을 조회하기
+	//세션에 있는 member_id을 통해 조회할 예정
+	public List selectAll(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//임의로 값 넣기====================
+		Member member = new Member();
+		member.setMember_id(6);
+		member.setUser_id("used_test");
+		member.setPassword("1234");
+		member.setName("성일");
+
+		session.setAttribute("member", member);
+		//임의로 값 넣기====================
+		
+		
+		
+		Member mem = (Member)session.getAttribute("member");
+		System.out.println(mem+"member는");
+		
+		return usedProductDAO.selectAll(mem.getMember_id());
+	}	
 }

@@ -1,6 +1,6 @@
+<%@page import="ga.dgmarket.gymshopping.domain.UsedProductExtend"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Member"%>
 <%@page import="org.eclipse.jdt.internal.compiler.lookup.MemberTypeBinding"%>
-<%@page import="ga.dgmarket.gymshopping.domain.UsedProductMainImg"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
@@ -13,8 +13,9 @@
 	member.setStorename("성일GYM");
 
 	session.setAttribute("member", member);
+	
 	Member sessionMember =(Member) session.getAttribute("member");
-	List<UsedProductMainImg> usedProductList = (List)request.getAttribute("usedProductList");
+	List<UsedProductExtend> usedProductList = (List)request.getAttribute("usedProductList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,13 +141,14 @@ function setFavorites(used_product_id){
     <div class="row text-center">
         <!--하나의 상품을 나타낼 박스-->
         
-        <% for(UsedProductMainImg usedProduct : usedProductList){ %>
+        <% for(UsedProductExtend usedProduct : usedProductList){ %>
         <div class="col-xl-3">
             <div class="card">
                 <!-- 상품명이 올 곳 -->
                 <div class="card-header">
                     <!-- 찜을 했냐 안했냐에 따라서 버튼의 색이 달라지고, 클릭 시 찜의 유무 바뀜 -->
                     <!-- 클릭 시 changeLike() 함수 호출 -->
+                    <%if %>
                     <div class="btn-danger" style="font-size: 25px; margin-bottom: 5px;" onclick="">
                     ♥
                     </div>
@@ -159,7 +161,7 @@ function setFavorites(used_product_id){
                     <h5 class="card-title"><%= usedProduct.getUsed_product_price() %></h5>
                     <p class="card-text">
                         <!-- 판매자 아이디 올 곳+링크는 판매자 상점으로 이동 -->
-                        판매자 : <a href='#'>[<%=sessionMember.getStorename() %>]</a>
+                        판매자 : <a href='#'>[<%=sessionMember.getStorename()%>]</a>
                     </p>
                     <!-- 상품의 상세보기로 이동 -->
                     <a href="#" class="btn btn-success">상세보기</a>

@@ -16,7 +16,7 @@ public class MybatisUsedProductDAO implements UsedProductDAO{
 	
 	//중고거래 상품을 등록하는 메서드. 이미지는 별도로 업로드 from.성일
 	public UsedProduct insert(UsedProduct usedProduct) throws DMLException{
-		int result = sqlSessionTemplate.insert("UsedProductMainImg.insert", usedProduct);
+		int result = sqlSessionTemplate.insert("UsedProductExtend.insert", usedProduct);
 		if(result == 0) {
 			 throw new DMLException("상품 등록 실패");
 		}else {			
@@ -25,7 +25,7 @@ public class MybatisUsedProductDAO implements UsedProductDAO{
 	}
 
 	//중고 상품 전체 조회
-	public List selectAll() {
-		return sqlSessionTemplate.selectList("UsedProductMainImg.selectAll");
+	public List selectAll(int member_id) {
+		return sqlSessionTemplate.selectList("UsedProductExtend.selectAll", member_id);
 	}
 }
