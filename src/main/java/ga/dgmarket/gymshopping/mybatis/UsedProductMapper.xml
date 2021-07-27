@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="UsedProductImg">
-	<insert id="insert" parameterType="UsedProductImg">
-		insert into used_product_img(used_product_id, used_img, used_img_index)
-		values(#{used_product_id}, #{used_img}, #{used_img_index})
+<mapper namespace="UsedProductExtend">
+	
+	<!-- 상품을 등록할 때 이미지와 tag를 동시에 입력하려면 방금 insert한 used_product_id를 알아야 한다.
+	따라서 selectKey를 이용하여 마지막에 insert된 pk를 반환하는 작업을 해야한다 from.성일 -->
+	<insert id="insert" parameterType="UsedProductExtend">
+		insert into used_product(member_id, used_product_name, used_product_detail, used_product_price)
+		values(#{member_id}, #{used_product_name}, #{used_product_detail}, #{used_product_price})
+		<selectKey order="AFTER" resultType="int" keyProperty="used_product_id">
+			select last_insert_id()
+		</selectKey>
 	</insert>
 	
-	<select id="selectProduct" parameterType="int" resultType="UsedProductImg">
-		select * from used_product_img where used_product_id=#{used_product_id}
+	
+	<!-- 수정 해야함 -->
+	<!-- ============================================================= -->
+	<!-- UsedProduct안에 has a 관계로 있는 UsedFavorites에 대한 매핑
+	<resultMap type="UsedProductMainImg" id="UsedProductUsedFavorites">
+		<id column="used_product_id" property="used_product_id"/>
+		<result column="pmember_id" property="member_id"/>
+	</resultMap>
+	 -->
+	<!-- 상품을 조회 -->
+	<select id="selectAll" resultType="UsedProductExtend" parameterType="int">
+		select member_id, p.used_product_id as used_product_id, p.used_product_name as used_product_name, 
+		p.used_product_price as used_product_price, used_img,
+		(select member_id from used_favorites f 
+		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
+		from used_product p, used_product_img i
+		where p.used_product_id=i.used_product_id and i.used_img_index=0
+		order by p.used_product_id desc
 	</select>
-
+	<!-- ============================================================= -->
 </mapper>

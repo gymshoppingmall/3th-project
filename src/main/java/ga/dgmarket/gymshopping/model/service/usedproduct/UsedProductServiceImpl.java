@@ -4,15 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import ga.dgmarket.gymshopping.domain.Member;
 import ga.dgmarket.gymshopping.domain.UsedProduct;
+import ga.dgmarket.gymshopping.domain.UsedProductImg;
+import ga.dgmarket.gymshopping.domain.UsedTag;
 import ga.dgmarket.gymshopping.exception.DMLException;
 import ga.dgmarket.gymshopping.exception.UploadException;
 import ga.dgmarket.gymshopping.model.common.file.FileManager;
+import ga.dgmarket.gymshopping.model.repository.usedproduct.MybatisUsedTagDAO;
 import ga.dgmarket.gymshopping.model.repository.usedproduct.UsedProductDAO;
 import ga.dgmarket.gymshopping.model.repository.usedproduct.UsedProductImgDAO;
 
@@ -23,6 +30,8 @@ public class UsedProductServiceImpl implements UsedProductService{
 	private UsedProductDAO usedProductDAO;
 	@Autowired
 	private UsedProductImgDAO usedProductImgDAO;
+	@Autowired
+	private MybatisUsedTagDAO mybatisUsedTagDAO;
 	@Autowired
 	private FileManager fileManager;
 
@@ -35,6 +44,8 @@ public class UsedProductServiceImpl implements UsedProductService{
 	public void regist(UsedProduct usedProduct, ServletContext context) throws DMLException, UploadException{
 		
 		//상품을 먼저 insert 상품을 넣으면서 생기는 id를 리턴 받고 그 값을 이용해 img와, tag들 DB에 넣기
+		UsedProduct result = usedProductDAO.insert(usedProduct);
+		System.out.println("used_product_id : "+result.getUsed_product_id());
 		
 		
 		//이미지 배열에 담아서 돌리기
@@ -44,24 +55,48 @@ public class UsedProductServiceImpl implements UsedProductService{
 		if(mainImg.getOriginalFilename() != null && mainImg.getOriginalFilename() != "") multipartFiles.add(mainImg);
 		if(subImg.getOriginalFilename() != null && subImg.getOriginalFilename() != "") multipartFiles.add(subImg);
 		
-		int index = 0;
 		for(int i = 0; i < multipartFiles.size(); i++) {
-			if(i == 1) index = 1; 
 			MultipartFile multipartFile = multipartFiles.get(i);
-			fileManager.saveFile(context, multipartFile, "used/product/img"); //여기서 새로 저장될 파일명을 반환하고 그 파일명을 디비에 넣어야 함
+			String filename = fileManager.saveFile(context, multipartFile, "used/product/img"); //여기서 새로 저장될 파일명을 반환하고 그 파일명을 디비에 넣어야 함
+			UsedProductImg usedProductImg = new UsedProductImg(); //VO 채워 넣기
+			usedProductImg.setUsed_product_id(result.getUsed_product_id());
+			usedProductImg.setUsed_img(filename);
+			usedProductImg.setUsed_img_index(i);
+			
+			usedProductImgDAO.insert(usedProductImg); //디비에 넣기
 		}
-		System.out.println("이미지 저장 완료");
 		
-		
-		
-		//usedProductDAO.insert(usedProduct);
-		//int getUsed_product_id = usedProduct.getUsed_product_id(); //상품을 등록하면서 반환되는 상품의 id
-		
-		//상품이미지 정보를 담은 객체를 생성하고 상품 이미지 insert
-		//usedProductImgDAO.insert(null);
-		
-		//상품 tag 등록
+		//태그 디비에 넣기
+		String tag = usedProduct.getTag();
+		String[] tags = tag.split(",");
+		for(String obj : tags) {
+			UsedTag usedTag = new UsedTag();
+			usedTag.setUsed_product_id(result.getUsed_product_id());
+			usedTag.setTag_name(obj);
+			mybatisUsedTagDAO.insert(usedTag);
+		}
+		System.out.println("등록 완료");
 	}
 	
-	
+	//메인 화면에 보여줄 상품들을 조회하기
+	//세션에 있는 member_id을 통해 조회할 예정
+	public List selectAll(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		//임의로 값 넣기====================
+		Member member = new Member();
+		member.setMember_id(6);
+		member.setUser_id("used_test");
+		member.setPassword("1234");
+		member.setName("성일");
+
+		session.setAttribute("member", member);
+		//임의로 값 넣기====================
+		
+		
+		
+		Member mem = (Member)session.getAttribute("member");
+		System.out.println(mem+"member는");
+		
+		return usedProductDAO.selectAll(mem.getMember_id());
+	}	
 }
