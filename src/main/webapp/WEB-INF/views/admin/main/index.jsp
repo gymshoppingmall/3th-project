@@ -14,6 +14,5 @@
   <p>안녕하세요! %=admin_name% 님, 오늘도 좋은 하루 보내세요.</p>
   
 </div>
-	</div>
 </body>
 </html>

@@ -10,6 +10,12 @@
 <meta charset="UTF-8">
 <title>관리자 페이지입니다..</title>
 <%@ include file="../inc/bootstrap.jsp" %>
+<style>
+/* Change background color of buttons on hover */
+.product-bar:hover {
+  background-color: #ddd;
+}
+</style>
 </head>
 <body>
 <%@ include file="../inc/top_navi.jsp" %>
@@ -19,7 +25,7 @@
   <!-- regdate 대상으로 groupby 해서 값 찾기? -->
 </div>
 <div class="container">
-  <h2>전체 회원 목록</h2>
+  <h2>전체 상품 목록</h2>
   <p>현재 등록된 상품 수는 총 <%=productList.size() %>건입니다. </p>
   <table class="table">
     <thead class="thead-dark">
@@ -37,7 +43,7 @@
     </thead>
     <tbody>
     <%for(Product product : productList){ %>
-      <tr>
+      <tr class= "product-bar">
         <td><%=product.getProduct_id() %></td>
         <td><%=product.getProduct_name() %></td>
         <td><%=product.getPrice() %></td>
