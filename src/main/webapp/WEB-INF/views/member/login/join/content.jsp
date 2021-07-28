@@ -34,6 +34,7 @@ List<Member> memberList = (List) request.getAttribute("memberList");
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
 <script>
 	addEventListener("load", function() {
+		splitAddr();
 		setTimeout(hideURLbar, 0);
 	}, false);
 	function hideURLbar() {
@@ -1128,28 +1129,31 @@ button::-moz-focus-inner {
 							<input type="text" name="storename" required=""
 								value="<%=member.getStorename()%>">
 						</div>
+						<label for="store_id">하단의 문자는 고객님의 스토어 id입니다.</label><br>
 						<div class="form-left-to-w3l">
 							<input type="text" name="store_id" required=""
 								value="<%=member.getStore_id()%>" readonly>
 						</div>
 
 						<div class="form-left-to-w3l">
-							<input type="text" name="phone" required=""
-								value="<%=member.getPhone()%>">
+							<input type="text" name="phone" id="phone" required=""
+								value="<%=member.getPhone()%>" maxlength="13">
 						</div>
 						<div class="form-left-to-w3l">
-							<input type="text" id="sample6_postcode" placeholder="우편번호"
+							<input type="text" id="sample6_postcode" placeholder="우편번호" value=""
 								readonly> <input type="button"
 								onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-							<input type="text" id="sample6_address" placeholder="주소" readonly><br>
+							<input type="text" id="sample6_address" placeholder="주소" value="" readonly><br>
 							<input type="text" id="sample6_detailAddress" placeholder="상세주소"
-								name=""> <input type="text" id="sample6_extraAddress"
-								placeholder="참고항목" readonly> <input type="hidden"
+								name="" value=""> <input type="text" id="sample6_extraAddress"
+								placeholder="참고항목" value="" readonly> <input type="hidden"
 								name="addr" required="" value="<%=member.getAddr()%>">
 						</div>
 						<div class="form-right-w3ls">
 							<input type="email" name="email" required=""
 								value="<%=member.getEmail()%>">
+							<input type="button"
+							onclick="" value="이메일 인증"><br>
 						</div>
 					</div>
 					<div class="btnn">
@@ -1165,10 +1169,11 @@ button::-moz-focus-inner {
 				<br>
 				<div class="img_area">
 					<div class="select_img">
+					
 						<img style="width: 100%; height: 670px; border: 2px black solid;"
 							id="thumb"
-							src="https://user-images.githubusercontent.com/67699933/126874025-4002c1e3-6105-4489-9325-8bf03b7233f0.png"
-							alt="">
+							src="/resources/data/<%=member.getProfile_img()%>"
+							alt="content.jsp" value="">
 					</div>
 					<br>
 					<input type="file" name="photo" required="" id="photo" />
@@ -1250,9 +1255,22 @@ button::-moz-focus-inner {
         	);
     }
     
+    function splitAddr(){
+    	var beforeAddr="<%=member.getAddr()%>";
+    	var afterAddr=beforeAddr.split('/');
+    	document.getElementById('sample6_postcode').value=afterAddr[0];
+    	document.getElementById('sample6_address').value=afterAddr[1];
+    	document.getElementById('sample6_detailAddress').value=afterAddr[2];
+    	document.getElementById('sample6_extraAddress').value=afterAddr[3];
+    }
 
 </script>
 	<script>
+	//핸드폰번호 자동 하이픈 생성
+	$(document).on("keyup", "#phone", function() {
+		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+	});
+	
 	//메인 이미지를 변경했을 때 Thumb 화면이 바뀌게 되며
 	//이미지 파일을 취소한 경우 기본 이미지인 득근 마켓으로 변경된다.
 	$("#photo").on("change", function(e){
