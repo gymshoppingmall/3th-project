@@ -34,8 +34,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void delete(Member member) throws DMLException{
-		memberDAO.delete(member);
+	public void delete(int member_id) throws DMLException{
+		memberDAO.delete(member_id);
 		
 	}
 

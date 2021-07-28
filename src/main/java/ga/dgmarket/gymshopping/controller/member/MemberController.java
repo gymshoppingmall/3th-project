@@ -118,11 +118,29 @@ public class MemberController {
 
 		return "member/login/join/content";
 	}
+	
+	//회원수청요청처리
+	@PostMapping("/join/update")
+	public String update(Member member, HttpServletRequest request, Model model) {
+		memberService.update(member);
+		fileManager.deleteFile(request.getServletContext(), member.getProfile_img());
+		
+		MultipartFile photo = member.getPhoto();
+		ServletContext context = request.getServletContext();
+		long time = System.currentTimeMillis();// 현재 날짜 구하기
+
+		// 원하는 위치에 파일 저장하기
+		String filename = time + "." + fileManager.getExt(photo.getOriginalFilename());
+		fileManager.saveFile(context, filename, photo);
+		member.setProfile_img(filename);
+		
+		return "member/main/index";
+	}
 
 	// 회원탈퇴요청처리
 	@PostMapping("/join/del")
 	public String delete(Member member, HttpServletRequest request) {
-		memberService.delete(member);
+		memberService.delete(member.getMember_id());
 		fileManager.deleteFile(request.getServletContext(), member.getProfile_img());
 
 		return "member/main/index";
