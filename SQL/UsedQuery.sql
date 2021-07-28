@@ -1,3 +1,10 @@
+--used product 관련 데이터 밀어버리기!!!!!
+set sql_safe_updates = 0;
+delete from used_tag;
+delete from used_product_img;
+delete from used_favorites;
+delete from used_product;
+
 --중고샵 메인관련=================================================================
 --상품의 메인에서 상품과 찜 여부 등을 조회하는 쿼리문(UsedProductExtend.selectAll)
 select p.member_id, storename, p.used_product_id as used_product_id, p.used_product_name as used_product_name, 
