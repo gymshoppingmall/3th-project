@@ -59,8 +59,8 @@ public class UsedProductController {
 	@GetMapping("/used/product/detail")
 	public String getDetail(HttpServletRequest request, Model model, int used_product_id) {
 		
-		Map<String, Object> result = usedProductService.getDetail(request, used_product_id);
-		model.addAttribute("result", result);
+		Map<String, Object> map = usedProductService.getDetail(request, used_product_id);
+		model.addAttribute("map", map);
 		return "member/used/product/detail";
 	}
 	

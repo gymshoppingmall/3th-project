@@ -1,6 +1,18 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
+<%@page import="ga.dgmarket.gymshopping.domain.UsedTag"%>
+<%@page import="ga.dgmarket.gymshopping.domain.UsedProductImg"%>
+<%@page import="java.util.List"%>
+<%@page import="ga.dgmarket.gymshopping.domain.UsedFavorites"%>
+<%@page import="ga.dgmarket.gymshopping.domain.UsedProductExtend"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	
+	Map map = (HashMap)request.getAttribute("map");
+	UsedProductExtend productExtend = (UsedProductExtend)map.get("usedProductExtend");
+	UsedFavorites favorites = (UsedFavorites)map.get("usedFavorites");
+	List<UsedProductImg> imgList = (List)map.get("imgList");
+	List<UsedTag> tagList = (List)map.get("tagList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,11 +79,9 @@
         <div class="tag_container">
             <h3>Hash TAG</h3>
             <!-- 실제 태그 꺼내서 반복문 돌리기 -->
-            <span style="padding-right: 15px;"><a href="#">#고양이</a></span>
-            <span style="padding-right: 15px;"><a href="#">#포토카드</a></span>
-            <span style="padding-right: 15px;"><a href="#">#photo</a></span>
-            <span style="padding-right: 15px;"><a href="#">#떼껄룩</a></span>
-            <span style="padding-right: 15px;"></span>
+            <%for(UsedTag usedTag : tagList){%>
+            	<span style="padding-right: 15px;"><a href="#">#<%=usedTag.getTag_name() %></a></span>
+            <%} %>
         </div>
         <hr>
 
@@ -88,31 +98,30 @@
 
                             <!-- 이미지의 링크를 담당! 반복문 돌려야함-->
                             <ul class="carousel-indicators">
-                                <li data-target="#demo" data-slide-to="0" class="active"></li>
-                                <li data-target="#demo" data-slide-to="1"></li>
-                                <li data-target="#demo" data-slide-to="2"></li>
+                            	<%for(int i = 0; i < imgList.size(); i++){ %>
+                            		<%if(i == 0) {%>
+	                                	<li data-target="#demo" data-slide-to="<%=i %>" class="active"></li>                            		
+                            		<%} else{%>
+	                                	<li data-target="#demo" data-slide-to="<%=i%>"></li>
+	                                <%} %>
+                                <%} %>
                             </ul>
 
                             <!-- 등록한 이미지만큼! 반복문 돌려야 함 -->
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="http://www.hkbs.co.kr/news/photo/202104/628798_374207_2710.png" alt="Los Angeles">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_327/7ae22985-90e8-44c3-a1d6-ee470ddc9073.jpg" alt="Chicago">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://www.ntoday.co.kr/news/photo/202007/73742_46548_1519.jpg" alt="New York">
-                                </div>
+                            	<%for(int i = 0; i < imgList.size(); i++){ %>
+                            		<%UsedProductImg productImg = imgList.get(i); %>
+	                                <%if(i==0){ %>
+		                                <div class="carousel-item active">
+		                                    <img src="/resources/data/used/product/img/<%= productImg.getUsed_img()%>" alt="Los Angeles">
+		                                </div>
+	                                <%} else {%>
+		                                <div class="carousel-item">
+		                                    <img src="/resources/data/used/product/img/<%= productImg.getUsed_img()%>" alt="Los Angeles">
+		                                </div>
+	                                <% } %>
+                                <%} %>
                             </div>
-
-                            <!-- 이미지를 좌우로 이동할 수 있는 버튼 -->
-                            <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </a>
-                            <a class="carousel-control-next" href="#demo" data-slide="next">
-                                <span class="carousel-control-next-icon"></span>
-                            </a>
                         </div>
                     </div>
                     <!-- 상품의 이름, 가격, 설명을 담는 컨테이너 -->

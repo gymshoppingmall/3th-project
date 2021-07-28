@@ -120,7 +120,10 @@ public class UsedProductServiceImpl implements UsedProductService{
 		UsedFavorites usedFavorites =usedProductDAO.getFavoritesCount(used_product_id); //찜 갯수가져오기
 		List<UsedProductImg> imgList = usedProductImgDAO.getProductImg(used_product_id);//이미지 가져오기
 		List<UsedTag> tagList = usedProductDAO.getProductTag(used_product_id);//태그 가져오기
-		
+		System.out.println("usedProductExtend : "+usedProductExtend);
+		System.out.println("usedFavorites : "+usedFavorites);
+		System.out.println("imgList : "+imgList);
+		System.out.println("tagList : "+tagList);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("usedProductExtend", usedProductExtend);
 		map.put("usedFavorites", usedFavorites);
