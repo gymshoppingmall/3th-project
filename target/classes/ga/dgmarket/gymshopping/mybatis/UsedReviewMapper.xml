@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="UsedTagMapper">
+<mapper namespace="UsedReview">
+
+	<!-- 상점에서 리뷰 미리보기 조회 -->
+	<select id="selectAll" resultType="UsedReview" parameterType="int">
+		select * from used_review where member_id=#{member_id}
+	</select>
 </mapper>

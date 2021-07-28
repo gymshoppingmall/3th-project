@@ -28,23 +28,41 @@ public class UsedProductController {
 	@Autowired
 	private UsedProductService usedProductService;
 	
+	//중고상점의 메인페이지요청을 처리하는 메서드
+	//메인 페이지로 이동하며 상품 정보가 담긴 List를 전송한다.
 	@GetMapping("/used/main")
-	public String getMain() {		
+	public String getMain(Model model, HttpServletRequest request) {
+		List usedProductList = usedProductService.selectAll(request);
+		model.addAttribute("usedProductList", usedProductList);
+		
 		return "member/used/main";
 	}
 	
+	//중고상품 등록 폼 요청을 처리하는 메서드
 	@GetMapping("/used/product/registForm")
-	public String registForm() {
+	public String registForm(HttpServletRequest request) {
 		return  "member/used/product/registForm";
 	}
 	
+	
+	//글등록 요청을 처리하는 메서드
+	//등록을 마치면 바로 메인페이지로 이동함
 	@PostMapping("/used/product/regist")
 	public String regist(UsedProduct usedProduct, HttpServletRequest request) {
 		
-		usedProductService.regist(usedProduct, request.getServletContext());
-		
+		usedProductService.regist(request, usedProduct);
 		return "redirect:/member/used/main";
 	}
+	
+	//상품의 상세페이지 요청을 처리하는 메서드
+	@GetMapping("/used/product/detail")
+	public String getDetail(HttpServletRequest request, Model model, int used_product_id) {
+		
+		Map<String, Object> map = usedProductService.getDetail(request, used_product_id);
+		model.addAttribute("map", map);
+		return "member/used/product/detail";
+	}
+	
 	
 	//DML 실패 시 만나게 되는 에러 전용 핸들러
 	@ExceptionHandler(DMLException.class)

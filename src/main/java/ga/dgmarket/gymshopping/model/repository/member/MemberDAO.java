@@ -11,5 +11,6 @@ public interface MemberDAO {
 	public void delete(Member member);//아이디, 패스워드가 모두 일치할 때 탈퇴
 	public List selectAll();
 	public Member select(int member_id);
+	public int idCheck(String memberId); //아이디 중복체크
 	public int countUser(); // 한달간 가입한 회원 수
 }

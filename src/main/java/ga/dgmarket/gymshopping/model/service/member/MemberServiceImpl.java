@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void update(Member member) {
+	public void update(Member member) throws DMLException{
 		memberDAO.update(member);
 		
 	}
@@ -54,4 +54,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.countUser();
 	}
 
+	@Override
+	public int idCheck(String memberId){
+		return memberDAO.idCheck(memberId);
+	}
+
+	
 }

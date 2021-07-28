@@ -1,5 +1,18 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+String result=(String)request.getAttribute("result");
+if(result!=null && result.equals("false")){
+%>
+<%
+out.print("<script>");
+out.print("alert('올바르지 않은 정보입니다.');");
+out.print("</script>");
+%>
+<%}else{ %>
+<%=2 %>
+<%}%>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -538,6 +551,7 @@ p {
 
                                 </label>
                                 -->
+								
 								<button type="button" class="btn btn-style mt-3">Sign
 									In</button>
 							</form>

@@ -16,16 +16,26 @@ public class MybatisUsedProductImgDAO implements UsedProductImgDAO{
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	//중고 상품에 맞는 이미지를 조회
-	public List selectProduct(int usedProduct_id) {
+	public List getProductImg(int usedProduct_id) {
 		return sqlSessionTemplate.selectList("UsedProductImg.selectProduct", usedProduct_id);
 	}
 
 	//중고 상품을 등록할 때 필요한 이미지만을 insert
 	public void insert(UsedProductImg usedProductImg) throws DMLException{
-		int result = sqlSessionTemplate.insert("UsedProdcutImg.insert", usedProductImg);
+		int result = sqlSessionTemplate.insert("UsedProductImg.insert", usedProductImg);
 		if(result == 0) {
 			throw new DMLException("UsedProdcutImg insert 실패");
 		}
+	}
+	
+	//상점에서 판매 상품 미리보기 이미지 가져오기
+	public List productPre(int member_id) {
+		return sqlSessionTemplate.selectList("UsedProductImg.productPre", member_id);
+	}
+	
+	//상점에서 찜한 상품 미리보기 이미지 가져오기
+	public List favoritesPre(int member_id) {
+		return sqlSessionTemplate.selectList("UsedProductImg.favoritesPre", member_id);
 	}
 
 	@Override

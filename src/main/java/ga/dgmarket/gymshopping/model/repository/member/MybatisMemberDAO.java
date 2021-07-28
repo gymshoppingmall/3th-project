@@ -66,4 +66,11 @@ public class MybatisMemberDAO implements MemberDAO{
 		return sqlSessonTemplate.selectOne("Member.countUser");
 	}
 
+	@Override
+	public int idCheck(String memberId) {
+		return sqlSessonTemplate.selectOne("Member.idCheck",memberId);
+	}
+
+	
+
 }

@@ -3,7 +3,10 @@
 <mapper namespace="MemberJoin">
 
 	<insert id="join" parameterType="Member">
-		insert into member(user_id, password, name, storename, store_id, profile_img, phone, addr, email) values(#{user_id}, #{password}, #{name}, #{storename}, #{store_id}, #{profile_img}, #{phone}, #{addr}, #{email})
+		insert into member(user_id,
+		password, name, storename, store_id, profile_img, phone, addr, email)
+		values(#{user_id}, #{password}, #{name}, #{storename}, #{store_id},
+		#{profile_img}, #{phone}, #{addr}, #{email})
 	</insert>
 
 </mapper>

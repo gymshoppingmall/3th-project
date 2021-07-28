@@ -1116,14 +1116,19 @@ button::-moz-focus-inner {
 							<input type="text" name="storename" required="" value="<%=member.getStorename() %>">
 						</div>
 						<div class="form-left-to-w3l">
-							<input type="text" name="store_id" required="" value="<%=member.getStore_id() %>">
+							<input type="text" name="store_id" required="" value="<%=member.getStore_id() %>" readonly>
 						</div>
 
 						<div class="form-left-to-w3l">
 							<input type="text" name="phone" required="" value="<%=member.getPhone() %>">
 						</div>
 						<div class="form-left-to-w3l">
-							<input type="text" name="addr" required="" value="<%=member.getAddr() %>">
+							<input type="text" id="sample6_postcode" placeholder="우편번호" readonly>
+							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+							<input type="text" id="sample6_address" placeholder="주소" readonly><br>
+							<input type="text" id="sample6_detailAddress" placeholder="상세주소" name="">
+							<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
+							<input type="hidden" name="addr" required="" value="<%=member.getAddr() %>">
 						</div>
 						<div class="form-right-w3ls">
 							<input type="email" name="email" required="" value="<%=member.getEmail() %>">
@@ -1147,11 +1152,6 @@ button::-moz-focus-inner {
 					</div>
 					<br><input type="file"
 						name="photo" required="" id="photo""/>
-
-					<script>
-						
-					</script>
-					<%=request.getRealPath("/")%>
 				</div>
 			</div>
 			</form>
