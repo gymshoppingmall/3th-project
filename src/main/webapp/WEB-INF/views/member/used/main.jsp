@@ -56,13 +56,6 @@
 
     }
 
-    .search_container{
-        width: 60%;
-        height: 80px;
-        margin: auto;
-        margin-top: 50px;
-    }
-
     hr{
         border: 0px;
         height: 3px;
@@ -107,26 +100,10 @@ function delFavorites(used_favorites_id){
 </script>
 </head>
 <body>
-    <!-- 검색창 -->
-    <div class="search_container" style="font-size: 20px;">
-        <div class="row">
-            <div class="col-md-2">
-                <select name="keyword" id="" style="width: 100%; border: 0px;">
-                    <option value="used_product_name">제품명</option>
-                    <option value="storename">상품명</option>
-                    <option value="tag">TAG</option>
-                </select>
-            </div>
-            <div class="col-md-7">
-                <input type="text" maxlength="15" style="width: 115%;
-                    border-left: 0px; border-right: 0px; border-top: 0px;">
-            </div>
-            <div class="col-md-3">
-                <button id="search_bt" style="background-color: white;
-                    border: 0px; width: 100%;"><strong>search</strong></button>
-            </div>
-        </div>
-    </div>
+	<!-- 중고거래 top_navi -->
+	<%@ include file="./inc/top_navi.jsp" %>
+
+    
 
     <!-- 중고상품의 이미지, 정보 등을 볼 수 있는 하나의 박스 -->
     <!-- 페이징 처리와 비슷하게 한 번에 4개의 상품만을 노출 시키고 +버튼을 눌렀을 때 다음 4개의 상품을 노출 시킬 계획 -->

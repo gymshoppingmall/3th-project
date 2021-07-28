@@ -33,7 +33,6 @@ public class UsedProductController {
 	@GetMapping("/used/main")
 	public String getMain(Model model, HttpServletRequest request) {
 		List usedProductList = usedProductService.selectAll(request);
-		System.out.println("멤버가 반환됨"+usedProductList);
 		model.addAttribute("usedProductList", usedProductList);
 		
 		return "member/used/main";

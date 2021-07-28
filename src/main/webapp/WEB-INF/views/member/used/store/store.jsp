@@ -27,21 +27,18 @@
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" alt></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- 아이콘 처리 -->
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <!-- bootbox cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
 <style>
-body{
-    margin: 0px;
-}
-
 .wrapper{
     margin: auto;
     width: 60%;
     border-left: 2px solid black;
     border-right: 2px solid black;
+    border-top: 2px solid black;
 }
 
 .user_container{
@@ -58,7 +55,6 @@ body{
     padding-right: 35px;
     margin : auto;
 }
-
 .card img{
     width: 100%;
     height: 200px;
@@ -78,6 +74,10 @@ function copyLink(){
 </script>
 </head>
 <body>
+
+	<!-- 중고거래 top_navi -->
+	<%@ include file="../inc/top_navi.jsp" %>
+	
     <!-- 상점의 주소를 복사할 수 있는 주소 링크를 담아놓는 곳 -->
     <!-- session을 조회해서 상점ID 넣기 currTime으로 주소 구하면 될 듯 -->
     <input type="hidden" id="link" value="<%=storeMember.getStore_id()%>">
@@ -118,11 +118,9 @@ function copyLink(){
         </div>
 
         <hr>
-
-        <!-- 내가 등록한 상품과 찜한 상품, 상품 후기를 볼 수 있는 박스 -->
+	 	<!-- 내가 등록한 상품과 찜한 상품, 상품 후기를 볼 수 있는 박스 -->
 	        <div class="content_container" style="padding-top: 30px;">
         		<%if(productList.size() != 0) {%>
-	            
 	            <!-- 내가 등록한 제품 미리보기 박스 -->
 	            <div class="product_box">
 	                <!-- 더보기 글씨 넣기 -->
@@ -141,7 +139,7 @@ function copyLink(){
 		                            <!-- 상품 이미지가 올 곳 + 이미지 클릭 시 상품 상세보기 이동 -->
 		                            <img src="/resources/data/used/product/img/<%=usedProductImg.getUsed_img() %>"
 		                            style="border-radius: 5px; border: solid 3px black;"
-		                            onclick="location.href='#'" alt="<%=usedProductImg.getUsed_product_id()%>">
+		                            onclick="location.href='/member/used/product/detail?used_product_id=<%=usedProductImg.getUsed_product_id()%>'" alt="<%=usedProductImg.getUsed_product_id()%>">
 		                        </div>            
 		                    </div>
 	                    <%} %>

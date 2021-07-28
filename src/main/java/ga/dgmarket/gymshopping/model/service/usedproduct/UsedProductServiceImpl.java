@@ -87,7 +87,7 @@ public class UsedProductServiceImpl implements UsedProductService{
 		HttpSession session = request.getSession();
 		//임의로 값 넣기===========================================
 		Member member = new Member();
-		member.setMember_id(5);
+		member.setMember_id(6);
 		member.setUser_id("used_test");
 		member.setPassword("1234");
 		member.setName("성일");
@@ -118,6 +118,7 @@ public class UsedProductServiceImpl implements UsedProductService{
 		//맵에 담을 애들
 		UsedProductExtend usedProductExtend = usedProductDAO.getDetail(productExtend); //상품정보+찜 정보 가져오기
 		UsedFavorites usedFavorites =usedProductDAO.getFavoritesCount(used_product_id); //찜 갯수가져오기
+		System.out.println("favorites 비었음? : "+usedFavorites);
 		List<UsedProductImg> imgList = usedProductImgDAO.getProductImg(used_product_id);//이미지 가져오기
 		List<UsedTag> tagList = usedProductDAO.getProductTag(used_product_id);//태그 가져오기
 		System.out.println("usedProductExtend : "+usedProductExtend);
