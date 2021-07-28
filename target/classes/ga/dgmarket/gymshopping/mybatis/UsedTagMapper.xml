@@ -5,4 +5,8 @@
 	<insert id="insert" parameterType="UsedTag">
 		insert into used_tag(used_product_id, tag_name) values(#{used_product_id}, #{tag_name})
 	</insert>
+	
+	<select id="getProductTag" parameterType="int" resultType="UsedTag">
+		select * from used_tag where used_product_id=#{used_product_id}
+	</select>
 </mapper>

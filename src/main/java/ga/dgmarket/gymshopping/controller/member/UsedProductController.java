@@ -51,14 +51,16 @@ public class UsedProductController {
 	@PostMapping("/used/product/regist")
 	public String regist(UsedProduct usedProduct, HttpServletRequest request) {
 		
-		usedProductService.regist(usedProduct, request.getServletContext());
+		usedProductService.regist(request, usedProduct);
 		return "redirect:/member/used/main";
 	}
 	
 	//상품의 상세페이지 요청을 처리하는 메서드
 	@GetMapping("/used/product/detail")
-	public String getDetail() {
+	public String getDetail(HttpServletRequest request, Model model, int used_product_id) {
 		
+		Map<String, Object> result = usedProductService.getDetail(request, used_product_id);
+		model.addAttribute("result", result);
 		return "member/used/product/detail";
 	}
 	

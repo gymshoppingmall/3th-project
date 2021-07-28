@@ -16,7 +16,7 @@ public class MybatisUsedProductImgDAO implements UsedProductImgDAO{
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	//중고 상품에 맞는 이미지를 조회
-	public List selectProduct(int usedProduct_id) {
+	public List getProductImg(int usedProduct_id) {
 		return sqlSessionTemplate.selectList("UsedProductImg.selectProduct", usedProduct_id);
 	}
 

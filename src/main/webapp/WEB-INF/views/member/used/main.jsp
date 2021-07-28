@@ -166,7 +166,7 @@ function delFavorites(used_favorites_id){
                         판매자 : <a href='/member/used/store?member_id=<%=usedProduct.getMember_id()%>'>[<%=usedProduct.getStorename()%>]</a>
                     </p>
                     <!-- 상품의 상세보기로 이동 -->
-                    <a href="/member/used/product/detail?used_prodcut_id=<%=usedProduct.getUsed_product_id()%>" class="btn btn-success">상세보기</a>
+                    <a href="/member/used/product/detail?used_product_id=<%=usedProduct.getUsed_product_id()%>" class="btn btn-success">상세보기</a>
                 </div>
             </div>            
         </div>   

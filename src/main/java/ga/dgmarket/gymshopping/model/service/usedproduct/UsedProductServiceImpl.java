@@ -1,7 +1,9 @@
 package ga.dgmarket.gymshopping.model.service.usedproduct;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import ga.dgmarket.gymshopping.domain.Member;
+import ga.dgmarket.gymshopping.domain.UsedFavorites;
 import ga.dgmarket.gymshopping.domain.UsedProduct;
+import ga.dgmarket.gymshopping.domain.UsedProductExtend;
 import ga.dgmarket.gymshopping.domain.UsedProductImg;
 import ga.dgmarket.gymshopping.domain.UsedTag;
 import ga.dgmarket.gymshopping.exception.DMLException;
@@ -41,12 +45,12 @@ public class UsedProductServiceImpl implements UsedProductService{
 	//매개변수 3[multipartFiles].등록할 이미지들이 담겨있는 객체를 담은 List
 	//매개변수 4[tags].등록할 tag들이 담겨있는 List
 	//from.성일
-	public void regist(UsedProduct usedProduct, ServletContext context) throws DMLException, UploadException{
+	public void regist(HttpServletRequest request, UsedProduct usedProduct) throws DMLException, UploadException{
 		
 		//상품을 먼저 insert 상품을 넣으면서 생기는 id를 리턴 받고 그 값을 이용해 img와, tag들 DB에 넣기
+		ServletContext context = request.getServletContext();
 		UsedProduct result = usedProductDAO.insert(usedProduct);
 		System.out.println("used_product_id : "+result.getUsed_product_id());
-		
 		
 		//이미지 배열에 담아서 돌리기
 		List<MultipartFile> multipartFiles = new ArrayList<MultipartFile>();
@@ -65,7 +69,6 @@ public class UsedProductServiceImpl implements UsedProductService{
 			
 			usedProductImgDAO.insert(usedProductImg); //디비에 넣기
 		}
-		
 		//태그 디비에 넣기
 		String tag = usedProduct.getTag();
 		String[] tags = tag.split(",");
@@ -82,7 +85,7 @@ public class UsedProductServiceImpl implements UsedProductService{
 	//세션에 있는 member_id을 통해 조회할 예정
 	public List selectAll(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		//임의로 값 넣기====================
+		//임의로 값 넣기===========================================
 		Member member = new Member();
 		member.setMember_id(5);
 		member.setUser_id("used_test");
@@ -91,13 +94,53 @@ public class UsedProductServiceImpl implements UsedProductService{
 		member.setStorename("성일샵");
 
 		session.setAttribute("member", member);
-		//임의로 값 넣기====================
-		
-		
-		
+		//임의로 값 넣기===========================================
+
 		Member mem = (Member)session.getAttribute("member");
 		System.out.println(mem+"member는");
 		
 		return usedProductDAO.selectAll(mem.getMember_id());
 	}	
+	
+	//상품의 상세보기 요청을 했을 때
+	//used_product+storename+favorites_id+tag 꺼내오기
+	//product_img 가져오기
+	// 가져오기
+	//favorites[count] 가져오기
+	@Override
+	public Map getDetail(HttpServletRequest request, int used_product_id) {
+		UsedProductExtend productExtend = new UsedProductExtend();
+		Member member = (Member)request.getSession().getAttribute("member");
+		
+		productExtend.setMember_id(member.getMember_id());
+		productExtend.setUsed_product_id(used_product_id);
+		
+		//맵에 담을 애들
+		UsedProductExtend usedProductExtend = usedProductDAO.getDetail(productExtend); //상품정보+찜 정보 가져오기
+		UsedFavorites usedFavorites =usedProductDAO.getFavoritesCount(used_product_id); //찜 갯수가져오기
+		List<UsedProductImg> imgList = usedProductImgDAO.getProductImg(used_product_id);//이미지 가져오기
+		List<UsedTag> tagList = usedProductDAO.getProductTag(used_product_id);//태그 가져오기
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("usedProductExtend", usedProductExtend);
+		map.put("usedFavorites", usedFavorites);
+		map.put("imgList", imgList);
+		map.put("tagList", tagList);
+		
+		return map;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
