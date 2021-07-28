@@ -37,5 +37,6 @@
 		등등 자동으로 메모리에 인스턴스 생성 그리고 해당 빈에 @Autowired가 등록되어 있다면, weaving 마저도 자동 등록 주입 -->
 	<context:component-scan
 		base-package="ga.dgmarket.gymshopping.model" />
+		
 	
 </beans>

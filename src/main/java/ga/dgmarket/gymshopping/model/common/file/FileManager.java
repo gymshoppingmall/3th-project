@@ -34,14 +34,18 @@ public class FileManager {
 	
 	//파일 삭제
 	public void deleteFile(ServletContext context, String filename) throws FileHandleException{
+		System.out.println("파일삭제메서드 "+context.getRealPath(savePath+filename));
 		File file = new File(context.getRealPath(savePath+filename));
 		if(!file.delete()) {
 			throw new FileHandleException(filename+" 을 삭제하지 못했습니다.");
+		}else {
+			System.out.println("파일삭제됨");
 		}
 	}
 	
 	//지정된 경로로 파일 저장
 	public void saveFile(ServletContext context, String filename, MultipartFile multi) throws UploadException{
+		System.out.println(context.getRealPath(savePath)+filename);
 		try {
 			//절대 경로 얻고 파일 저장하기		
 			multi.transferTo(new File(context.getRealPath(savePath)+filename)); //저장

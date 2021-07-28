@@ -28,8 +28,9 @@ Member member = (Member) request.getAttribute("member");
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 	alt></script>
-	<!-- bootbox cdn -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
+<!-- bootbox cdn -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
 <script>
 	addEventListener("load", function() {
 		setTimeout(hideURLbar, 0);
@@ -1138,15 +1139,15 @@ button::-moz-focus-inner {
 							<input type="text" name="storename" placeholder="Storename"
 								required="">
 						</div>
-						<label for="store_id">하단의 문자는 고객님의 스토어 id입니다. 변경시 가입이
-							어렵습니다.</label><br>
+						<label for="store_id">하단의 문자는 고객님의 스토어 id입니다.</label><br>
 						<div class="form-left-to-w3l">
 							<input type="text" name="store_id" id="store_id" required=""
 								value="" readonly>
 						</div>
 
 						<div class="form-left-to-w3l">
-							<input type="text" name="phone" placeholder="phone" required="">
+							<input type="text" name="phone" id="phone" placeholder="phone"
+								required="" maxlength="13">
 						</div>
 						<div class="form-left-to-w3l">
 							<input type="text" id="sample6_postcode" placeholder="우편번호"
@@ -1158,11 +1159,15 @@ button::-moz-focus-inner {
 								placeholder="참고항목" readonly> <input type="hidden"
 								name="addr" placeholder="addr" required="" value="">
 						</div>
+						<div class="mail_check_wrap">
 						<div class="form-right-w3ls">
 							<input type="email" name="email" placeholder="Email" required=""
 								onmousedown="sendAddr()">
 						</div>
-					</div>
+							<input type="button"
+							onclick="" value="이메일 인증"><br>
+						</div>
+						</div>
 					<div class="btnn">
 						<button type="submit">Sign Up</button>
 					</div>
@@ -1180,7 +1185,7 @@ button::-moz-focus-inner {
 						<img style="width: 100%; height: 670px; border: 2px black solid;"
 							id="thumb"
 							src="https://user-images.githubusercontent.com/67699933/126874025-4002c1e3-6105-4489-9325-8bf03b7233f0.png"
-							alt="">
+							alt="" value="<%=request.getRealPath("/")%>">
 					</div>
 					<script>
 						
@@ -1193,7 +1198,7 @@ button::-moz-focus-inner {
 	</div>
 
 	<!--js working-->
-	
+
 	<!--//js working-->
 	<script>
 		var password = document.getElementById("password"), confirm_password = document
@@ -1260,6 +1265,11 @@ button::-moz-focus-inner {
 					}); // ajax 종료
 				});// function 종료
 				
+				//핸드폰번호 자동 하이픈 생성
+				$(document).on("keyup", "#phone", function() {
+					$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+				});
+
 				
 				//메인 이미지를 변경했을 때 Thumb 화면이 바뀌게 되며
 				//이미지 파일을 취소한 경우 기본 이미지인 득근 마켓으로 변경된다.
@@ -1356,7 +1366,6 @@ button::-moz-focus-inner {
     			$("#sample6_postcode").val()+"/"+$("#sample6_address").val()+"/"+$("#sample6_detailAddress").val()+"/"+$("#sample6_extraAddress").val()
         	);
     }
-    
 
 </script>
 
