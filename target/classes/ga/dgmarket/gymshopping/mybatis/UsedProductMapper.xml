@@ -12,24 +12,15 @@
 		</selectKey>
 	</insert>
 	
-	
-	<!-- 수정 해야함 -->
-	<!-- ============================================================= -->
-	<!-- UsedProduct안에 has a 관계로 있는 UsedFavorites에 대한 매핑
-	<resultMap type="UsedProductMainImg" id="UsedProductUsedFavorites">
-		<id column="used_product_id" property="used_product_id"/>
-		<result column="pmember_id" property="member_id"/>
-	</resultMap>
-	 -->
-	<!-- 상품을 조회 -->
+	<!-- 상품 목록을 조회 가져올 때 조인된 member, product_img의 정보를 포함 -->
 	<select id="selectAll" resultType="UsedProductExtend" parameterType="int">
-		select p.member_id, p.used_product_id as used_product_id, p.used_product_name as used_product_name, 
+		select p.member_id, storename, p.used_product_id as used_product_id, p.used_product_name as used_product_name, 
 		p.used_product_price as used_product_price, used_img,
 		(select member_id from used_favorites f 
-		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
-		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
-		from used_product p, used_product_img i
-		where p.used_product_id=i.used_product_id and i.used_img_index=0
+		where p.used_product_id=f.used_product_id and f.member_id=5) as favorites_member, (select used_favorites_id from used_favorites f 
+		where p.used_product_id=f.used_product_id and f.member_id=5) as used_favorites_id
+		from used_product p, used_product_img i, member m
+		where p.used_product_id=i.used_product_id and i.used_img_index=0 and p.member_id=m.member_id
 		order by p.used_product_id desc
 	</select>
 	<!-- ============================================================= -->

@@ -120,88 +120,115 @@ function copyLink(){
         <hr>
 
         <!-- 내가 등록한 상품과 찜한 상품, 상품 후기를 볼 수 있는 박스 -->
-        <div class="content_container" style="padding-top: 30px;">
-            
-            <!-- 내가 등록한 제품 미리보기 박스 -->
-            <div class="product_box">
-                <!-- 더보기 글씨 넣기 -->
-                <div class="row text-left">
-                    <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님의 판매 상품</h4></div>
-                    <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
-                </div>
-                
-                <div class="row text-center">
-                	<%for(int i = 0; i < productList.size(); i++){ %>
-                		<%if(i > 2) break; %>
-	                	<%UsedProductImg usedProductImg = (UsedProductImg)productList.get(i); %>
-	                    <!--하나의 상품을 나타낼 박스-->
-	                    <div class="col-sm-4">
-	                        <div class="card">
-	                            <!-- 상품 이미지가 올 곳 + 이미지 클릭 시 상품 상세보기 이동 -->
-	                            <img src="/resources/data/used/product/img/<%=usedProductImg.getUsed_img() %>"
-	                            style="border-radius: 5px; border: solid 3px black;"
-	                            onclick="location.href='#'" alt="<%=usedProductImg.getUsed_product_id()%>">
-	                        </div>            
-	                    </div>
-                    <%} %>
-                </div>
-            </div>
-
-            <!-- if(세션의 멤버 아이디와 현재 페이지가 같아야 보여질 찜){} -->
-            <!-- 내가 찜한 제품 미리보기 박스 -->
-            <%if(member.getMember_id()==storeMember.getMember_id()){ %>
-	            <div class="favorites_container" style="margin-top: 60px;">
+	        <div class="content_container" style="padding-top: 30px;">
+        		<%if(productList.size() != 0) {%>
+	            
+	            <!-- 내가 등록한 제품 미리보기 박스 -->
+	            <div class="product_box">
 	                <!-- 더보기 글씨 넣기 -->
 	                <div class="row text-left">
-	                    <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님이 찜한 상품</h4></div>
+	                    <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님의 판매 상품</h4></div>
 	                    <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
 	                </div>
-	
+	                
 	                <div class="row text-center">
-	                    <%for(int i = 0; i < favoritesList.size(); i++){ %>
-	                    	<%if(i > 2) break; %>
-	                		<%UsedProductImg usedProductImg = (UsedProductImg)favoritesList.get(i); %>
+	                	<%for(int i = 0; i < productList.size(); i++){ %>
+	                		<%if(i > 2) break; %>
+		                	<%UsedProductImg usedProductImg = (UsedProductImg)productList.get(i); %>
 		                    <!--하나의 상품을 나타낼 박스-->
 		                    <div class="col-sm-4">
 		                        <div class="card">
 		                            <!-- 상품 이미지가 올 곳 + 이미지 클릭 시 상품 상세보기 이동 -->
 		                            <img src="/resources/data/used/product/img/<%=usedProductImg.getUsed_img() %>"
 		                            style="border-radius: 5px; border: solid 3px black;"
-		                            onclick="location.href='#'" alt="">
+		                            onclick="location.href='#'" alt="<%=usedProductImg.getUsed_product_id()%>">
 		                        </div>            
 		                    </div>
-	              		<% } %>
+	                    <%} %>
 	                </div>
 	            </div>
+            <%}else{ %>
+	            <!-- 내가 등록한 제품 미리보기 박스 -->
+	            <div class="product_box">
+	                <!-- 더보기 글씨 넣기 -->
+	                <div class="row text-left">
+	                    <div class="col-sm-10"><h4>판매 중인 상품이 아직 없습니다.</h4></div>
+	                </div>
+				</div>
+			<% } %>
+
+
+            <!-- if(세션의 멤버 아이디와 현재 페이지가 같아야 보여질 찜){} -->
+            <!-- 내가 찜한 제품 미리보기 박스 -->
+            <%if(member.getMember_id()==storeMember.getMember_id()){ %>
+            	<%if(favoritesList.size() != 0) {%>
+		            <div class="favorites_container" style="margin-top: 60px;">
+		                <!-- 더보기 글씨 넣기 -->
+		                <div class="row text-left">
+		                    <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님이 찜한 상품</h4></div>
+		                    <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
+		                </div>
+		                <div class="row text-center">
+		                    <%for(int i = 0; i < favoritesList.size(); i++){ %>
+		                    	<%if(i > 2) break; %>
+		                		<%UsedProductImg usedProductImg = (UsedProductImg)favoritesList.get(i); %>
+			                    <!--하나의 상품을 나타낼 박스-->
+			                    <div class="col-sm-4">
+			                        <div class="card">
+			                            <!-- 상품 이미지가 올 곳 + 이미지 클릭 시 상품 상세보기 이동 -->
+			                            <img src="/resources/data/used/product/img/<%=usedProductImg.getUsed_img() %>"
+			                            style="border-radius: 5px; border: solid 3px black;"
+			                            onclick="location.href='#'" alt="">
+			                        </div>            
+			                    </div>
+		              		<% } %>
+		                </div>
+		            </div>
+	            <%} else {%>
+	      			<div class="favorites_container" style="margin-top: 60px;">
+		                <!-- 더보기 글씨 넣기 -->
+		                <div class="row text-left">
+		                    <div class="col-sm-12"><h4>찜한 상품이 아직 없습니다.</h4></div>
+		                </div>
+	      			</div>
+				<%} %>     
             <%} %>
             
             <!-- 상품 후기를 미리볼 수 있는 컨테이너 -->
-            <div class="review_container" style="margin-top: 60px;">
-                <div class="row text-left">
-                    <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님 상점 이용 후기</h4></div>
-                    <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>후기</th>
-                            <th>작성자</th>
-                            <th>작성일</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	<%for(int i = 0; i < reviewList.size(); i++){ %>
-                    		<%if(i > 4) break; %>
-                    		<% UsedReview review = (UsedReview)reviewList.get(i); %>
-	                        <tr>
-	                            <td><%=review.getUsed_review_title() %></td>
-	                            <td><%=review.getUsed_review_writer() %></td>
-	                            <td><%=review.getUsed_review_regdate() %></td>
-	                        </tr>
-                        <%} %>
-                    </tbody>
-                </table>
-            </div>
+            <% if(reviewList.size() != 0) { %>
+				<div class="review_container" style="margin-top: 60px;">
+				    <div class="row text-left">
+				        <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님 상점 이용 후기</h4></div>
+				        <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
+				    </div>
+				    <table class="table">
+				        <thead>
+				            <tr>
+				                <th>후기</th>
+				                <th>작성자</th>
+				                <th>작성일</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				        	<%for(int i = 0; i < reviewList.size(); i++){ %>
+				        		<%if(i > 4) break; %>
+				        		<% UsedReview review = (UsedReview)reviewList.get(i); %>
+				             <tr>
+				                 <td><%=review.getUsed_review_title() %></td>
+				                 <td><%=review.getUsed_review_writer() %></td>
+				                 <td><%=review.getUsed_review_regdate() %></td>
+				             </tr>
+				            <%} %>
+				        </tbody>
+				    </table>
+				</div>
+            <%} else { %>
+				<div class="review_container" style="margin-top: 60px;">
+					<div class="row text-left">
+						<div class="col-sm-10"><h4>등록된 후기가 아직 없습니다.</h4></div>
+					</div>
+				</div>
+            <% } %>
         </div>
     </div>
 </body>

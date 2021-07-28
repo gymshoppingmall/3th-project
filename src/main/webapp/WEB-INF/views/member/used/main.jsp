@@ -163,16 +163,14 @@ function delFavorites(used_favorites_id){
                     <h5 class="card-title"><%= usedProduct.getUsed_product_price() %></h5>
                     <p class="card-text">
                         <!-- 판매자 아이디 올 곳+링크는 판매자 상점으로 이동 -->
-                        판매자 : <a href='/member/used/store?member_id=<%=usedProduct.getMember_id()%>'>[<%=member.getStorename()%>]</a>
+                        판매자 : <a href='/member/used/store?member_id=<%=usedProduct.getMember_id()%>'>[<%=usedProduct.getStorename()%>]</a>
                     </p>
                     <!-- 상품의 상세보기로 이동 -->
                     <a href="#" class="btn btn-success">상세보기</a>
                 </div>
             </div>            
         </div>   
-        <% } %>    
-        
-                
+        <% } %>            
     </div>    
     <div style="width: 100%; height: 100px; padding-top: 35px;" class="text-center">
         <div class="btn btn-success center" id="load" onclick="">더보기</div>
