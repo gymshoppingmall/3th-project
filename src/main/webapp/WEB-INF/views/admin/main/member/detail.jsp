@@ -37,11 +37,8 @@
 		<!--등록폼 시작-->
 			<div class="card card-primary">
               <div class="card-header">
-<<<<<<< HEAD
                 <h3 class="card-title">상세 정보</h3>
-=======
                 <h3 class="card-title">회원 상세 정보</h3>
->>>>>>> seokmin
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -50,7 +47,6 @@
               <input type="hidden" name="member_img" value="<%=member.getProfile_img()%>">
                 <div class="card-body">
                   <div class="form-group">
-<<<<<<< HEAD
                     <label for="exampleInputEmail1">상위 카테고리</label>
 						<div class="form-group">
 	                        <select class="form-control" name="topcategory_id">
@@ -86,7 +82,6 @@
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text">Upload</span>
-=======
                     <label for="exampleInputEmail1">회원 등급</label>
 						
 	                        <select class="form-control" name="topcategory_id">
@@ -130,7 +125,6 @@
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text">업로드</span>
->>>>>>> seokmin
                       </div>
                     </div>
                   </div>
@@ -138,15 +132,12 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-<<<<<<< HEAD
                   <button type="button" class="btn btn-primary" onClick="regist()">Submit</button>
                   <button type="button" class="btn btn-primary" onClick="update()">Submit</button>
                   <button type="button" class="btn btn-primary" onClick="del()">Submit</button>
-=======
                   <button type="button" class="btn btn-primary" onClick="update()">수정</button>
                   <button type="button" class="btn btn-primary" onClick="del()">삭제</button>
                   <button type="button" class="btn btn-primary" onClick="regist()">목록</button>
->>>>>>> seokmin
                 </div>
               </form>
             </div>		
