@@ -23,8 +23,8 @@
 		addr=#{addr}, email=#{email} where member_id=#{member_id}
 	</update>
 
-	<delete id="delete" parameterType="Member">
-		delete from member where user_id=#{user_id} and password=#{password}
+	<delete id="delete" parameterType="int">
+		delete from member where member_id=#{member_id}
 	</delete>
 
 	<!-- 아이디 중복검사 -->

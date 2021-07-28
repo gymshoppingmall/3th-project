@@ -2,6 +2,7 @@ package ga.dgmarket.gymshopping.controller.admin;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import ga.dgmarket.gymshopping.domain.Admin;
 import ga.dgmarket.gymshopping.domain.Member;
-import ga.dgmarket.gymshopping.exception.MemberExistException;
 import ga.dgmarket.gymshopping.model.service.admin.AdminService;
 import ga.dgmarket.gymshopping.model.service.member.MemberService;
 
@@ -27,26 +27,27 @@ public class AdminController {
 	@Autowired
 	private MemberService memberService;
 	@GetMapping("/loginform")
-	public String loginForm() {
+	public String loginForm(HttpServletRequest request) {
 		return "admin/login/loginform";
 	}
 	//관리자 로그인
 	@PostMapping("/login")
-	public String login(Admin admin, HttpSession session, Model model) {
+	public String login(Admin admin, HttpServletRequest request, Model model) {
 		logger.info("관리자id = {}",admin.getHost_id());
 		Admin obj = adminService.login(admin);
+		HttpSession session = request.getSession();
 		session.setAttribute("admin", obj);
 		model.addAttribute("admin", obj);
 		return "redirect:/admin/main/index";
 	}
 	
 	@GetMapping("/main/index")
-	public String adminMain() {
+	public String adminMain(HttpServletRequest request) {
 		return "admin/login/index";
 	}
 	//모든 회원 가져오기
 	@GetMapping("/main/member")
-	public String admin_member(Model model) {
+	public String admin_member(Model model, HttpServletRequest request) {
 		List memberList = memberService.selectAll();
 		int cnt = memberService.countUser();
 		model.addAttribute("memberList",memberList);
@@ -55,24 +56,17 @@ public class AdminController {
 	}
 	//단일 회원 가져오기
 	@GetMapping("/main/member/detail")
-	public String getDetail(int member_id, Model model) {
+	public String getDetail(int member_id, Model model, HttpServletRequest request) {
 		Member member = memberService.select(member_id);
 		model.addAttribute("member",member);
 		return "admin/main/member/detail";
 	}
 	@GetMapping("/main/product")
-	public String admin_product() {
+	public String admin_product(HttpServletRequest request) {
 		return "admin/main/product";
 	}
 	@GetMapping("/main/qna")
-	public String admin_qna() {
+	public String admin_qna(HttpServletRequest request) {
 		return "admin/main/qna";
-	}
-	//위의 요청을 처리하는 메서드 중에서 어느것 하나라도 예외가 발생하면 아래의 메서드가 동작하게 됨
-	@ExceptionHandler(MemberExistException.class)
-	public String handleException(MemberExistException e, Model model) {
-		model.addAttribute("정보가 올바르지 않습니다.",e);//에러객체 저장
-		
-		return "admin/login/loginform";
 	}
 }

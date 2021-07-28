@@ -21,6 +21,15 @@ Member member = (Member) request.getAttribute("member");
 	content=" Astronauts sign up & login Form Responsive Widget, Audio and Video players, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	alt></script>
+	<!-- bootbox cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
 <script>
 	addEventListener("load", function() {
 		setTimeout(hideURLbar, 0);
@@ -1140,15 +1149,18 @@ button::-moz-focus-inner {
 							<input type="text" name="phone" placeholder="phone" required="">
 						</div>
 						<div class="form-left-to-w3l">
-							<input type="text" id="sample6_postcode" placeholder="우편번호" readonly>
-							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+							<input type="text" id="sample6_postcode" placeholder="우편번호"
+								readonly> <input type="button"
+								onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 							<input type="text" id="sample6_address" placeholder="주소" readonly><br>
-							<input type="text" id="sample6_detailAddress" placeholder="상세주소" name="">
-							<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
-							<input type="text" name="addr" placeholder="addr" required="" value="">
+							<input type="text" id="sample6_detailAddress" placeholder="상세주소"
+								name=""> <input type="text" id="sample6_extraAddress"
+								placeholder="참고항목" readonly> <input type="hidden"
+								name="addr" placeholder="addr" required="" value="">
 						</div>
 						<div class="form-right-w3ls">
-							<input type="email" name="email" placeholder="Email" required="" onmousedown="sendAddr()">
+							<input type="email" name="email" placeholder="Email" required=""
+								onmousedown="sendAddr()">
 						</div>
 					</div>
 					<div class="btnn">
@@ -1165,7 +1177,10 @@ button::-moz-focus-inner {
 				<div class="img_area">
 					<input type="file" name="photo" required="" id="photo" />
 					<div class="select_img">
-						<img id="" alt="" src="" width="350px" height="300px" name="">
+						<img style="width: 100%; height: 670px; border: 2px black solid;"
+							id="thumb"
+							src="https://user-images.githubusercontent.com/67699933/126874025-4002c1e3-6105-4489-9325-8bf03b7233f0.png"
+							alt="">
 					</div>
 					<script>
 						
@@ -1178,7 +1193,7 @@ button::-moz-focus-inner {
 	</div>
 
 	<!--js working-->
-	<script src='js/jquery-2.2.3.min.js'></script>
+	
 	<!--//js working-->
 	<script>
 		var password = document.getElementById("password"), confirm_password = document
@@ -1196,7 +1211,7 @@ button::-moz-focus-inner {
 		confirm_password.onkeyup = validatePassword;
 	</script>
 	<!--//scripts-->
-	<script src="js/jquery.magnific-popup.js"></script>
+
 	<!-- //pop-up-box -->
 	<script>
 		// Random Code 생성
@@ -1244,9 +1259,50 @@ button::-moz-focus-inner {
 						}// success 종료
 					}); // ajax 종료
 				});// function 종료
+				
+				
+				//메인 이미지를 변경했을 때 Thumb 화면이 바뀌게 되며
+				//이미지 파일을 취소한 경우 기본 이미지인 득근 마켓으로 변경된다.
+				$("#photo").on("change", function(e){
+					if($("#photo").val() != ""){
+						if(!checkImg($("#photo").val())){
+							$("#photo").val(null);
+							bootbox.alert("죄송합니다. 득근 마켓은 [jpg]와 [png]의 확장자 파일만을 지원합니다.", function(){});
+						}else{
+							bootbox.alert("사용 가능한 이미지 파일입니다.", function(){});
+							//이미지 저장하고 화면에 출력하기
+							showThumb(e.target); //썸네일 출력하기
+						}
+					}else{
+						//이미지가 안올려져 있다면 기본 이미지로 수정
+						$("#thumb").attr("src", "https://user-images.githubusercontent.com/67699933/126874025-4002c1e3-6105-4489-9325-8bf03b7233f0.png");
+					}
+				});
+				
+				//이미지의 확장자가 유효한지 검사
+				function checkImg(imgname){
+					var lastIndex = imgname.lastIndexOf(".");
+					var ext = imgname.slice(lastIndex+1, imgname.length); //확장자 구하기
+					if(ext.toUpperCase() == "PNG" || ext.toUpperCase() == "JPG"){
+						return true;
+					}else{
+						return false;
+					}
+				}
+				
+				//선택한 이미지를 미리보기 화면에 띄우기
+				function showThumb(input){
+					var reader = new FileReader();
+					reader.onload = e => {
+						var thumbImg = document.getElementById("thumb");
+						thumbImg.src = e.target.result;
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
 	</script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -1297,9 +1353,10 @@ button::-moz-focus-inner {
     
     function sendAddr(){
     	$("input[name='addr']").val(
-        	      $("#sample6_address").val()+$("#sample6_detailAddress").val()+$("#sample6_extraAddress").val()
+    			$("#sample6_postcode").val()+"/"+$("#sample6_address").val()+"/"+$("#sample6_detailAddress").val()+"/"+$("#sample6_extraAddress").val()
         	);
     }
+    
 
 </script>
 

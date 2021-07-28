@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -23,6 +25,19 @@
 	
 	<context:component-scan base-package="ga.dgmarket.gymshopping.controller.admin" />
 	
+	<!-- 관리자 세션 체크 AOP 설정 -->
+	<beans:bean id="adminSessionCheckAspect" class="ga.dgmarket.gymshopping.aop.admin.AdminSessionCheckAspect"/>
+	<aop:config>
+		<aop:aspect ref="adminSessionCheckAspect">
+			<!-- 어느 지점(point)에서? -->
+			<aop:pointcut expression="execution(public * ga.dgmarket.gymshopping.controller.admin..*(..))" 
+				id="adminSessionPointCut"/>
+			<!-- 어느 시점에(before, after..)? -->
+			<aop:around method="sessionCheck" pointcut-ref="adminSessionPointCut"/>
+		</aop:aspect>
+	</aop:config>
 	
+	<!-- globalException(공통예외객체 처리) -->
+	<beans:bean id="globalExceptionHandler" class="ga.dgmarket.gymshopping.aop.admin.GlobalExceptionHandler"/>
 	
 </beans:beans>

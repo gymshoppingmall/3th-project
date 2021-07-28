@@ -27,10 +27,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
 
 <style>
-body {
-	margin: 0px;
-}
-
 .wrapper {
 	width: 70%;
 	margin: auto;
@@ -253,6 +249,10 @@ ul li.tag-item{
 </script>
 </head>
 <body>
+
+	<!-- 중고거래 top_navi -->
+	<%@ include file="../inc/top_navi.jsp" %>
+	
 	<!-- 전체를 감싸는 컨테이너 -->
 	<div class="wrapper">
 		<h2 style="margin-top: 35px;">

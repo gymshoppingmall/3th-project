@@ -43,8 +43,8 @@ public class MybatisMemberDAO implements MemberDAO{
 	}
 
 	@Override
-	public void delete(Member member) {
-		int result=sqlSessonTemplate.delete("Member.delete",member);
+	public void delete(int member_id) {
+		int result=sqlSessonTemplate.delete("Member.delete",member_id);
 		if(result==0) {
 			throw new DMLException("탈퇴실패");
 		}

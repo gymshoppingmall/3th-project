@@ -10,9 +10,8 @@ out.print("<script>");
 out.print("alert('올바르지 않은 정보입니다.');");
 out.print("</script>");
 %>
-<%}else{ %>
-<%=2 %>
-<%}%>
+<%} %>
+
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com

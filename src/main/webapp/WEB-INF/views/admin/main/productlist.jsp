@@ -3,6 +3,19 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	List<Product> productList = (List)request.getAttribute("productList");
+	int cnt = (int)(request.getAttribute("cnt"));
+	int totalRecord = productList.size();
+	int blockSize = 10; //한번에 보여질 최대 페이지 수
+	int pageSize = 10; //한번에 보여질 최대 요소 수 (게시글..회원 등등)
+	int totalPage = (int)Math.ceil((float)totalRecord/pageSize);
+	int currentPage = 1;//현재 페이지(디폴트)
+	if(request.getParameter("currentPage")!=null){
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
+	int firstPage = currentPage-((currentPage-1)%blockSize);
+	int lastPage = firstPage+(blockSize-1);
+	int num = totalRecord - (currentPage-1)*(pageSize);
+	int for_i = (currentPage-1)*10;
 %>
 <!DOCTYPE html>
 <html>
@@ -52,7 +65,16 @@
     </tbody>
   </table>
  </div>
- 
+   <tr>
+		<td colspan="6" style = "text-align:center">
+		<a href="/admin/main/member?currentPage=<%=firstPage-1%>">◀</a>
+			<%for(int i = firstPage; i <= lastPage ; i++){ %>
+			<%if(i>totalPage)break; %>
+			<a href="/admin/main/member?currentPage=<%=i%>" <%if(currentPage==i){ %>class="pageNum"<%} %>>[<%=i %>]</a>
+			<%} %>
+		<a href="/admin/main/member?currentPage=<%=lastPage+1%>">▶</a>
+		</td>
+	</tr>
 
 </body>
 </html>
