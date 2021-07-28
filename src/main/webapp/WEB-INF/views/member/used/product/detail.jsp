@@ -69,7 +69,17 @@
     
     </style>
 <script>
+function del(used_product_id){
+	if(confirm("정말로 삭제하시겠습니까?")){
+		location.href="/member/used/product/delete?used_product_id="+used_product_id;
+	}
+}
 
+function soldout(used_product_id){
+	if(confirm("상품의 상태를 [거래완료]로 바꾸시겠습니까?")){
+		location.href="/member/used/product/soldout?used_product_id="+used_product_id;
+	}
+}
 
 </script>
 </head>
@@ -82,11 +92,13 @@
         <div class="tag_container">
             <h3>Hash TAG</h3>
             <!-- 실제 태그 꺼내서 반복문 돌리기 -->
-            <%if((tagList.get(0).getTag_name()).equals("")){ %>
-            	<span style="padding-right: 15px;"><a href="/member/used/main">등록된 태그가 없습니다.</a></span>
-            <%} else {%>
-	            <%for(UsedTag usedTag : tagList){%>
-	            	<span style="padding-right: 15px;"><a href="#">#<%=usedTag.getTag_name() %></a></span>
+            <% if (tagList != null && tagList.size() != 0){%>
+	            <%if((tagList.get(0).getTag_name()).equals("")){ %>
+	            	<span style="padding-right: 15px;"><a href="/member/used/main">등록된 태그가 없습니다.</a></span>
+	            <%} else {%>
+		            <%for(UsedTag usedTag : tagList){%>
+		            	<span style="padding-right: 15px;"><a href="#">#<%=usedTag.getTag_name() %></a></span>
+		            <% } %>
 	            <% } %>
             <% } %>
         </div>
@@ -148,28 +160,35 @@
                         <br>
                         <br>
                         <div class="button_container text-center" >
-                            <p><h5><strong>판매자 : <a href="/member/used/store?member_id=<%=productExtend.getMember_id()%>">[<%= productExtend.getStorename() %>]</a></strong></h5></p> 
-                            <div class="btn-group" style="width : 100%;">
-                                <!-- 찜 갯수 넣기 사용자가 찜을 했는지 안했는지에 따라 버튼과 뱃지 색 바꾸기 -->
-                                <% if(productExtend.getFavorites_id()==0){ %>
-                                	<button type="button" class="btn btn-success" onclick="location.href='#'">찜하기 
-                                	<%if(favorites != null){ %>        
-                                		<span class="badge badge-danger"><%=favorites.getCount() %></span></button>								
-									<%} else {%>       
-                                		<span class="badge badge-danger">0</span></button>								
-									<% } %>   
-                                <%} else { %>
-                                	<button type="button" class="btn btn-danger" onclick="location.href='#'">찜취소하기
-                                	<%if(favorites != null){ %>        
-                                		<span class="badge badge-success"><%=favorites.getCount() %></span></button>								
-									<%} else {%>       
-                                		<span class="badge badge-secondary">0</span></button>								
-									<% } %>
-                                <% } %>
-								              
-                                <button type="button" class="btn btn-success" onclick="location.href='#'">연락하기</button>
-                            </div>
-                        </div>
+                        	<%if(productExtend.getMember_id()!=mem.getMember_id()){ %>
+	                            <p><h5><strong>판매자 : <a href="/member/used/store?member_id=<%=productExtend.getMember_id()%>">[<%= productExtend.getStorename() %>]</a></strong></h5></p> 
+	                            <div class="btn-group" style="width : 100%;">
+	                                <!-- 찜 갯수 넣기 사용자가 찜을 했는지 안했는지에 따라 버튼과 뱃지 색 바꾸기 -->
+	                                <% if(productExtend.getFavorites_id()==0){ %>
+	                                	<button type="button" class="btn btn-success" onclick="location.href='#'">찜하기 
+	                                	<%if(favorites != null){ %>        
+	                                		<span class="badge badge-danger"><%=favorites.getCount() %></span></button>								
+										<%} else {%>       
+	                                		<span class="badge badge-danger">0</span></button>								
+										<% } %>   
+	                                <%} else { %>
+	                                	<button type="button" class="btn btn-danger" onclick="location.href='#'">찜취소하기
+	                                	<%if(favorites != null){ %>        
+	                                		<span class="badge badge-success"><%=favorites.getCount() %></span></button>								
+										<%} else {%>       
+	                                		<span class="badge badge-secondary">0</span></button>								
+										<% } %>
+	                                <% } %>
+									              
+	                                <button type="button" class="btn btn-success" onclick="location.href='#'">연락하기</button>
+	                            </div>
+                            <%} else {%>
+                            	<p><h5><strong>상태 변경</strong></h5></p> 
+	                            <div class="btn-group" style="width : 100%;">
+                            		<button type="button" class="btn btn-success" onclick="soldout(<%=productExtend.getUsed_product_id()%>)">거래완료</button>
+                           	 		<button type="button" class="btn btn-success" onclick="del(<%=productExtend.getUsed_product_id()%>)">상품삭제</button>
+                        		</div>
+                            <% } %>
                     </div>
                 </div>
             </div>

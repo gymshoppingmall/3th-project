@@ -16,4 +16,6 @@ public interface UsedProductService {
 	public void regist(HttpServletRequest request, UsedProduct usedProduct);
 	public List selectAll(HttpServletRequest request);
 	public Map getDetail(HttpServletRequest request, int used_product_id);
+	public void delete(HttpServletRequest request, int used_product_id);
+	public void soldout(HttpServletRequest request, int used_product_id);
 }

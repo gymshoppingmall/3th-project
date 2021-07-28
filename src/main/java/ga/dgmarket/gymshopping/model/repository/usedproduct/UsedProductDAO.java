@@ -12,4 +12,7 @@ public interface UsedProductDAO {
 	public UsedProductExtend getDetail(UsedProductExtend usedProductExtend);
 	public UsedFavorites getFavoritesCount(int used_product_id);
 	public List getProductTag(int used_product_id);
+	public void soldout(int used_product_id);
+	public void deleteProduct(int used_product_id);
+	public void deleteFavorites(int used_product_id);
 }

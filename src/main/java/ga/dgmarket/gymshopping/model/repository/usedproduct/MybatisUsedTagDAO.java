@@ -17,4 +17,8 @@ public class MybatisUsedTagDAO {
 		int result = sessionTemplate.insert("UsedTag.insert", usedTag);
 		if(result == 0) throw new DMLException("Tag insert 실패");
 	}
+	
+	public void delete(int used_product_id) {
+		sessionTemplate.delete("UsedTag.delete", used_product_id);
+	}
 }

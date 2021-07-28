@@ -40,8 +40,7 @@ public class MybatisUsedProductImgDAO implements UsedProductImgDAO{
 
 	@Override
 	public void delete(int usedProduct_id) {
-		// TODO Auto-generated method stub
-		
+		sqlSessionTemplate.delete("UsedProductImg.delete", usedProduct_id);
 	}
 
 	@Override

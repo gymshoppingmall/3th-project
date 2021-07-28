@@ -1,5 +1,6 @@
 package ga.dgmarket.gymshopping.model.service.usedproduct;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -132,6 +133,40 @@ public class UsedProductServiceImpl implements UsedProductService{
 		map.put("tagList", tagList);
 		
 		return map;
+	}
+	
+	/*상품 한 건 삭제를 처리하는 서비스
+	상품이미지 삭제[디비, 파일]
+	상품태그삭제
+	상품찜
+	상품주문삭제*/
+	public void delete(HttpServletRequest request, int used_product_id) {
+		ServletContext context = request.getServletContext();
+		
+		//이미지 삭제처리 [폴더 내의 이미지 삭제]
+		List<UsedProductImg> imgList = usedProductImgDAO.getProductImg(used_product_id);
+		for(UsedProductImg productImg : imgList) {
+			File file = new File(context.getRealPath("/resources/data/used/product/img/")+productImg.getUsed_img());
+			if(file.delete()) {
+				System.out.println("이미지 삭제 완료 : "+productImg.getUsed_img());
+			}else {
+				System.out.println("이미지 삭제 실패 : "+productImg.getUsed_img());
+			}
+		}
+		
+		//상품 이미지 삭제
+		usedProductImgDAO.delete(used_product_id);
+		//상품 태그 삭제
+		mybatisUsedTagDAO.delete(used_product_id);
+		//상픔 찜 정보 삭제
+		usedProductDAO.deleteFavorites(used_product_id);
+		//상품 삭제
+		usedProductDAO.deleteProduct(used_product_id);	
+	}
+
+	//상품의 상태를 판매완료로 변경함
+	public void soldout(HttpServletRequest request, int used_product_id) {
+		usedProductDAO.soldout(used_product_id);
 	}
 }
 

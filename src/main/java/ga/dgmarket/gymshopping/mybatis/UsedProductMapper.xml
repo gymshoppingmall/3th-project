@@ -20,7 +20,7 @@
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as used_favorites_id
 		from used_product p, used_product_img i, member m
-		where p.used_product_id=i.used_product_id and i.used_img_index=0 and p.member_id=m.member_id
+		where p.used_product_id=i.used_product_id and i.used_img_index=0 and p.member_id=m.member_id and p.soldout='no'
 		order by p.used_product_id desc;
 	</select>
 	
@@ -29,11 +29,22 @@
 		매개변수로 used_product_id와 member_id를 필요로 하기 때문에 UsedProductExtend에 담아서 넘겨 받을 예정
 	 -->
 	<select id="getDetail" resultType="UsedProductExtend" parameterType="UsedProductExtend">
-		select p.used_product_id as used_product_id, p.member_id as member_id
+		select p.used_product_id as used_product_id, p.member_id as member_id, soldout
 		, used_product_name, used_product_detail, used_product_price, storename, 
 		(select used_favorites_id from used_favorites 
 		where member_id=#{member_id} and used_product_id=#{used_product_id}) as favorites_id
 		from used_product p, member m
 		where p.member_id=m.member_id and p.used_product_id=#{used_product_id};
 	</select>
+	
+	<!-- 상품의 상태를 판매완료로 변경 soldout처리 -->
+	<update id="soldout" parameterType="int">
+		update used_product set soldout='yes' where used_product_id=#{used_product_id}
+	</update>
+	
+	<!-- 상품 한건 삭제하기 -->
+	<delete id="delete" parameterType="int">
+		delete from used_product where used_product_id=#{used_product_id}
+	</delete>
+	
 </mapper>

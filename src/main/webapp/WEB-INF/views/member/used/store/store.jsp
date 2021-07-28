@@ -39,6 +39,7 @@
     border-left: 2px solid black;
     border-right: 2px solid black;
     border-top: 2px solid black;
+    margin-top: 35px
 }
 
 .user_container{
@@ -80,8 +81,8 @@ function copyLink(){
 	
     <!-- 상점의 주소를 복사할 수 있는 주소 링크를 담아놓는 곳 -->
     <!-- session을 조회해서 상점ID 넣기 currTime으로 주소 구하면 될 듯 -->
-    <input type="hidden" id="link" value="<%=storeMember.getStore_id()%>">
     <div class="wrapper text-center" style="padding-top: 50px;">
+	    <input type="hidden" id="link" value="<%=storeMember.getStore_id()%>">
         <!-- 상점 주인의 정보를 나타내는 박스 -->
         <div class="user_container">
             <!-- 회원가입을 할 때 등록한 사진이 들어올 곳 : 사진이 저장되는 곳 물어보기 (하연)----------------------------------------------------------------------------->

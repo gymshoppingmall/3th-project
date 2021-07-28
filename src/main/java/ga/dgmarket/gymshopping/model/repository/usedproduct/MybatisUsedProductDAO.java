@@ -45,4 +45,19 @@ public class MybatisUsedProductDAO implements UsedProductDAO{
 	public List getProductTag(int used_product_id) {
 		return sqlSessionTemplate.selectList("UsedTag.getProductTag", used_product_id);
 	}
+
+	//상품의 정보를 판매완료 처리하기
+	public void soldout(int used_product_id) {
+		sqlSessionTemplate.update("UsedProductExtend.soldout", used_product_id);
+	}
+
+	//상품 삭제하기
+	public void deleteProduct(int used_product_id) {
+		sqlSessionTemplate.delete("UsedProductExtend.delete", used_product_id);
+	}
+	
+	//찜 정보 삭제하기
+	public void deleteFavorites(int used_product_id) {
+		sqlSessionTemplate.delete("UsedFavorites.delete", used_product_id);
+	}
 }

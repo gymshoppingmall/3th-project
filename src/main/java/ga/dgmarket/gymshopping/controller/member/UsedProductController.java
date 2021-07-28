@@ -41,10 +41,10 @@ public class UsedProductController {
 	//중고상품 등록 폼 요청을 처리하는 메서드
 	@GetMapping("/used/product/registForm")
 	public String registForm(HttpServletRequest request) {
+		
 		return  "member/used/product/registForm";
 	}
-	
-	
+
 	//글등록 요청을 처리하는 메서드
 	//등록을 마치면 바로 메인페이지로 이동함
 	@PostMapping("/used/product/regist")
@@ -57,16 +57,36 @@ public class UsedProductController {
 	//상품의 상세페이지 요청을 처리하는 메서드
 	@GetMapping("/used/product/detail")
 	public String getDetail(HttpServletRequest request, Model model, int used_product_id) {
-		
 		Map<String, Object> map = usedProductService.getDetail(request, used_product_id);
 		model.addAttribute("map", map);
+		
 		return "member/used/product/detail";
+	}
+	
+	//상품 상태를 판매완료 처리 요청
+	@GetMapping("/used/product/soldout")
+	public String soldout(HttpServletRequest request, int used_product_id) {
+		usedProductService.soldout(request, used_product_id);
+		return "redirect:/member/used/product/detail?used_product_id="+used_product_id;
+	}
+	
+	//상품 삭제 요청을 처리하는 메서드
+	@GetMapping("/used/product/delete")
+	public String delete(HttpServletRequest request, int used_product_id) {
+		usedProductService.delete(request, used_product_id);
+		//상품이미지 삭제[디비, 파일]
+		//상품태그삭제
+		//상품찜
+		//상품주문삭제
+		
+		return "redirect:/member/used/main";
 	}
 	
 	
 	//DML 실패 시 만나게 되는 에러 전용 핸들러
 	@ExceptionHandler(DMLException.class)
 	public String handleException(DMLException e, Model model) {
+		
 		model.addAttribute("e", e);
 		return "error/result";
 	}
@@ -75,6 +95,7 @@ public class UsedProductController {
 	@ExceptionHandler(UploadException.class)
 	public String hadleException(UploadException e, Model model) {
 		model.addAttribute("e", e);
+		
 		return "error/result";
 	}
 }

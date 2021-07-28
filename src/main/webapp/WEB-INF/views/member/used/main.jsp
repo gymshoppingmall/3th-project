@@ -26,6 +26,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" alt></script>
 
 <style>
+	body{
+		height: 1000px;
+	}
     .jumbotron {
         color: #fff;
         padding:  25px;

@@ -27,4 +27,8 @@
 		where i.used_product_id=p.used_product_id and p.member_id=#{member_id} and i.used_img_index=0
 		order by p.used_product_id desc
 	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from used_product_img where used_product_id = #{used_product_id}
+	</delete>
 </mapper>

@@ -9,4 +9,8 @@
 	<select id="getProductTag" parameterType="int" resultType="UsedTag">
 		select * from used_tag where used_product_id=#{used_product_id}
 	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from used_tag where used_product_id=#{used_product_id}
+	</delete>
 </mapper>
