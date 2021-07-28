@@ -4,7 +4,8 @@
 	<select id="select" parameterType="int" resultType="UsedFavorites">
 		select * from used_favorites where used_favorites_id=#{used_favorites_id}
 	</select>
+	
 	<select id="getFavoritesCount" parameterType="int" resultType="UsedFavorites">
-		select count(*) from used_favorites where used_product_id=#{used_product_id} group by used_favorites_id;
+		select count(*) as count from used_favorites where used_product_id=#{used_product_id} group by used_favorites_id;
 	</select>
 </mapper>

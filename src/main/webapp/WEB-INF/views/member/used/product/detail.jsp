@@ -79,9 +79,13 @@
         <div class="tag_container">
             <h3>Hash TAG</h3>
             <!-- 실제 태그 꺼내서 반복문 돌리기 -->
-            <%for(UsedTag usedTag : tagList){%>
-            	<span style="padding-right: 15px;"><a href="#">#<%=usedTag.getTag_name() %></a></span>
-            <%} %>
+            <%if((tagList.get(0).getTag_name()).equals("")){ %>
+            	<span style="padding-right: 15px;"><a href="/member/used/main">등록된 태그가 없습니다.</a></span>
+            <%} else {%>
+	            <%for(UsedTag usedTag : tagList){%>
+	            	<span style="padding-right: 15px;"><a href="#">#<%=usedTag.getTag_name() %></a></span>
+	            <% } %>
+            <% } %>
         </div>
         <hr>
 
@@ -127,31 +131,43 @@
                     <!-- 상품의 이름, 가격, 설명을 담는 컨테이너 -->
                     <div class="col-sm-6">
                         <!-- 제품명 넣기 -->
-                        <p><h3><strong>고양이 포토카드 3장</strong></h3></p>
+                        <p><h3><strong><%= productExtend.getUsed_product_name() %></strong></h3></p>
                         <!-- 가격 넣기 -->
-                        <p><h1><strong>9,000원</strong></h1></p>
+                        <p><h1><strong><%= productExtend.getUsed_product_price() %>원</strong></h1></p>
                         <br>
                         <p><h5><strong>제품 설명</strong></h5></p>
                         <hr style="border: 0px; height: 3px; background: black;">
                         <!-- 제품 설명 넣기 -->
                         <p><h5><strong>
-                            고양이 사진 장 당 3,000원에 판매 하겠습니다.<br>
-                            직접 키우는 고양이들은 아니고 어디서 퍼온겁니다ㅋㄷ<br>
-                            사진은 택배거래가 어려우니 직거래 희망합니다.
+                            <%=productExtend.getUsed_product_detail() %>
                         </strong></h5></p>
                         <br>
                         <br>
                         <br>
                         <div class="button_container text-center" >
-                            <p><h5><strong>판매자 : <a href="#">[조성일]</a></strong></h5></p> 
+                            <p><h5><strong>판매자 : <a href="/member/used/store?member_id=<%=productExtend.getMember_id()%>">[<%= productExtend.getStorename() %>]</a></strong></h5></p> 
                             <div class="btn-group" style="width : 100%;">
                                 <!-- 찜 갯수 넣기 사용자가 찜을 했는지 안했는지에 따라 버튼과 뱃지 색 바꾸기 -->
-                                <button type="button" class="btn btn-success" onclick="location.href='#'">찜하기 <span class="badge badge-danger">7</span></button>
+                                <% if(productExtend.getFavorites_id()==0){ %>
+                                	<button type="button" class="btn btn-success" onclick="location.href='#'">찜하기 
+                                	<%if(favorites != null){ %>        
+                                		<span class="badge badge-danger"><%=favorites.getCount() %></span></button>								
+									<%} else {%>       
+                                		<span class="badge badge-danger">0</span></button>								
+									<% } %>   
+                                <%} else { %>
+                                	<button type="button" class="btn btn-danger" onclick="location.href='#'">찜취소하기
+                                	<%if(favorites != null){ %>        
+                                		<span class="badge badge-success"><%=favorites.getCount() %></span></button>								
+									<%} else {%>       
+                                		<span class="badge badge-secondary">0</span></button>								
+									<% } %>
+                                <% } %>
+								              
                                 <button type="button" class="btn btn-success" onclick="location.href='#'">연락하기</button>
                             </div>
                         </div>
                     </div>
-            
                 </div>
             </div>
             <hr style="margin-top: 35px;">
