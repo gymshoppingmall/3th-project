@@ -29,6 +29,7 @@ public class UsedProductController {
 	private UsedProductService usedProductService;
 	
 	//중고상점의 메인페이지요청을 처리하는 메서드
+	//메인 페이지로 이동하며 상품 정보가 담긴 List를 전송한다.
 	@GetMapping("/used/main")
 	public String getMain(Model model, HttpServletRequest request) {
 		List usedProductList = usedProductService.selectAll(request);
@@ -38,8 +39,9 @@ public class UsedProductController {
 		return "member/used/main";
 	}
 	
+	//중고상품 등록 폼 요청을 처리하는 메서드
 	@GetMapping("/used/product/registForm")
-	public String registForm() {
+	public String registForm(HttpServletRequest request) {
 		return  "member/used/product/registForm";
 	}
 	
@@ -51,6 +53,13 @@ public class UsedProductController {
 		
 		usedProductService.regist(usedProduct, request.getServletContext());
 		return "redirect:/member/used/main";
+	}
+	
+	//상품의 상세페이지 요청을 처리하는 메서드
+	@GetMapping("/used/product/detail")
+	public String getDetail() {
+		
+		return "member/used/product/detail";
 	}
 	
 	
