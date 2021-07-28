@@ -18,6 +18,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
+	public List selectNewItem() {
+
+		return productDAO.selectNewItem();
+	}
+	@Override
 	public Product select(int product_id) {
 		// TODO Auto-generated method stub
 		return null;
@@ -40,5 +45,6 @@ public class ProductServiceImpl implements ProductService{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

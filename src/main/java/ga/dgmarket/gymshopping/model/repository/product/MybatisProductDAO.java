@@ -16,6 +16,10 @@ public class MybatisProductDAO implements ProductDAO{
 	public List selectAll() {
 		return sqlSessionTemplate.selectList("Product.selectAll");
 	}
+	
+	public List selectNewItem() {
+		return sqlSessionTemplate.selectList("Product.selectNewItem");
+	}
 
 	@Override
 	public Product select(int product_id) {
