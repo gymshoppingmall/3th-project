@@ -1,6 +1,6 @@
 <%@page import="ga.dgmarket.gymshopping.domain.Admin"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-
+<%Admin admin = (Admin)session.getAttribute("admin"); %>
 <!DOCTYPE html>
 <html>
 <head>

@@ -74,6 +74,9 @@
 </script>
 </head>
 <body>
+	<!-- 중고거래 top_navi -->
+	<%@ include file="../inc/top_navi.jsp" %>
+	
     <div class="wrapper">
         <!-- 상품의 태그를 보여줄 박스 -->
         <div class="tag_container">

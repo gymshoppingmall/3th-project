@@ -34,12 +34,14 @@ import ga.dgmarket.gymshopping.exception.MemberExistException;
 import ga.dgmarket.gymshopping.exception.UploadException;
 import ga.dgmarket.gymshopping.model.common.file.FileManager;
 import ga.dgmarket.gymshopping.model.service.member.MemberService;
+import ga.dgmarket.gymshopping.model.service.product.ProductService;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class MemberController {
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired
@@ -47,6 +49,11 @@ public class MemberController {
 
 	@Autowired
 	private FileManager fileManager;
+	
+	@Autowired
+	private ProductService productService;
+	
+	
 
 	// 로그인 폼 요청 처리
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
@@ -64,9 +71,21 @@ public class MemberController {
 		// 4단계: 저장
 		session.setAttribute("member", obj);
 		model.addAttribute("member", obj);
-
-		return "member/main/index";
+		return "redirect:/member/main";
 	}
+	
+	//멤버 메인 페이지 요청 및 리퀘스트에 상품저장 --도균--
+		@GetMapping("/main")
+		public String getMain(HttpServletRequest request) {
+			
+			// 3단계: 일 시키기
+			List productNewList = productService.selectNewItem();
+			
+			// 4단계: 저장
+			request.setAttribute("productNewList", productNewList);
+			
+			return "member/main/main";
+		}
 
 	// 회원가입 폼 요청
 	@GetMapping("/registform")
