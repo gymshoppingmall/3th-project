@@ -7,10 +7,17 @@
 		select * from product order by product_id desc
 	</select>
 	
-	<!-- 신제품 전시를 위한 목록불러오기 -->
+	<!-- 상품상세보기를 위한 한건가져오기 from.도균 -->
+	<select id="select" parameterType="int" resultType="Product">
+		select * from product where product_id=#{product_id}
+	</select>
+	
+	<!-- 신제품 전시를 위한 목록불러오기 from.도균-->
 	<select id="selectNewItem" resultType="Product">
 		select * from product order by product_id desc limit 4;
 	</select>	
+	
+
 	
 	<!-- 단일상품 디테일 join문 이용해야 할 것 같아서..
 	<select id="select" resultType="Product" parameterType="int">
