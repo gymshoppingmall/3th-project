@@ -49,7 +49,7 @@
                     
                     <label for="exampleInputEmail1">회원 등급</label>
 						
-	                        <select class="form-control" name="topcategory_id">
+	                        <select class="form-control" name="user_grade">
 	                        	<option value="0">등급 선택</option>
 	                        	<option value="1">일반 회원</option>
 	                        	<option value="2">우수 회원</option>
@@ -76,12 +76,7 @@
                   <div class="form-group">
                     <label for="exampleInputPassword1">가입일</label>
                     <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getRegdate() %>" name = "regdate" value="" readonly="readonly">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">인삿말</label>
-                    <textarea class="form-control" name="info">안녕하세욘</textarea>
-                  </div>
-                  
+                  </div>                  
                   <div class="form-group">
                     <label for="exampleInputFile">프로필 변경</label>
                     <div class="input-group">
