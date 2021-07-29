@@ -96,30 +96,49 @@ function loadProduct(e){
 
 //찜을 추가하는 메서드
 function addFavorites(used_product_id){
+	console.log("add들어옴");
 	//class를
 	//danger로 바꿔주고 onclick을 delFavorites으로 바꿔줘야함
 	//그리고 반환값으로 방금 넣은 last index번호를 받자
 	var div = document.getElementById(used_product_id);
-	if(div.className != "btn-danger"){
+	if(div.className == "btn-success"){
 		$.ajax({
 			url : "/member/used/product/addfavorites?used_product_id="+used_product_id,
 			type : "GET",
 			success : function(data){
 				div.className = "btn-danger";
 				div.addEventListener("click", function(){
-					delFavorites(data);
+					delFavorites(used_product_id , data);
 				});
-				bootbox.alert("상품을 찜하였습니다.", function(){});
+				bootbox.confirm("상품을 [찜]하였습니다. 찜 목록으로 이동하시겠습니까?", function(flag){
+					if(flag){
+						location.href = "/member/used/store?member_id=<%=member.getMember_id()%>";
+					}else{
+						location.href="/member/used/main"; //새로고침
+					}
+				});
 			}
 		});
 	}
 }
 
 //찜을 삭제하는 메서드
-function delFavorites(used_favorites_id){
-	alert("찜 삭제하기 상품 번호는 : "+used_favorites_id);
+function delFavorites(used_product_id, used_favorites_id){
+	var div = document.getElementById(used_product_id);
+	if(div.className == "btn-danger"){
+		$.ajax({
+			url : "/member/used/product/delfavorites?used_favorites_id="+used_favorites_id,
+			type : "GET",
+			success : function(){
+				div.className = "btn-success";
+				div.addEventListener("click", function(){
+					addFavorites(used_product_id);
+				});
+				bootbox.alert("찜을 [취소]하였습니다.", function(){});
+			}
+		});
+	}
 }
-
 </script>
 </head>
 <body>
@@ -135,7 +154,6 @@ function delFavorites(used_favorites_id){
 
     <div class="row text-center">
         <!--하나의 상품을 나타낼 박스-->
-        
         <% for(UsedProductExtend usedProduct : usedProductList){ %>
         <div class="col-xl-3">
             <div class="card">
@@ -143,17 +161,24 @@ function delFavorites(used_favorites_id){
                 <div class="card-header">
                     <!-- 찜을 했냐 안했냐에 따라서 버튼의 색이 달라지고, 클릭 시 찜의 유무 바뀜 -->
                     <!-- 클릭 시 changeLike() 함수 호출 -->
-                    <%if(usedProduct.getFavorites_member()==0){ %>
-	                    <div class="btn-success" id="<%=usedProduct.getUsed_product_id() %>" style="font-size: 25px; margin-bottom: 5px;" 
-	                    onclick="addFavorites(<%=usedProduct.getUsed_product_id()%>)">
-	                    ♥
+                    <%if(usedProduct.getMember_id() != member.getMember_id()){ %>
+	                    <%if(usedProduct.getFavorites_member()==0){ %>
+		                    <div class="btn-success" id="<%=usedProduct.getUsed_product_id() %>" style="font-size: 25px; margin-bottom: 5px;" 
+			                    onclick="addFavorites(<%=usedProduct.getUsed_product_id()%>)">
+			                    ♥
+		                    </div>
+	                    <%} else { %>
+		                    <div class="btn-danger" id="<%=usedProduct.getUsed_product_id() %>" style="font-size: 25px; margin-bottom: 5px;"
+			                    onclick="delFavorites(<%=usedProduct.getUsed_product_id() %>, <%=usedProduct.getFavorites_id()%>)">
+			                    ♥
+		                    </div>
+	                    <%} %>
+                    <% }else {%>
+                    	<div class="btn-success" id="<%=usedProduct.getUsed_product_id() %>" style="font-size: 25px; margin-bottom: 5px;"
+		                    onclick="location.href='/member/used/store?member_id=<%=member.getMember_id()%>'">
+		                    내 등록 상품
 	                    </div>
-                    <%} else{ %>
-	                    <div class="btn-danger" id="<%=usedProduct.getUsed_product_id() %>" style="font-size: 25px; margin-bottom: 5px;"
-	                    onclick="delFavorites(<%=usedProduct.getFavorites_id()%>)">
-	                    ♥
-	                    </div>
-                    <%} %>
+                    <% } %>
                     <strong><%= usedProduct.getUsed_product_name() %></strong>
                 </div>
                 <!-- 상품 이미지가 올 곳 -->

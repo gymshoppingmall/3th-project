@@ -31,7 +31,9 @@
 
 	<!-- 다중 파일 업로드를 위해 MultipartResolver를 사용하기 위한 빈 등록 -->
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+		<property name="maxUploadSize" value="5242880"/><!-- 5MB 제한 -->
+		</bean>
 		
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	<property name="host" value="smtp.gmail.com"/>
