@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import ga.dgmarket.gymshopping.domain.Member;
+import ga.dgmarket.gymshopping.domain.UsedFavorites;
 import ga.dgmarket.gymshopping.domain.UsedProduct;
 import ga.dgmarket.gymshopping.exception.DMLException;
 import ga.dgmarket.gymshopping.exception.UploadException;
@@ -49,7 +52,6 @@ public class UsedProductController {
 	//등록을 마치면 바로 메인페이지로 이동함
 	@PostMapping("/used/product/regist")
 	public String regist(UsedProduct usedProduct, HttpServletRequest request) {
-		
 		usedProductService.regist(request, usedProduct);
 		return "redirect:/member/used/main";
 	}
@@ -80,6 +82,22 @@ public class UsedProductController {
 		//상품주문삭제
 		
 		return "redirect:/member/used/main";
+	}
+	
+	//찜하기 버튼을 클릭했을 때 동작하는 메서드
+	@GetMapping("/used/product/addfavorites")
+	@ResponseBody
+	public String addFavorites(HttpServletRequest request, int used_product_id) {
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("member");
+		
+		UsedFavorites favorites = new UsedFavorites();
+		favorites.setMember_id(member.getMember_id());
+		favorites.setUsed_product_id(used_product_id);
+
+		int favorites_id = usedProductService.addFavorites(request, favorites);
+		
+		return Integer.toString(favorites_id);
 	}
 	
 	

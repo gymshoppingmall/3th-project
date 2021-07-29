@@ -177,7 +177,7 @@ function copyLink(){
 			                            <!-- 상품 이미지가 올 곳 + 이미지 클릭 시 상품 상세보기 이동 -->
 			                            <img src="/resources/data/used/product/img/<%=usedProductImg.getUsed_img() %>"
 			                            style="border-radius: 5px; border: solid 3px black;"
-			                            onclick="location.href='#'" alt="">
+			                            onclick="location.href='/member/used/product/detail?used_product_id=<%=usedProductImg.getUsed_product_id()%>'" alt="">
 			                        </div>            
 			                    </div>
 		              		<% } %>

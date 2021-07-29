@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import ga.dgmarket.gymshopping.domain.UsedFavorites;
 import ga.dgmarket.gymshopping.domain.UsedProduct;
 import ga.dgmarket.gymshopping.domain.UsedProductExtend;
 
@@ -18,4 +19,5 @@ public interface UsedProductService {
 	public Map getDetail(HttpServletRequest request, int used_product_id);
 	public void delete(HttpServletRequest request, int used_product_id);
 	public void soldout(HttpServletRequest request, int used_product_id);
+	public int addFavorites(HttpServletRequest request, UsedFavorites usedFavorites);
 }

@@ -15,15 +15,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>중고거래 메인</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" alt></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" alt></script>
+<!-- bootbox cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
 
 <style>
 	body{
@@ -91,8 +95,24 @@ function loadProduct(e){
 }
 
 //찜을 추가하는 메서드
-function addFavorites(used_product_id, member_id){
-	alert("찜 추가하기 상품 번호는 : "+used_product_id+"추가하려는 고객 id : "+member_id);
+function addFavorites(used_product_id){
+	//class를
+	//danger로 바꿔주고 onclick을 delFavorites으로 바꿔줘야함
+	//그리고 반환값으로 방금 넣은 last index번호를 받자
+	var div = document.getElementById(used_product_id);
+	if(div.className != "btn-danger"){
+		$.ajax({
+			url : "/member/used/product/addfavorites?used_product_id="+used_product_id,
+			type : "GET",
+			success : function(data){
+				div.className = "btn-danger";
+				div.addEventListener("click", function(){
+					delFavorites(data);
+				});
+				bootbox.alert("상품을 찜하였습니다.", function(){});
+			}
+		});
+	}
 }
 
 //찜을 삭제하는 메서드
@@ -124,15 +144,15 @@ function delFavorites(used_favorites_id){
                     <!-- 찜을 했냐 안했냐에 따라서 버튼의 색이 달라지고, 클릭 시 찜의 유무 바뀜 -->
                     <!-- 클릭 시 changeLike() 함수 호출 -->
                     <%if(usedProduct.getFavorites_member()==0){ %>
-                    <div class="btn-success" style="font-size: 25px; margin-bottom: 5px;" 
-                    onclick="addFavorites(<%=usedProduct.getUsed_product_id()%>, <%=member.getMember_id()%>)">
-                    ♥
-                    </div>
+	                    <div class="btn-success" id="<%=usedProduct.getUsed_product_id() %>" style="font-size: 25px; margin-bottom: 5px;" 
+	                    onclick="addFavorites(<%=usedProduct.getUsed_product_id()%>)">
+	                    ♥
+	                    </div>
                     <%} else{ %>
-                    <div class="btn-danger" style="font-size: 25px; margin-bottom: 5px;"
-                    onclick="delFavorites(<%=usedProduct.getFavorites_id()%>)">
-                    ♥
-                    </div>
+	                    <div class="btn-danger" id="<%=usedProduct.getUsed_product_id() %>" style="font-size: 25px; margin-bottom: 5px;"
+	                    onclick="delFavorites(<%=usedProduct.getFavorites_id()%>)">
+	                    ♥
+	                    </div>
                     <%} %>
                     <strong><%= usedProduct.getUsed_product_name() %></strong>
                 </div>

@@ -15,4 +15,6 @@ public interface UsedProductDAO {
 	public void soldout(int used_product_id);
 	public void deleteProduct(int used_product_id);
 	public void deleteFavorites(int used_product_id);
+	public void deleteFavoritesOne(int used_favorites_id);
+	public int insertFavorites(UsedFavorites usedFavorites);
 }

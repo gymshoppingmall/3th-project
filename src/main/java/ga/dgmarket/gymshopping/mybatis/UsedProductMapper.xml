@@ -18,7 +18,7 @@
 		p.used_product_price as used_product_price, used_img,
 		(select member_id from used_favorites f 
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
-		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as used_favorites_id
+		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
 		from used_product p, used_product_img i, member m
 		where p.used_product_id=i.used_product_id and i.used_img_index=0 and p.member_id=m.member_id and p.soldout='no'
 		order by p.used_product_id desc;

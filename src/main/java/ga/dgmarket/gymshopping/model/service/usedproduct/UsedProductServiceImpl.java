@@ -168,6 +168,11 @@ public class UsedProductServiceImpl implements UsedProductService{
 	public void soldout(HttpServletRequest request, int used_product_id) {
 		usedProductDAO.soldout(used_product_id);
 	}
+	
+	//상품 찜하기
+	public int addFavorites(HttpServletRequest request, UsedFavorites usedFavorites) throws DMLException{
+		return usedProductDAO.insertFavorites(usedFavorites);
+	}
 }
 
 
