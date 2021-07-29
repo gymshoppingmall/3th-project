@@ -25,5 +25,6 @@ select count(member_id) from member WHERE regdate>=date_add(now(), INTERVAL -1 M
 INSERT into product(sub_category_id, product_name, product_detail, price)
 values(1,'테스트용더미','데이터입니다',123000);
 
---test 브런치 테스트 테스트 또
+--일반 사용자 등급 추가 (판매자, 블랙리스트) 등.. /석민
+alter table member add user_grade int not null default 1;
 
