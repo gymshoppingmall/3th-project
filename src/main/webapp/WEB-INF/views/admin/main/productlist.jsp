@@ -3,7 +3,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	List<Product> productList = (List)request.getAttribute("productList");
-	int cnt = (int)(request.getAttribute("cnt"));
 	int totalRecord = productList.size();
 	int blockSize = 10; //한번에 보여질 최대 페이지 수
 	int pageSize = 10; //한번에 보여질 최대 요소 수 (게시글..회원 등등)

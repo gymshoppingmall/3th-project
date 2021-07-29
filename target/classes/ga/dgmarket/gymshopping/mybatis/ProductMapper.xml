@@ -23,7 +23,7 @@
 	</delete>	
 	
 	<insert id="insert" parameterType="Product">
-		insert into product(sub_category_id, product_name, product_detail, price)
-		values (#{sub_category_id}, #{product_name}, #{product_detail}, #{price})
+		insert into product(top_category_id, product_name, product_detail, price, brand, product_inven, product_img)
+		values (#{top_category_id}, #{product_name}, #{product_detail}, #{price}, #{brand}, #{product_inven},#{product_img})
 	</insert>
 </mapper>

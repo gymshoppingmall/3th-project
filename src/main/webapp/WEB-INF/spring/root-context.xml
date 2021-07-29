@@ -31,7 +31,9 @@
 
 	<!-- 다중 파일 업로드를 위해 MultipartResolver를 사용하기 위한 빈 등록 -->
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+		<property name="maxUploadSize" value="5242880"/><!-- 5MB 제한 -->
+		</bean>
 		
 	<!-- 위에서 등록한 빈들은 제외한 나머지 Service,DAO 등은 자동 검색하여 등록을 실시 @Service, @Repository 
 		등등 자동으로 메모리에 인스턴스 생성 그리고 해당 빈에 @Autowired가 등록되어 있다면, weaving 마저도 자동 등록 주입 -->
