@@ -173,6 +173,11 @@ public class UsedProductServiceImpl implements UsedProductService{
 	public int addFavorites(HttpServletRequest request, UsedFavorites usedFavorites) throws DMLException{
 		return usedProductDAO.insertFavorites(usedFavorites);
 	}
+	
+	//찜 한 건 삭제하기
+	public void delFavorites(HttpServletRequest request, int used_favorites_id) throws DMLException{
+		usedProductDAO.deleteFavoritesOne(used_favorites_id);
+	}
 }
 
 

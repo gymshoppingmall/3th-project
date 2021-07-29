@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -98,6 +99,13 @@ public class UsedProductController {
 		int favorites_id = usedProductService.addFavorites(request, favorites);
 		
 		return Integer.toString(favorites_id);
+	}
+	
+	@GetMapping("/used/product/delfavorites")
+	@ResponseBody
+	public String delfavorites(HttpServletRequest request, int used_favorites_id) {
+		usedProductService.delFavorites(request, used_favorites_id);
+		return "";
 	}
 	
 	

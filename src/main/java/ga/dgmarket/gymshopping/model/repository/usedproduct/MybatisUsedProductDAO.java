@@ -62,8 +62,12 @@ public class MybatisUsedProductDAO implements UsedProductDAO{
 	}
 
 	//찜 정보 한건 삭제
-	public void deleteFavoritesOne(int used_favorites_id) {
-		sqlSessionTemplate.delete("UsedFavorites.deleteOne", used_favorites_id);
+	public void deleteFavoritesOne(int used_favorites_id) throws DMLException{
+		
+		int result = sqlSessionTemplate.delete("UsedFavorites.deleteOne", used_favorites_id);
+		if(result == 0) {
+			throw new DMLException("찜 한 건 삭제에 실패했습니다.");
+		}
 	}
 	
 	//상품에 대한 찜 등록
