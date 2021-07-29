@@ -29,8 +29,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public void regist(Product product) {
-		// TODO Auto-generated method stub
-		
+		productDAO.regist(product);
 	}
 
 	@Override
