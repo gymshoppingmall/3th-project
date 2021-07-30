@@ -4,4 +4,8 @@ import java.util.List;
 
 public interface TopCategoryDAO {
 	public List selectAll();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> seokmin

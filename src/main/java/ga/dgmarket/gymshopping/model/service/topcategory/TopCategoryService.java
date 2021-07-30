@@ -4,4 +4,8 @@ import java.util.List;
 
 public interface TopCategoryService {
 	public List selectAll();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> seokmin

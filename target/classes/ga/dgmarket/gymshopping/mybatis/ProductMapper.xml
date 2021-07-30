@@ -3,9 +3,22 @@
 <mapper namespace="Product">
 
 	<!-- 상품목록 불러오기 -->
-	<select id="selectAll" resultType="Product">
-		select * from product order by product_id desc
+	<resultMap type="Product" id="ProductTopCategory">
+		<id column="product_id" property="product_id"/>
+		<result column="product_name" property="product_name"/>	
+		<result column="product_img" property="product_img"/>	
+		<result column="price" property="price"/>	
+		<result column="brand" property="brand"/>	
+		<association column="top_category_id" property="topCategory" javaType="TopCategory"
+		select="TopCategory.select"/>
+	</resultMap>
+	
+	<select id="selectAll" resultMap="ProductTopCategory">
+		select product_id, product_name , product_img, price, brand ,tc.top_category_id , top_name
+		from product p , top_category tc 
+		where p.top_category_id = tc.top_category_id 
 	</select>
+<<<<<<< HEAD
 	
 	<!-- 상품상세보기를 위한 한건가져오기 from.도균 -->
 	<select id="select" parameterType="int" resultType="Product">
@@ -22,8 +35,30 @@
 	<!-- 단일상품 디테일 join문 이용해야 할 것 같아서..
 	<select id="select" resultType="Product" parameterType="int">
 		select * from product where product_id = #{product_id}
+=======
+
+	<!-- 단일상품 디테일-->
+	<resultMap type="Product" id="ProductTopCategoryDetail">
+		<id column="product_id" property="product_id"/>
+		<result column="product_name" property="product_name"/>	
+		<result column="product_img" property="product_img"/>	
+		<result column="price" property="price"/>	
+		<result column="brand" property="brand"/>	
+		<result column="product_inven" property="product_inven"/>
+		<result column="product_detail" property="product_detail"/>
+		<association column="top_category_id" property="topCategory" javaType="TopCategory"
+		select="TopCategory.select"/>
+	</resultMap>
+	
+	<select id="select" resultMap="ProductTopCategoryDetail" parameterType="int">
+		select product_id, product_name , product_img, price, brand ,tc.top_category_id , top_name , product_inven , product_detail
+		from product p , top_category tc 
+		where p.top_category_id = tc.top_category_id
+		and product_id = #{product_id}
+>>>>>>> seokmin
 	</select>
-	-->
+	
+	
 	<!-- 상품삭제 -->
 	<delete id="delete" parameterType="int">
 		delete from product where product_id=#{product_id}

@@ -6,4 +6,8 @@ import lombok.Data;
 public class TopCategory {
 	private int top_category_id;
 	private String top_name;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> seokmin
