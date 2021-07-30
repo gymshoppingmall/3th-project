@@ -116,7 +116,7 @@
                     <h4 class="card-title"><%=product.getProduct_name() %></h4>
                     <input type="hidden" name="product_img" value="이미지">
                     <p class="card-text"><%=product.getPrice() %>원</p>
-                    <a class="btn btn-primary" onclick="location.href='/member/detail?product_id=<%=product.getProduct_id()%>'">둘러보기</a>
+                    <a class="btn btn-primary" onclick="location.href='/member/product/detail?product_id=<%=product.getProduct_id()%>'">둘러보기</a>
                 </div>
             </div>
 			<%} %>      
