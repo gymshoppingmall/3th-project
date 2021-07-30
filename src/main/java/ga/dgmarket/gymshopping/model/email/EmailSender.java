@@ -1,4 +1,4 @@
-package ga.dgmarket.gymshopping.email;
+package ga.dgmarket.gymshopping.model.email;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;

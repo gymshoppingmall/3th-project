@@ -1,4 +1,4 @@
-package ga.dgmarket.gymshopping.email;
+package ga.dgmarket.gymshopping.model.email;
 
 public class DM {
 	//회원가입시 인증번호 발송

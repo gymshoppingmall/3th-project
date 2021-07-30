@@ -316,30 +316,8 @@ h1.header-w3ls {
 	text-align: left;
 }
 
-button[type=button] {
-	width: 40%;
-	background: #0dd0ce;
-	outline: none;
-	color: #fff;
-	font-size: 15px;
-	font-weight: 400;
-	border: none;
-	padding: 15px 10px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	cursor: pointer;
-	transition: 0.5s all;
-	margin: 20px 0px 0px;
-	-webkit-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-ms-transition: 0.5s all;
-}
 
-button:hover {
-	color: #fff;
-	background: #000;
-}
+
 
 .w3layouts_more-buttn a {
 	font-size: 16px;
@@ -1094,21 +1072,86 @@ button::-moz-focus-inner {
 		}
 	}
 }
+
+.img_area{
+	padding: 20px;
+}
+
+.select_img{
+	padding: 15px;
+}
+
+.btemail{
+	width: 40px;
+	height:30px;
+}
+
+
+/* 중복아이디 존재하지 않는경우 */
+.id_input_re_1 {
+	color: green;
+	display: none;
+}
+/* 중복아이디 존재하는 경우 */
+.id_input_re_2 {
+	color: red;
+	display: none;
+}
+.btimg{
+	border: none;
+	background-color: white;
+	width: 40%;
+	padding: 20px -10px;
+	letter-spacing: 1px;
+	transition: 0.5s all;
+	margin: 20px 20px 0px;
+	-webkit-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+}
+.box-file-input label{
+  display:inline-block;
+  background:#23a3a7;
+  color:#fff;
+  padding:0px 15px;
+  line-height:35px;
+  cursor:pointer;
+}
+
+.box-file-input label:after{
+  content:"파일등록";
+}
+
+.box-file-input .file-input{
+  display:none;
+}
+
+.box-file-input .filename{
+  display:inline-block;
+  padding-left:10px;
+}
 </style>
 </head>
 <body>
-	<h1 class="header-w3ls">Welcome+_+!!!!</h1>
+	<h1 class="header-w3ls"><%=member.getName() %>님의 회원정보 수정</h1>
 	<div class="art-bothside">
 		<div class="mid-cls">
 			<div class="art-right-w3ls">
 				<form>
+				
 					<input type="hidden" name="member_id"
-						value="<%=member.getMember_id()%>"> <input type="hidden"
+						value="<%=member.getMember_id()%>"> 
+						<input type="hidden"
 						name="profile_img" value="<%=member.getProfile_img()%>">
 					<div class="main">
 						<div class="form-left-to-w3l">
-							<input type="text" name="user_id" required=""
+							<input type="text" class="id_input" name="user_id" required=""
 								value="<%=member.getUser_id()%>">
+						</div>
+						<div>
+							<span class="id_input_re_1">사용 가능한 아이디입니다.</span> <span
+								class="id_input_re_2">아이디가 이미 존재합니다.</span>
 						</div>
 						<div class="main">
 							<div class="form-left-to-w3l">
@@ -1152,31 +1195,36 @@ button::-moz-focus-inner {
 						<div class="form-right-w3ls">
 							<input type="email" name="email" required=""
 								value="<%=member.getEmail()%>">
+								<!-- 
 							<input type="button"
-							onclick="" value="이메일 인증"><br>
+							onclick="" value="이메일 인증"><br>								
+								 -->
+							
 						</div>
 					</div>
 					<div class="btnn">
-						<button type="button" class="btn btn-primary" onClick="update()">수정</button>
-						<button type="button" class="btn btn-primary" onClick="del()">탈퇴</button>
+						<button type="button" class="btimg" onClick="update()"><img src="/resources/img/edit.png" alt="" style="width:80%; height:60px; cursor:pointer;" title="회원정보수정"></button>
+						<button type="button" class="btimg" onClick="del()"><img src="/resources/img/remove.png" alt="" style="width:80%; height:60px; cursor:pointer;" title="회원탈퇴"></button>
 					</div>
 					<div class="banner-agileits-btm">
 						<div class="w3layouts_more-buttn"></div>
 					</div>
 			</div>
 			<div class="art-left-w3ls">
-				<h3 fontSize="40">상점에 이용할 사진을 선택해주세요!</h3>
+				<h3 style="color:#2b96a4; font-size:35px; font-weight: bold; font-family: '굴림';">상점에 이용할 사진을 선택해주세요!</h3>
 				<br>
 				<div class="img_area">
 					<div class="select_img">
-					
-						<img style="width: 100%; height: 670px; border: 2px black solid;"
+						<img style="width: 400px; height: 400px; border: 2px gray solid; border-radius: 70%;"
 							id="thumb"
 							src="/resources/data/<%=member.getProfile_img()%>"
 							alt="content.jsp" value="">
 					</div>
 					<br>
-					<input type="file" name="photo" required="" id="photo" />
+					<div class="box-file-input">
+					<label><input type="file" name="photo" id="photo" class="file-input" accept="image/*"></label><span class="filename">파일을 선택해주세요.
+					<!--  <input type="file" name="photo" required="" id="photo" />		-->			
+					</div>
 				</div>
 			</div>
 			</form>
@@ -1266,6 +1314,36 @@ button::-moz-focus-inner {
 
 </script>
 	<script>
+	//아이디 중복검사
+	$('.id_input').on(
+			"propertychange change keyup paste input",
+			function() {
+
+				//console.log("keyup 테스트");
+				var memberId = $('.id_input').val(); // .id_input에 입력되는 값
+				var data = {
+					user_id : memberId
+				} // '컨트롤에 넘길 데이터 이름' : '데이터(.id_input에 입력되는 값)'
+				console.log("데이터는?" + memberId);
+				$.ajax({
+					type : "post",
+					url : "/member/memberIdChk",
+					data : data,
+					success : function(result, status, xhr) {
+						// console.log("성공 여부" + result);
+						if (result != 'fail') {
+							$('.id_input_re_1').css("display",
+									"inline-block");
+							$('.id_input_re_2').css("display", "none");
+						} else {
+							$('.id_input_re_2').css("display",
+									"inline-block");
+							$('.id_input_re_1').css("display", "none");
+						}
+					}// success 종료
+				}); // ajax 종료
+			});// function 종료
+	
 	//핸드폰번호 자동 하이픈 생성
 	$(document).on("keyup", "#phone", function() {
 		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
@@ -1310,14 +1388,28 @@ button::-moz-focus-inner {
 		reader.readAsDataURL(input.files[0]);
 	}
 	
+	//파일이름
+	$(document).on("change", ".file-input", function(){
+		   
+	    $filename = $(this).val();
+
+	    if($filename == "")
+	      $filename = "파일을 선택해주세요.";
+
+	    $(".filename").text($filename);
+
+	  })
 		//회원정보 수정 요청
 		function update() {
+			if(confirm("수정 하시겠습니까?")){
 			$("form").attr({
 				action : "/member/join/update",
 				method : "post",
 				enctype : "multipart/form-data"
 			});
+			}
 			$("form").submit();
+			
 		}
 
 		//회원 탈퇴 요청
@@ -1330,8 +1422,8 @@ button::-moz-focus-inner {
 				});
 			}
 			$("form").submit();
-			confirm("탈퇴되었습니다.");
 		}
+		
 	</script>
 </body>
 </html>
