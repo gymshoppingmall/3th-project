@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ProductController {
 	
 	// 물품 상세보기 요청처리 --도균--
-		@RequestMapping(value = "/detail", method = RequestMethod.GET)
+		@RequestMapping(value = "/detailform", method = RequestMethod.GET)
 		public String detailform() {
 			
 			return "member/shop/detail";
