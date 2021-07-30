@@ -64,6 +64,7 @@
 </style>
 <script>
 
+//상점 ID 복사하기
 function copyLink(){
     var linkText = document.getElementById("link");
     linkText.setAttribute("type" , "text");
@@ -72,12 +73,40 @@ function copyLink(){
     linkText.setAttribute("type" , "hidden");
     bootbox.alert("상점-ID 복사를 완료했습니다.", function(){});
 }
+
+//리뷰 등록하기
+function registReview(){
+	$.ajax({
+		"url" : "/member/used/store/review/regist",
+		"type" : "post",
+		data : {
+			"member_id" : <%=storeMember.getMember_id()%>, 
+			"writer_id" : <%=member.getMember_id()%>,
+			"content" : $("input[name='content']").val()
+		},
+		success : function (result, xhr, status){
+			alert(result);
+		},
+		error : function(status, xhr, er)	{
+			
+			
+		}	
+	});
+}
+
+//내가 쓴 리뷰 한 건 삭제
+function deleteReview(){
+	
+	
+}
 </script>
 </head>
 <body>
 
 	<!-- 중고거래 top_navi -->
 	<%@ include file="../inc/top_navi.jsp" %>
+	<!-- 중고거래 side_controll -->
+	<%@ include file="../inc/side_controll.jsp"  %>
 	
     <!-- 상점의 주소를 복사할 수 있는 주소 링크를 담아놓는 곳 -->
     <!-- session을 조회해서 상점ID 넣기 currTime으로 주소 구하면 될 듯 -->
@@ -193,14 +222,15 @@ function copyLink(){
 				<%} %>     
             <%} %>
             
+            
             <!-- 상품 후기를 미리볼 수 있는 컨테이너 -->
             <% if(reviewList.size() != 0) { %>
-				<div class="review_container" style="margin-top: 60px;">
+				<div class="review_container" style="margin-top: 60px; margin-bottom: 50px">
 				    <div class="row text-left">
 				        <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님 상점 이용 후기</h4></div>
 				        <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
 				    </div>
-				    <table class="table">
+				    <table class="table" style="width: 100%">
 				        <thead>
 				            <tr>
 				                <th>후기</th>
@@ -212,19 +242,44 @@ function copyLink(){
 				        	<%for(int i = 0; i < reviewList.size(); i++){ %>
 				        		<%if(i > 4) break; %>
 				        		<% UsedReview review = (UsedReview)reviewList.get(i); %>
-				             <tr>
-				                 <td><%=review.getUsed_review_title() %></td>
-				                 <td><%=review.getUsed_review_writer() %></td>
-				                 <td><%=review.getUsed_review_regdate() %></td>
-				             </tr>
+				        		<%if(review.getWriter_id() == member.getMember_id()) {%>
+						        	<tr style="background-color:teal;" onclick="deleteReview(<%= review.getUsed_review_id()%>)">
+						        <% } else {%>    
+						        	<tr>
+						        <% } %>
+						                 <td><%=review.getContent() %></td>
+						                 <td><%=review.getWriter() %></td>
+						                 <td><%=review.getRegdate() %></td>
+						             </tr>
 				            <%} %>
+				            <tr>
+					            <td colspan="2">
+					            	<input type="text" name="content" placeholder="짧은 상점 이용후기를 남겨주세요." style="width: 100%">
+					            </td>
+					            <td>
+					            	<button style="background-color: #5cb85c; color: white" onclick="registReview()">등록</button>
+					            </td>				             
+					        </tr>
+
 				        </tbody>
 				    </table>
 				</div>
+				
+				
             <%} else { %>
-				<div class="review_container" style="margin-top: 60px;">
+				<div class="review_container" style="margin-top: 60px; margin-bottom: 50px">
 					<div class="row text-left">
 						<div class="col-sm-10"><h4>등록된 후기가 아직 없습니다.</h4></div>
+						<table class="table" style="width: 100%">
+							<tr>
+				             	<td colspan="2">
+				             		<input type="text" name="content" placeholder="짧은 상점 이용후기를 남겨주세요." style="width: 100%">
+				             	</td>
+				             	<td>
+				             		<button style="background-color: #5cb85c; color: white" onclick="registReview()">등록</button>
+				             	</td>				             
+				            </tr>
+						</table>
 					</div>
 				</div>
             <% } %>

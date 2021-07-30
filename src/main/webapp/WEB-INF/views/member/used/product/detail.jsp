@@ -122,6 +122,8 @@ function delFavorites(used_favorites_id){
 <body>
 	<!-- 중고거래 top_navi -->
 	<%@ include file="../inc/top_navi.jsp" %>
+	<!-- 중고거래 side_controll -->
+	<%@ include file="../inc/side_controll.jsp"  %>
 	
     <div class="wrapper">
         <!-- 상품의 태그를 보여줄 박스 -->

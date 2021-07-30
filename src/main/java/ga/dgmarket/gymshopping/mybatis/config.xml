@@ -15,7 +15,6 @@
 		
 		<!-- 중고거래 관련 from.조성일 -->
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedFavorites" alias="UsedFavorites"/>
-		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedOrd" alias="UsedOrd"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedProduct" alias="UsedProduct"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedProductExtend" alias="UsedProductExtend"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedProductImg" alias="UsedProductImg"/>
@@ -36,7 +35,6 @@
 			
 		<!-- 중고거래 관련 from.조성일 -->
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/UsedFavoritesMapper.xml"/>
-		<mapper resource="ga/dgmarket/gymshopping/mybatis/UsedOrdMapper.xml"/>
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/UsedProductMapper.xml"/>
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/UsedProductImgMapper.xml"/>
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/UsedReviewMapper.xml"/>

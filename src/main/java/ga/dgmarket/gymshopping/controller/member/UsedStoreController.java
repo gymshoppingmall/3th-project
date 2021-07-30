@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import ga.dgmarket.gymshopping.domain.UsedProduct;
+import ga.dgmarket.gymshopping.domain.UsedReview;
 import ga.dgmarket.gymshopping.exception.DMLException;
 import ga.dgmarket.gymshopping.exception.UploadException;
 import ga.dgmarket.gymshopping.model.service.usedStore.UsedStoreService;
@@ -38,6 +39,15 @@ public class UsedStoreController {
 		
 		model.addAttribute("storeMap", storeMap);
 		return "member/used/store/store";
+	}
+	
+	@PostMapping("/used/store/review/regist")
+	public String registReview(UsedReview usedReview) {
+		System.out.println("리뷰 작성자의 id : "+usedReview.getWriter_id());
+		System.out.println("리뷰를 작성할 상점id : "+usedReview.getMember_id());
+		System.out.println("리뷰 내용 : "+usedReview.getContent());
+		
+		return "gd";
 	}
 	
 	
