@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import ga.dgmarket.gymshopping.domain.Member;
+import ga.dgmarket.gymshopping.domain.Product;
 import ga.dgmarket.gymshopping.exception.DMLException;
 import ga.dgmarket.gymshopping.exception.FileHandleException;
 import ga.dgmarket.gymshopping.exception.MemberExistException;
@@ -83,18 +84,29 @@ public class MemberController {
 	}
 	
 	//멤버 메인 페이지 요청 및 리퀘스트에 상품저장 --도균--
-		@GetMapping("/main")
-		public String getMain(HttpServletRequest request) {
-			
-			// 3단계: 일 시키기
-			List productNewList = productService.selectNewItem();
-			
-			// 4단계: 저장
-			request.setAttribute("productNewList", productNewList);
-			
-			return "member/main/main";
-		}
+	@GetMapping("/main")
+	public String getMain(HttpServletRequest request) {
+		
+		// 3단계: 일 시키기
+		List productNewList = productService.selectNewItem();
+		
+		// 4단계: 저장
+		request.setAttribute("productNewList", productNewList);
+		
+		return "member/main/main";
+	}
 
+	//상세보기 페이지 요청
+	@GetMapping("/detail")
+	public String productDetail(int product_id, Model model) {
+		System.out.println("컨트롤러에 닿은 물품 ID는 = "+product_id);
+		Product product=productService.select(product_id);
+		model.addAttribute("product", product);
+		
+		return "member/shop/detail";
+	}
+		
+		
 	// 회원가입 폼 요청
 	@GetMapping("/registform")
 	public String joinForm(Model model) {

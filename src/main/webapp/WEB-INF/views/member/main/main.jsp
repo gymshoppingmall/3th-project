@@ -11,12 +11,15 @@
    member.setName("성일");
 
    session.setAttribute("member", member);
+<<<<<<< HEAD
+   
+=======
    /* System.out.print(session.getAttribute("member")); */
+>>>>>>> a50799923c565a59da0384da0e8e28839a806a53
 %>
 <%
 	//메인페이지 호출과 동시에 상품 받아오기 --도균--
 	List<Product> productNewList =(List)request.getAttribute("productNewList");
-
 %>
 <!doctype html>
 <html lang="en">
@@ -45,8 +48,7 @@
 <script src="/resources/js/popper.min.js"></script>
 <!-- Plugins js -->
 <script src="/resources/js/plugins.js"></script>
-<!-- Active js -->
-<script src="/resources/js/active.js"></script>
+
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -120,16 +122,23 @@
     <div class="product1">
         <div class="product-suggestion">따끈 따끈 신제품!!</div>
         <!-- Product DB에 있는 자료로 반복문 이용 상품카드 생성 -->
+        <form>
         	<%for(Product product : productNewList){ %>
             <div class="card" style="width:300px">
                 <img class="card-img-top" src="/resources/img/img1.jpg" alt="Card image">
                 <div class="card-body">
                     <h4 class="card-title"><%=product.getProduct_name() %></h4>
+                    <input type="hidden" name="product_img" value="이미지">
                     <p class="card-text"><%=product.getPrice() %>원</p>
+<<<<<<< HEAD
+                    <a class="btn btn-primary" onclick="location.href='/member/detail?=<%=product.getProduct_id()%>'">둘러보기</a>
+=======
                     <a href="#" class="btn btn-primary" onclick="getDetail(<%=product.getProduct_id()%>)">둘러보기</a>
+>>>>>>> a50799923c565a59da0384da0e8e28839a806a53
                 </div>
             </div>
-			<%} %>
+			<%} %>      
+        </form>
     </div>
     <!-- 신상품 상품진열 끝-->
 
@@ -238,8 +247,18 @@
 
     <!-- 상품 상세정보 요청 --도균-- -->
 	<script>
+<<<<<<< HEAD
+		function getDetail(){
+ 			$("form").attr({
+			action:"/member/detail",
+			method:"POST",
+			enctype:"multipart/form-data"
+			});
+			$("form").submit(); 
+=======
 		function getDetail(product_id){
 			alert(product_id);
+>>>>>>> a50799923c565a59da0384da0e8e28839a806a53
 		}
 	</script>
 </body>
