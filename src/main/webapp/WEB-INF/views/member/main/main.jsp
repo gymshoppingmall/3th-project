@@ -11,11 +11,6 @@
    member.setName("성일");
 
    session.setAttribute("member", member);
-<<<<<<< HEAD
-   
-=======
-   /* System.out.print(session.getAttribute("member")); */
->>>>>>> a50799923c565a59da0384da0e8e28839a806a53
 %>
 <%
 	//메인페이지 호출과 동시에 상품 받아오기 --도균--
@@ -130,11 +125,7 @@
                     <h4 class="card-title"><%=product.getProduct_name() %></h4>
                     <input type="hidden" name="product_img" value="이미지">
                     <p class="card-text"><%=product.getPrice() %>원</p>
-<<<<<<< HEAD
                     <a class="btn btn-primary" onclick="location.href='/member/detail?=<%=product.getProduct_id()%>'">둘러보기</a>
-=======
-                    <a href="#" class="btn btn-primary" onclick="getDetail(<%=product.getProduct_id()%>)">둘러보기</a>
->>>>>>> a50799923c565a59da0384da0e8e28839a806a53
                 </div>
             </div>
 			<%} %>      
@@ -247,7 +238,6 @@
 
     <!-- 상품 상세정보 요청 --도균-- -->
 	<script>
-<<<<<<< HEAD
 		function getDetail(){
  			$("form").attr({
 			action:"/member/detail",
@@ -255,10 +245,6 @@
 			enctype:"multipart/form-data"
 			});
 			$("form").submit(); 
-=======
-		function getDetail(product_id){
-			alert(product_id);
->>>>>>> a50799923c565a59da0384da0e8e28839a806a53
 		}
 	</script>
 </body>
