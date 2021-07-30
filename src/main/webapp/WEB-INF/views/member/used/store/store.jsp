@@ -39,6 +39,7 @@
     border-left: 2px solid black;
     border-right: 2px solid black;
     border-top: 2px solid black;
+    border-bottom : 2px solid black;
     margin-top: 35px
 }
 
@@ -64,6 +65,7 @@
 </style>
 <script>
 
+//상점 ID 복사하기
 function copyLink(){
     var linkText = document.getElementById("link");
     linkText.setAttribute("type" , "text");
@@ -72,12 +74,54 @@ function copyLink(){
     linkText.setAttribute("type" , "hidden");
     bootbox.alert("상점-ID 복사를 완료했습니다.", function(){});
 }
+
+//리뷰 등록하기
+function registReview(){
+	$.ajax({
+		"url" : "/member/used/store/review/regist",
+		"type" : "post",
+		data : {
+			"member_id" : <%=storeMember.getMember_id()%>, 
+			"writer_id" : <%=member.getMember_id()%>,
+			"content" : $("input[name='content']").val()
+		},
+		success : function (result, xhr, status){
+			bootbox.alert("리뷰를 등록했습니다.", function(){
+				location.href = "/member/used/store?member_id=<%=storeMember.getMember_id()%>"; //새로고침			
+			});
+		},
+		error : function(status, xhr, er)	{
+		}	
+	});
+}
+
+//내가 쓴 리뷰 한 건 삭제
+function deleteReview(used_review_id){
+	
+	bootbox.confirm("리뷰를 삭제하시겠습니까?", function(flag){
+		if(flag){ //리뷰 삭제를 원한다면.
+			$.ajax({
+				"url" : "/member/used/store/review/delete?used_review_id="+used_review_id,
+				"type" : "GET",
+				success : function (result, xhr, status){
+					bootbox.alert("리뷰를 삭제했습니다.", function(){
+						location.href = "/member/used/store?member_id=<%=storeMember.getMember_id()%>"; //새로고침			
+					});
+				},
+				error : function(status, xhr, er)	{
+				}	
+			});	
+		}
+	});
+}
 </script>
 </head>
 <body>
 
 	<!-- 중고거래 top_navi -->
 	<%@ include file="../inc/top_navi.jsp" %>
+	<!-- 중고거래 side_controll -->
+	<%@ include file="../inc/side_controll.jsp"  %>
 	
     <!-- 상점의 주소를 복사할 수 있는 주소 링크를 담아놓는 곳 -->
     <!-- session을 조회해서 상점ID 넣기 currTime으로 주소 구하면 될 듯 -->
@@ -99,18 +143,18 @@ function copyLink(){
             <ul class="nav justify-content-center">
                 <%  if(member.getMember_id()==storeMember.getMember_id()) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><h5>정보수정</h5></a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#"><h5>판매목록</h5></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><h5>채팅목록</h5></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><h5>찜목록</h5></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><h5>채팅목록</h5></a>
+                </li>
                 <%  }else{ %>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><h5>판매목록</h5></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><h5>1 : 1 대화하기</h5></a>
                 </li>
@@ -121,7 +165,7 @@ function copyLink(){
         <hr>
 	 	<!-- 내가 등록한 상품과 찜한 상품, 상품 후기를 볼 수 있는 박스 -->
 	        <div class="content_container" style="padding-top: 30px;">
-        		<%if(productList.size() != 0) {%>
+        		<%if(productList.size() != 0) {%> <!-- 등록한 상품이 있다면 -->
 	            <!-- 내가 등록한 제품 미리보기 박스 -->
 	            <div class="product_box">
 	                <!-- 더보기 글씨 넣기 -->
@@ -131,7 +175,7 @@ function copyLink(){
 	                </div>
 	                
 	                <div class="row text-center">
-	                	<%for(int i = 0; i < productList.size(); i++){ %>
+	                	<%for(int i = 0; i < productList.size(); i++){ %> <!-- 상품 미리보기 -->
 	                		<%if(i > 2) break; %>
 		                	<%UsedProductImg usedProductImg = (UsedProductImg)productList.get(i); %>
 		                    <!--하나의 상품을 나타낼 박스-->
@@ -146,7 +190,7 @@ function copyLink(){
 	                    <%} %>
 	                </div>
 	            </div>
-            <%}else{ %>
+            <%}else{ %> <!-- 등록한 상품이 없다면 -->
 	            <!-- 내가 등록한 제품 미리보기 박스 -->
 	            <div class="product_box">
 	                <!-- 더보기 글씨 넣기 -->
@@ -159,8 +203,8 @@ function copyLink(){
 
             <!-- if(세션의 멤버 아이디와 현재 페이지가 같아야 보여질 찜){} -->
             <!-- 내가 찜한 제품 미리보기 박스 -->
-            <%if(member.getMember_id()==storeMember.getMember_id()){ %>
-            	<%if(favoritesList.size() != 0) {%>
+            <%if(member.getMember_id()==storeMember.getMember_id()){ %> <!-- 내 상점이라면 -->
+            	<%if(favoritesList.size() != 0) {%> <!-- 찜한 상품이 있다면 -->
 		            <div class="favorites_container" style="margin-top: 60px;">
 		                <!-- 더보기 글씨 넣기 -->
 		                <div class="row text-left">
@@ -168,7 +212,7 @@ function copyLink(){
 		                    <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
 		                </div>
 		                <div class="row text-center">
-		                    <%for(int i = 0; i < favoritesList.size(); i++){ %>
+		                    <%for(int i = 0; i < favoritesList.size(); i++){ %> <!-- 찜한 상품 미리보기 -->
 		                    	<%if(i > 2) break; %>
 		                		<%UsedProductImg usedProductImg = (UsedProductImg)favoritesList.get(i); %>
 			                    <!--하나의 상품을 나타낼 박스-->
@@ -183,7 +227,7 @@ function copyLink(){
 		              		<% } %>
 		                </div>
 		            </div>
-	            <%} else {%>
+	            <%} else {%> <!-- 찜한 상품이 없다면 -->
 	      			<div class="favorites_container" style="margin-top: 60px;">
 		                <!-- 더보기 글씨 넣기 -->
 		                <div class="row text-left">
@@ -193,14 +237,15 @@ function copyLink(){
 				<%} %>     
             <%} %>
             
+            
             <!-- 상품 후기를 미리볼 수 있는 컨테이너 -->
-            <% if(reviewList.size() != 0) { %>
-				<div class="review_container" style="margin-top: 60px;">
+            <% if(reviewList.size() != 0) { %> <!-- 작성된 후기가 있다면 -->
+				<div class="review_container" style="margin-top: 60px; margin-bottom: 50px">
 				    <div class="row text-left">
 				        <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님 상점 이용 후기</h4></div>
 				        <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
 				    </div>
-				    <table class="table">
+				    <table class="table" style="width: 100%">
 				        <thead>
 				            <tr>
 				                <th>후기</th>
@@ -212,19 +257,45 @@ function copyLink(){
 				        	<%for(int i = 0; i < reviewList.size(); i++){ %>
 				        		<%if(i > 4) break; %>
 				        		<% UsedReview review = (UsedReview)reviewList.get(i); %>
-				             <tr>
-				                 <td><%=review.getUsed_review_title() %></td>
-				                 <td><%=review.getUsed_review_writer() %></td>
-				                 <td><%=review.getUsed_review_regdate() %></td>
-				             </tr>
+				        		<%if(review.getWriter_id() == member.getMember_id()) {%>
+						        	<tr style="background-color: ivory;" onclick="deleteReview(<%= review.getUsed_review_id()%>)">
+						        <% } else {%>    
+						        	<tr>
+						        <% } %>
+						                 <td><%=review.getContent() %></td>
+						                 <td><%=review.getWriter() %></td>
+						                 <td><%=review.getRegdate() %></td>
+						             </tr>
 				            <%} %>
-				        </tbody>
+				            <% if(member.getMember_id()!=storeMember.getMember_id()){ %> <!-- 내 상점이 아니라면 -->
+					            <tr>
+						            <td colspan="2">
+						            	<input type="text" maxlength="40" name="content" placeholder="40자 이내의 짧은 이용후기를 남겨주세요." style="width: 100%">
+						            </td>
+						            <td>
+						            	<button style="background-color: #5cb85c; color: white" onclick="registReview()">등록</button>
+						            </td>				             
+						        </tr>
+					        <% } %>
+						</tbody>
 				    </table>
-				</div>
-            <%} else { %>
-				<div class="review_container" style="margin-top: 60px;">
+				</div>	
+            <%} else { %> <!-- 작성된 후기가 없다면 -->
+				<div class="review_container" style="margin-top: 60px; margin-bottom: 50px">
 					<div class="row text-left">
 						<div class="col-sm-10"><h4>등록된 후기가 아직 없습니다.</h4></div>
+						<table class="table" style="width: 100%">
+							<% if(member.getMember_id()!=storeMember.getMember_id()){ %> <!-- 내 상점이 아니라면 -->
+							<tr>
+				             	<td colspan="2">
+				             		<input type="text" maxlength="40" name="content" placeholder="40자 이내의 짧은 이용후기를 남겨주세요." style="width: 100%">
+				             	</td>
+				             	<td>
+				             		<button style="background-color: #5cb85c; color: white" onclick="registReview()">등록</button>
+				             	</td>				             
+				            </tr>
+				            <% } %>
+						</table>
 					</div>
 				</div>
             <% } %>

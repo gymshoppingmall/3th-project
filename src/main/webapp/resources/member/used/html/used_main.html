@@ -64,9 +64,16 @@
         outline: none;
     }
 
+
 </style>
 <script>
+var controllDiv;
 $(function(){
+    controllDiv = document.getElementById("controllDiv");
+    console.log(window.innerWidth+"gd");
+    controllDiv.style.left = window.innerWidth-(controllDiv.offsetWidth+100)+"px";
+    controllDiv.style.top = ((window.innerHeight/2)-150+window.scrollY)+"px";
+
     //최초 상품 4개를 보여주기
     loadProduct();
    
@@ -74,6 +81,20 @@ $(function(){
     $("#load").click(function(e){
         e.preventDefault(); //새로고침을 막아주는 함수
         loadProduct(e);
+    });
+
+    $(window).resize(function(){
+        controllDiv.style.left = window.innerWidth-(controllDiv.offsetWidth+100)+"px";
+        controllDiv.style.top = ((window.innerHeight/2)-150+window.scrollY)+"px";
+    });
+
+    $(window).scroll(function(){
+        controllDiv.style.top = (window.innerHeight/2)-150+"px";
+        console.log("div 탑 위치"+controllDiv.offsetTop);
+        console.log("스크롤 위치"+window.scrollY);
+        console.log("더한 값"+(controllDiv.offsetTop+window.scrollY));
+        var divTop = controllDiv.offsetTop+window.scrollY;
+        controllDiv.style.top = divTop+"px";
     });
 });
 
@@ -94,6 +115,9 @@ function setFavorites(used_product_id){
 </script>
 </head>
 <body>
+    
+
+
     <!-- 검색창 -->
     <div class="search_container" style="font-size: 20px;">
         <div class="row">

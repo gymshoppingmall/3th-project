@@ -24,14 +24,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 	@Override
 	public Product select(int product_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return productDAO.select(product_id);
 	}
 
-	@Override
 	public void regist(Product product) {
-		// TODO Auto-generated method stub
-		
+		productDAO.regist(product);
 	}
 
 	@Override

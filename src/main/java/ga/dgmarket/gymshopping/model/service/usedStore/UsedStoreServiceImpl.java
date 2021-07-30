@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ga.dgmarket.gymshopping.domain.Member;
 import ga.dgmarket.gymshopping.domain.UsedProductImg;
 import ga.dgmarket.gymshopping.domain.UsedReview;
+import ga.dgmarket.gymshopping.exception.DMLException;
 import ga.dgmarket.gymshopping.model.repository.member.MemberDAO;
 import ga.dgmarket.gymshopping.model.repository.usedproduct.UsedProductImgDAO;
 import ga.dgmarket.gymshopping.model.repository.usedreview.UsedReviewDAO;
@@ -41,6 +42,16 @@ public class UsedStoreServiceImpl implements UsedStoreService{
 		map.put("reviewList", reviewList);
 		
 		return map;
+	}
+	
+	//리뷰 한 건 삭제하기
+	public void deleteReview(int used_review_id) throws DMLException{
+		usedReviewDAO.delete(used_review_id);
+	}
+
+	//리뷰 한건 등록하기
+	public void registReview(UsedReview usedReview) throws DMLException{
+		usedReviewDAO.regist(usedReview);
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +36,8 @@ import ga.dgmarket.gymshopping.exception.FileHandleException;
 import ga.dgmarket.gymshopping.exception.MemberExistException;
 import ga.dgmarket.gymshopping.exception.UploadException;
 import ga.dgmarket.gymshopping.model.common.file.FileManager;
+import ga.dgmarket.gymshopping.model.email.DM;
+import ga.dgmarket.gymshopping.model.email.EmailSender;
 import ga.dgmarket.gymshopping.model.service.member.MemberService;
 import ga.dgmarket.gymshopping.model.service.product.ProductService;
 
@@ -54,6 +58,8 @@ public class MemberController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private EmailSender emailSender;
 	
 
 	// 로그인 폼 요청 처리
@@ -62,6 +68,8 @@ public class MemberController {
 
 		return "member/login/loginform";
 	}
+
+	
 
 	// 로그인 요청 처리
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -72,7 +80,7 @@ public class MemberController {
 		// 4단계: 저장
 		session.setAttribute("member", obj);
 		model.addAttribute("member", obj);
-		return "redirect:/member/main";
+		return "member/main/index";
 	}
 	
 	//멤버 메인 페이지 요청 및 리퀘스트에 상품저장 --도균--
@@ -154,39 +162,25 @@ public class MemberController {
 	
 	//회원수청요청처리
 	@PostMapping("/join/update")
-	public String update(Member member, HttpServletRequest request, Model model, MultipartFile photo) {
+	public String update(Member member, HttpServletRequest request, Model model) {
 		System.out.println("지금 멤버 프로필 이미지는 "+member.getProfile_img());
+		System.out.println("member's photoe "+member.getPhoto().getOriginalFilename().length());
+		int leng=member.getPhoto().getOriginalFilename().length();
 		
-		if(photo.getOriginalFilename()!=null && photo.getOriginalFilename()!="") {
-			fileManager.deleteFile(request.getServletContext(), member.getProfile_img());
-			
-			photo = member.getPhoto();
+		if(leng>0) {
 			ServletContext context = request.getServletContext();
+			fileManager.deleteFile(context, member.getProfile_img());
+
 			long time = System.currentTimeMillis();// 현재 날짜 구하기
 
 			// 원하는 위치에 파일 저장하기
-			String filename = time + "." + fileManager.getExt(photo.getOriginalFilename());
-			fileManager.saveFile(context, filename, photo);
+			String filename = time + "." + fileManager.getExt(member.getPhoto().getOriginalFilename());
+			fileManager.saveFile(context, filename, member.getPhoto());
 			member.setProfile_img(filename);
-			
-		}else {
-			//기존 파일 받아오기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			photo = member.getPhoto();
-			ServletContext context = request.getServletContext();
-			long time = System.currentTimeMillis();// 현재 날짜 구하기
-			
-			// 원하는 위치에 파일 저장하기
-			String filename = time + "." + fileManager.getExt(photo.getOriginalFilename());
-			fileManager.saveFile(context, filename, photo);
-			member.setProfile_img(filename);
-			
 			
 		}
-
 		memberService.update(member);
-		HttpSession session=request.getSession();
-		session.setAttribute("member", member);
-		
+
 		return "member/main/index";
 	}
 
@@ -197,6 +191,51 @@ public class MemberController {
 		fileManager.deleteFile(request.getServletContext(), member.getProfile_img());
 
 		return "member/main/index";
+	}
+	
+	//이메일
+	@RequestMapping("/certifiedMail")
+	@ResponseBody
+	public String certifiedMail(@RequestParam(required = false)String user_email) {
+		System.out.println("들어왔니?");
+		logger.info("해당 유저의 이메일 확인",user_email);
+		
+		String email="";
+		String subject="";
+		String content="";
+		String receiver="";
+		String sender="";
+		
+		int authCode=0;
+		String authCodes="";
+		boolean bool=false;
+		
+		if(user_email!=null && user_email.isEmpty()) {
+			email=user_email;
+			logger.info("이메일 계정체크={}",email);
+			for(int i=0;i<6;i++) {
+				authCode=(int)(Math.random()*9+1);
+				authCodes+=Integer.toString(authCode);
+				logger.info("6자리 랜덤={}",authCode);
+			}
+			
+			logger.info("난수 체크={}", authCodes);
+			
+			subject="안녕하세요 둑근마켓 페이지의 관리자입니다. 화원가입 인증번호입니다.";
+			content=DM.dmCertification(authCodes);
+			receiver=email;
+			sender="vndn1679@gmail.com";
+		}
+		
+		try {
+			emailSender.sendMail(subject, content, receiver, sender);
+			logger.info("이메일 발송성공");
+		} catch (MessagingException e) {
+			logger.info("이메일 발송 실패");
+			e.printStackTrace();
+		}
+		
+		return authCodes;
 	}
 
 	// 위의 요청을 처리하는 메서드 중에서 어느것 하나라도 예외가 발생하면 아래의 메서드가 동작하게 됨

@@ -144,7 +144,8 @@ function delFavorites(used_product_id, used_favorites_id){
 <body>
 	<!-- 중고거래 top_navi -->
 	<%@ include file="./inc/top_navi.jsp" %>
-
+	<!-- 중고거래 side_controll -->
+	<%@ include file="./inc/side_controll.jsp"  %>
     
 
     <!-- 중고상품의 이미지, 정보 등을 볼 수 있는 하나의 박스 -->

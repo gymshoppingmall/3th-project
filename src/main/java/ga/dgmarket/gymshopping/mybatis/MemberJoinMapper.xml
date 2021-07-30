@@ -4,9 +4,9 @@
 
 	<insert id="join" parameterType="Member">
 		insert into member(user_id,
-		password, name, storename, store_id, profile_img, phone, addr, email)
+		password, name, storename, store_id, profile_img, phone, addr, email, emailchk)
 		values(#{user_id}, #{password}, #{name}, #{storename}, #{store_id},
-		#{profile_img}, #{phone}, #{addr}, #{email})
+		#{profile_img}, #{phone}, #{addr}, #{email}, #{emailchk})
 	</insert>
 
 </mapper>

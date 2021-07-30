@@ -14,10 +14,11 @@ public class Member {
 	private String name;
 	private String storename;
 	private String store_id;
-	MultipartFile photo;
 	private String profile_img;
 	private String phone;
 	private String addr;
 	private String email;
 	private String regdate;
+	private String emailchk;
+	MultipartFile photo;
 }

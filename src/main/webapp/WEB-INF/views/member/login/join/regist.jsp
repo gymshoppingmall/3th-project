@@ -4,12 +4,6 @@
 <%
 Member member = (Member) request.getAttribute("member");
 %>
-<!--A Design by W3layouts
-   Author: W3layout
-   Author URL: http://w3layouts.com
-   License: Creative Commons Attribution 3.0 Unported
-   License URL: http://creativecommons.org/licenses/by/3.0/
-   -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,25 +33,9 @@ Member member = (Member) request.getAttribute("member");
 		window.scrollTo(0, 1);
 	}
 </script>
-<!-- Meta tags -->
-<!--pop-ups-->
-<link href="css/popuo-box.css" rel="stylesheet" type="text/css"
-	media="all" />
-<!-- //pop-ups-->
-<!--stylesheets-->
-<link href="css/style.css" rel='stylesheet' type='text/css' media="all">
-<!--//style sheet end here-->
 <link href="//fonts.googleapis.com/css?family=Barlow:300,400,500"
 	rel="stylesheet">
-
 <style type="text/css">
-/*--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
---*/
-/* reset */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
 	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
@@ -310,34 +288,6 @@ h1.header-w3ls {
 	color: #000;
 }
 
-.btnn {
-	text-align: left;
-}
-
-button[type=submit] {
-	width: 40%;
-	background: #0dd0ce;
-	outline: none;
-	color: #fff;
-	font-size: 15px;
-	font-weight: 400;
-	border: none;
-	padding: 15px 10px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	cursor: pointer;
-	transition: 0.5s all;
-	margin: 20px 0px 0px;
-	-webkit-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-ms-transition: 0.5s all;
-}
-
-button:hover {
-	color: #fff;
-	background: #000;
-}
 
 .w3layouts_more-buttn a {
 	font-size: 16px;
@@ -355,7 +305,7 @@ button:hover {
 }
 
 .w3layouts_more-buttn h3 {
-	font-size: 18px;
+	font-size: 30px;
 	color: #000;
 	text-align: center;
 	margin-top: 21px;
@@ -441,7 +391,7 @@ button:hover {
 		margin: 0px 0px 16px;
 	}
 	.w3layouts_more-buttn h3 {
-		font-size: 17px;
+		font-size: 30px;
 		margin-top: 18px;
 	}
 }
@@ -476,7 +426,7 @@ button:hover {
 		padding: 1.7em 1.5em 1.8em;
 	}
 	.w3layouts_more-buttn h3 {
-		font-size: 16px;
+		font-size: 30px;
 	}
 }
 
@@ -632,7 +582,7 @@ button:hover {
 		font-size: 13px;
 	}
 	.w3layouts_more-buttn h3 {
-		font-size: 15px;
+		font-size: 30px;
 	}
 }
 
@@ -974,26 +924,7 @@ button::-moz-focus-inner {
 	border: solid 1px #222;
 }
 
-.login input[type="submit"], .signup input[type="submit"] {
-	background: #347083;
-	border: 0px;
-	padding: 5px 10px;
-	margin: 10px 10px;
-	outline: none;
-	font-size: 18px;
-	color: #fff;
-	text-transform: uppercase;
-	width: 17%;
-	-webkit-appearance: none;
-}
 
-.login input[type="submit"]:hover, .signup input[type="submit"]:hover {
-	background: #163035;
-	-webkit-transition: all 0.5s ease-in-out;
-	-moz-transition: all 0.5s ease-in-out;
-	-o-transition: all 0.5s ease-in-out;
-	transition: all 0.5s ease-in-out;
-}
 
 @media ( max-width :1440px) {
 	#small-dialog1 {
@@ -1092,6 +1023,19 @@ button::-moz-focus-inner {
 		}
 	}
 }
+.img_area{
+	padding: 20px;
+}
+
+.select_img{
+	padding: 15px;
+}
+
+.btemail{
+	width: 40px;
+	height:30px;
+}
+
 
 /* 중복아이디 존재하지 않는경우 */
 .id_input_re_1 {
@@ -1103,10 +1047,44 @@ button::-moz-focus-inner {
 	color: red;
 	display: none;
 }
+.box-file-input label{
+  display:inline-block;
+  background:#23a3a7;
+  color:#fff;
+  padding:0px 15px;
+  line-height:35px;
+  cursor:pointer;
+}
+
+.box-file-input label:after{
+  content:"파일등록";
+}
+
+.box-file-input .file-input{
+  display:none;
+}
+
+.box-file-input .filename{
+  display:inline-block;
+  padding-left:10px;
+}
+.btimg{
+	border: none;
+	background-color: white;
+	width: 40%;
+	padding: 20px -10px;
+	letter-spacing: 1px;
+	transition: 0.5s all;
+	margin: 20px 20px 0px;
+	-webkit-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-ms-transition: 0.5s all;
+}
 </style>
 </head>
 <body>
-	<h1 class="header-w3ls">Welcome+_+!!!!</h1>
+	<h1 class="header-w3ls">회원가입</h1>
 	<div class="art-bothside">
 		<div class="mid-cls">
 			<div class="art-right-w3ls">
@@ -1139,7 +1117,7 @@ button::-moz-focus-inner {
 							<input type="text" name="storename" placeholder="Storename"
 								required="">
 						</div>
-						<label for="store_id">하단의 문자는 고객님의 스토어 id입니다.</label><br>
+						<label for="store_id" style="color:red">하단의 문자는 고객님의 스토어 id입니다.</label><br>
 						<div class="form-left-to-w3l">
 							<input type="text" name="store_id" id="store_id" required=""
 								value="" readonly>
@@ -1161,46 +1139,48 @@ button::-moz-focus-inner {
 						</div>
 						<div class="mail_check_wrap">
 						<div class="form-right-w3ls">
-							<input type="email" name="email" placeholder="Email" required=""
+							<input type="email" name="email" id="email" class="email" placeholder="Email" required=""
 								onmousedown="sendAddr()">
 						</div>
-							<input type="button"
-							onclick="" value="이메일 인증"><br>
-						</div>
-						</div>
-					<div class="btnn">
-						<button type="submit">Sign Up</button>
-					</div>
-					<div class="banner-agileits-btm">
-						<div class="w3layouts_more-buttn"></div>
+						<!-- 
+							<input type="button" name="btemail" id="btemail" class="btemail" value="이메일 인증"><br>
+							<input type="text" name="writechk" class="writechk" id="writechk" value="" style="margin: 10px 0px 0px 0px;" ><br>
+							<span id="explainsp" style="padding:8px; display:inline-block; color:red">*메일로 보내드린 인증번호 6자리를 입력해주세요*</span>
+							<input type="hidden" name="emailchk" class="emailchk" id="emailchk" value="">
+							-->
 
-					</div>
+						</div>
+						</div>
 			</div>
 			<div class="art-left-w3ls">
-				<h3 fontSize="40">상점에 이용할 사진을 선택해주세요!</h3>
+				<h3 style="color:#2b96a4; font-size:35px; font-weight: bold; font-family: '굴림';">상점에 이용할 사진을 선택해주세요!</h3>
 				<br>
+				<div class="select_img">
+					<img style="width: 400px; height: 400px; border: 2px gray solid; border-radius: 70%;"
+						id="thumb" class="thumb"
+						src="/resources/img/basic.png"
+						alt="" value="<%=request.getRealPath("/")%>">
+						<!-- 
 				<div class="img_area">
-					<input type="file" name="photo" required="" id="photo" />
-					<div class="select_img">
-						<img style="width: 100%; height: 670px; border: 2px black solid;"
-							id="thumb"
-							src="https://user-images.githubusercontent.com/67699933/126874025-4002c1e3-6105-4489-9325-8bf03b7233f0.png"
-							alt="" value="<%=request.getRealPath("/")%>">
+					<input type="file" name="photo" required="" id="photo" /><br>
 					</div>
-					<script>
-						
-					</script>
+					-->
 					<br>
+					<div class="box-file-input">
+					<label><input type="file" name="photo" id="photo" class="file-input" accept="image/*"></label><span class="filename">파일을 선택해주세요.
+					<!--  <input type="file" name="photo" required="" id="photo" />		-->			
+					</div>
+					<br>
+					<div class="btnn">
+						<button type="submit" class="btimg"><img src="/resources/img/signup.png" alt="" style="width:80%; height:150px; cursor:pointer;" title="회원가입"></button>
+					</div>
 				</div>
 			</div>
 			</form>
 		</div>
 	</div>
-
-	<!--js working-->
-
-	<!--//js working-->
 	<script>
+	//비밀번호 확인
 		var password = document.getElementById("password"), confirm_password = document
 				.getElementById("confirm_password");
 
@@ -1215,9 +1195,6 @@ button::-moz-focus-inner {
 		password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
 	</script>
-	<!--//scripts-->
-
-	<!-- //pop-up-box -->
 	<script>
 		// Random Code 생성
 		$('input[name=store_id]')
@@ -1269,7 +1246,18 @@ button::-moz-focus-inner {
 				$(document).on("keyup", "#phone", function() {
 					$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 				});
+				
+				//파일이름
+				$(document).on("change", ".file-input", function(){
+					   
+				    $filename = $(this).val();
 
+				    if($filename == "")
+				      $filename = "파일을 선택해주세요.";
+
+				    $(".filename").text($filename);
+
+				  })
 				
 				//메인 이미지를 변경했을 때 Thumb 화면이 바뀌게 되며
 				//이미지 파일을 취소한 경우 기본 이미지인 득근 마켓으로 변경된다.
@@ -1285,7 +1273,7 @@ button::-moz-focus-inner {
 						}
 					}else{
 						//이미지가 안올려져 있다면 기본 이미지로 수정
-						$("#thumb").attr("src", "https://user-images.githubusercontent.com/67699933/126874025-4002c1e3-6105-4489-9325-8bf03b7233f0.png");
+						$("#thumb").attr("src", "/resources/img/basic.png");
 					}
 				});
 				
@@ -1309,6 +1297,54 @@ button::-moz-focus-inner {
 					}
 					reader.readAsDataURL(input.files[0]);
 				}
+
+				//이메일
+				$("#btemail").click(function(){
+					
+					console.log("전송중?");
+					var user_email=$(".email").val();
+					
+					var key;//인증키
+					var bool=true;
+					
+					if(bool){
+						$.ajax({
+							url:"<c:url value='/member/certifiedMail'>",
+							type:"post",
+							dataType:"json",
+							data:{"user_email":email},
+							success:function(result, status, xhr){
+								alert("인증번호 발송");
+								key=result;
+								bool=false;
+							},
+							error:function(result, status, error){
+								alert("Error : "+status+error);
+							}
+						});
+						$(".writechk").show();
+						$(".btemail").val("인증번호 확인");
+						
+						$(".writechk").keyup(function(){
+							var userContent=$(".writechk").val();
+							
+							if(userContent==key){
+								alert("인증성공");
+								$("#emailchk").val("Y");//DB에 저장할거라 숨겨져있음(Y or N)
+								$("#btemail").val("인증완료");
+								$("#btemail").attr("disabled", true); //읽기전용으로 전환
+								$(".writechk").attr("disabled", true);
+							}else{
+								$("#emailchk").val("N");
+								$("#btemail").val("인증번호 재발송");
+								event.preventDefault();
+							}
+            });
+          }else{
+            alert("test=>false");
+					  event.preventDefault();
+          }
+        });
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -1361,6 +1397,7 @@ button::-moz-focus-inner {
         }).open();
     }
     
+    //주소합치기
     function sendAddr(){
     	$("input[name='addr']").val(
     			$("#sample6_postcode").val()+"/"+$("#sample6_address").val()+"/"+$("#sample6_detailAddress").val()+"/"+$("#sample6_extraAddress").val()
@@ -1368,7 +1405,5 @@ button::-moz-focus-inner {
     }
 
 </script>
-
-	<!-- //pop-up-box -->
 </body>
 </html>

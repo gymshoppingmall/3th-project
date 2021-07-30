@@ -252,6 +252,8 @@ ul li.tag-item{
 
 	<!-- 중고거래 top_navi -->
 	<%@ include file="../inc/top_navi.jsp" %>
+	<!-- 중고거래 side_controll -->
+	<%@ include file="../inc/side_controll.jsp"  %>
 	
 	<!-- 전체를 감싸는 컨테이너 -->
 	<div class="wrapper">
