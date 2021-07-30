@@ -23,11 +23,7 @@ public class MybatisProductDAO implements ProductDAO{
 
 	@Override
 	public Product select(int product_id) {
-<<<<<<< HEAD
-		return sqlSessionTemplate.selectOne("Product.select");
-=======
 		return sqlSessionTemplate.selectOne("Product.select",product_id);
->>>>>>> seokmin
 	}
 
 	public void regist(Product product) {

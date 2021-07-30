@@ -50,11 +50,7 @@
                     <label for="exampleInputEmail1">카테고리</label>
 						
 	                        <select class="form-control" name="top_category_id">
-<<<<<<< HEAD
-	                        	<option value="0">등급 선택</option>
-=======
 	                        	<option value="0">카테고리 선택</option>
->>>>>>> seokmin
 	                        	<%for(TopCategory topCategory : topCategoryList){ %>
 	                        	<option value="<%=topCategory.getTop_category_id()%>"><%=topCategory.getTop_name() %></option>
 	                        	<%} %>

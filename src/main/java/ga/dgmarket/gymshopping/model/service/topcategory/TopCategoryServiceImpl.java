@@ -14,10 +14,5 @@ public class TopCategoryServiceImpl implements TopCategoryService{
 	public List selectAll() {
 		return topCategoryDAO.selectAll();
 	}
-	
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> seokmin

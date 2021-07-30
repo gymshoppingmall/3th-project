@@ -15,8 +15,7 @@ public class Product {
 	private String brand;
 	private String product_img;
 	MultipartFile photo;
-<<<<<<< HEAD
-=======
+
 	private TopCategory topCategory;
->>>>>>> seokmin
+
 }

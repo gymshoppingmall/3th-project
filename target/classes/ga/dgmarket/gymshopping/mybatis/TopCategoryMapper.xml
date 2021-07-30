@@ -6,10 +6,8 @@
 	<select id="selectAll" resultType="TopCategory" parameterType="TopCategory">
 		select * from top_category order by top_category_id asc
 	</select>
-<<<<<<< HEAD
-=======
+
 	<select id="select" parameterType="int" resultType="TopCategory">
 		select * from top_category where top_category_id=#{top_category_id}
 	</select>
->>>>>>> seokmin
 </mapper>

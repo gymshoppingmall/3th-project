@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import ga.dgmarket.gymshopping.domain.Product;
-<<<<<<< HEAD
-=======
+
 import ga.dgmarket.gymshopping.domain.TopCategory;
 import ga.dgmarket.gymshopping.exception.FileHandleException;
 import ga.dgmarket.gymshopping.exception.UploadException;
->>>>>>> seokmin
+
 import ga.dgmarket.gymshopping.model.common.file.FileManager;
 import ga.dgmarket.gymshopping.model.service.product.ProductService;
 import ga.dgmarket.gymshopping.model.service.topcategory.TopCategoryService;
@@ -33,30 +32,27 @@ public class ProductController {
 	private TopCategoryService topCategoryService;
 	@Autowired
 	private FileManager fileManager;
-<<<<<<< HEAD
-=======
+
 	//모든 상품 가져오기
->>>>>>> seokmin
+
 	@GetMapping("/main/productlist")
 	public String memberList(Model model, HttpServletRequest request) {
 		List productList = productService.selectAll();
 		model.addAttribute("productList",productList);
 		return "admin/main/productlist";
 	}
-<<<<<<< HEAD
-=======
+
 	//등록페이지 호출
->>>>>>> seokmin
+
 	@GetMapping("/main/product/regist")
 	public String admin_product(Model model, HttpServletRequest request) {
 		List topCategoryList = topCategoryService.selectAll();
 		model.addAttribute("topCategoryList",topCategoryList);
 		return "admin/main/product/regist";
 	}
-<<<<<<< HEAD
-=======
+
 	//등록
->>>>>>> seokmin
+
 	@PostMapping("/product/regist")
 	public String product_regist(Product product, HttpServletRequest request) {
 		MultipartFile photo = product.getPhoto();
@@ -69,8 +65,7 @@ public class ProductController {
 		
 		return "redirect:/admin/main/productlist";
 	}
-<<<<<<< HEAD
-=======
+
 	
 	//단일상품 가져오기
 	@GetMapping("/main/product/detail")
@@ -92,5 +87,5 @@ public class ProductController {
 		model.addAttribute("e",e);
 		return "error/result";
 	}
->>>>>>> seokmin
+
 }
