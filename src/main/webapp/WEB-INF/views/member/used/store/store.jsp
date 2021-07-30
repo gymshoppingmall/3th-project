@@ -105,17 +105,11 @@ function copyLink(){
                     <a class="nav-link" href="#"><h5>찜목록</h5></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><h5>후기목록</h5></a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#"><h5>채팅목록</h5></a>
                 </li>
                 <%  }else{ %>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><h5>판매목록</h5></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><h5>후기목록</h5></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><h5>1 : 1 대화하기</h5></a>
