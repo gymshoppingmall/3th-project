@@ -33,22 +33,32 @@ public class UsedStoreController {
 	private UsedStoreService usedStoreService;
 	
 	
+	//중고거래 상점을 들어갔을 때 나오는 정보들 가져오기
 	@GetMapping("/used/store")
 	public String getStore(int member_id, Model model) {
 		Map storeMap = usedStoreService.getStore(member_id);
-		
 		model.addAttribute("storeMap", storeMap);
 		return "member/used/store/store";
 	}
 	
+	//상점에 리뷰 한 건 등록하기
 	@PostMapping("/used/store/review/regist")
+	@ResponseBody
 	public String registReview(UsedReview usedReview) {
-		System.out.println("리뷰 작성자의 id : "+usedReview.getWriter_id());
-		System.out.println("리뷰를 작성할 상점id : "+usedReview.getMember_id());
-		System.out.println("리뷰 내용 : "+usedReview.getContent());
+		usedStoreService.registReview(usedReview);
 		
-		return "gd";
+		return "리뷰 작성 완료";
 	}
+	
+	//상점 리뷰 한 건 삭제하기
+	@GetMapping("/used/store/review/delete")
+	@ResponseBody
+	public String deleteReview(int used_review_id) {
+		usedStoreService.deleteReview(used_review_id);
+		return "리뷰 삭제 완료";
+	}
+	
+	
 	
 	
 	//DML 실패 시 만나게 되는 에러 전용 핸들러
