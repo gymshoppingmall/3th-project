@@ -74,6 +74,18 @@
                     <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getStorename() %>" name = "storename" >
                   </div>
                   <div class="form-group">
+                    <label for="exampleInputPassword1">이메일</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getEmail() %>" name = "email" readonly="readonly">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">전화번호</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getPhone() %>" name = "phone" readonly="readonly">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">주소</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getAddr() %>" name = "addr" readonly="readonly">
+                  </div>
+                  <div class="form-group">
                     <label for="exampleInputPassword1">가입일</label>
                     <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getRegdate() %>" name = "regdate" value="" readonly="readonly">
                   </div>                  
@@ -95,7 +107,7 @@
                 <div class="card-footer">
                   <button type="button" class="btn btn-primary" onClick="update()">수정</button>
                   <button type="button" class="btn btn-primary" onClick="del()">삭제</button>
-                  <button type="button" class="btn btn-primary" onClick="regist()">목록</button>
+                  <button type="button" class="btn btn-primary" onClick="location.href='/admin/main/member'">목록</button>
                 </div>
               </form>
             </div>		

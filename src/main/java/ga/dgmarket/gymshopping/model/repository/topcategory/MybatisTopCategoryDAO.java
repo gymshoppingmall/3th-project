@@ -13,5 +13,4 @@ public class MybatisTopCategoryDAO implements TopCategoryDAO{
 	public List selectAll() {
 		return sqlSessionTemplate.selectList("TopCategory.selectAll");
 	}
-
 }

@@ -27,7 +27,6 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.select(product_id);
 	}
 
-	@Override
 	public void regist(Product product) {
 		productDAO.regist(product);
 	}

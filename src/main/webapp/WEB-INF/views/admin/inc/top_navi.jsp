@@ -23,8 +23,7 @@
       <div class="dropdown-menu">
         <a class="dropdown-item" href="/admin/main/product">전체관리</a>
         <a class="dropdown-item" href="/admin/main/productlist">상품목록</a>
-        <a class="dropdown-item" href="/admin/main/product/regist">등록/수정</a>
-        <a class="dropdown-item" href="#">배송현황</a>
+        <a class="dropdown-item" href="/admin/main/product/regist">상품등록</a>
       </div>
     </li>
     <!-- Dropdown -->

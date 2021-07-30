@@ -68,6 +68,8 @@ public class MemberController {
 		return "member/login/loginform";
 	}
 
+	
+
 	// 로그인 요청 처리
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Member member, HttpSession session, Model model) {
