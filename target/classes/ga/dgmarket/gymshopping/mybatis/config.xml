@@ -8,9 +8,10 @@
 		<!-- 클라이언트 로그인 영역 -->
 		<typeAlias type="ga.dgmarket.gymshopping.domain.Member" alias="Member" />
 		
-		<!-- 관리자 영역 -->
+		<!-- 관리자 영역 //공석민-->
 		<typeAlias type="ga.dgmarket.gymshopping.domain.Admin" alias="Admin" />
 		<typeAlias type="ga.dgmarket.gymshopping.domain.Product" alias="Product" />
+		<typeAlias type="ga.dgmarket.gymshopping.domain.TopCategory" alias="TopCategory" />
 		
 		<!-- 중고거래 관련 from.조성일 -->
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedFavorites" alias="UsedFavorites"/>
@@ -31,6 +32,7 @@
 		<!-- 관리자 영역 -->
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/AdminMapper.xml" />
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/ProductMapper.xml" />	
+		<mapper resource="ga/dgmarket/gymshopping/mybatis/TopCategoryMapper.xml" />	
 			
 		<!-- 중고거래 관련 from.조성일 -->
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/UsedFavoritesMapper.xml"/>

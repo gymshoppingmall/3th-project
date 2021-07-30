@@ -31,12 +31,30 @@
 
 	<!-- 다중 파일 업로드를 위해 MultipartResolver를 사용하기 위한 빈 등록 -->
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+		<property name="maxUploadSize" value="5242880"/><!-- 5MB 제한 -->
+		</bean>
+		
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="smtp.gmail.com"/>
+	<property name="port" value="587"/>
+	<property name="username" value="vndn1679@gmail.com"/>
+	<property name="password" value="uhzdfwblytkeoeim"/>
+	<property name="javaMailProperties">
+	<props>
+	<prop key="mail.smtp.starttls.enable">true</prop>
+	<prop key="mail.smtp.auth">true</prop>
+	<prop key="mail.transport.protocol">smtp</prop>
+	<prop key="mail.debug">false</prop>
+	<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+	</props>
+	</property>
+	</bean>
 		
 	<!-- 위에서 등록한 빈들은 제외한 나머지 Service,DAO 등은 자동 검색하여 등록을 실시 @Service, @Repository 
 		등등 자동으로 메모리에 인스턴스 생성 그리고 해당 빈에 @Autowired가 등록되어 있다면, weaving 마저도 자동 등록 주입 -->
 	<context:component-scan
-		base-package="ga.dgmarket.gymshopping.model" />
+		base-package="ga.dgmarket.gymshopping" />
 		
 	
 </beans>

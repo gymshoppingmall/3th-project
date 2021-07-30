@@ -11,34 +11,22 @@ out.print("alert('올바르지 않은 정보입니다.');");
 out.print("</script>");
 %>
 <%} %>
-
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
--->
 <!DOCTYPE html>
 <html lang="zxx">
-
 <head>
-<title>Working Signin form Responsive Widget Template ::
-	W3layouts</title>
+<title></title>
 <!-- Meta tag Keywords -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8" />
 <meta name="keywords"
 	content="Working Signin form Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <!-- //Meta tag Keywords -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link
 	href="//fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap"
 	rel="stylesheet">
-<!--/Style-CSS -->
-<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
-<!--//Style-CSS -->
 <style>
-/*
-Author: W3layouts
-Author URL: http://w3layouts.com
- */
 html {
 	scroll-behavior: smooth;
 }
@@ -422,9 +410,6 @@ p {
 	color: #777;
 }
 
-/* -- placeholder --*/
-
-/*-- responsive design --*/
 @media ( max-width : 992px) {
 	.w3l-workinghny-form .workinghny-block-grid {
 		grid-template-columns: 1fr;
@@ -466,12 +451,8 @@ p {
 		margin-top: 30px;
 	}
 }
-
-/*-- //responsive design --*/
-/*-- //form styling --*/
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
 	$(function() {
 		$("button[type='button']").click(function() {
@@ -506,9 +487,7 @@ p {
 	}
 </script>
 </head>
-
 <body>
-
 	<!-- form section start -->
 	<section class="w3l-workinghny-form">
 		<!-- /form -->
@@ -516,17 +495,13 @@ p {
 			<div class="wrapper">
 				<div class="logo">
 					<h1>
-						<a class="brand-logo" href="index.html"><span>Working</span>
-							Sign In</a>
+						<a class="brand-logo" href="index.html"><span>득근마켓</span>
+							로그인</a>
 					</h1>
-					<!-- if logo is image enable this   
-                        <a class="brand-logo" href="#index.html">
-                            <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
-                        </a> -->
 				</div>
 				<div class="workinghny-block-grid">
 					<div class="workinghny-left-img align-end">
-						<img src="../images/2.gif" class="img-responsive" alt="img" />
+						<img src="/resources/img/reallogo.png" class="img-responsive" alt="img" />
 					</div>
 					<div class="form-right-inf">
 
@@ -542,28 +517,16 @@ p {
 									<label>Password</label> <input type="password" name="password"
 										placeholder="" required="">
 								</div>
-								<!--  
-                                <label class="check-remaind">
-                                    <input type="checkbox">
-                                    <span class="checkmark"></span>
-                                    <p class="remember">Remember Me</p>
-
-                                </label>
-                                -->
-								
-								<button type="button" class="btn btn-style mt-3">Sign
-									In</button>
+								<button type="button" class="btn btn-style mt-3">로그인</button>
 							</form>
 							<p class="already">
-								Don't have an account? <a href="/member/registform">Sign Up</a>
+								계정이 없으신가요? <a href="/member/registform">회원가입</a>
 							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- //form -->
-		<!-- copyright-->
 		<div class="copyright text-center">
 			<div class="wrapper">
 				<p class="copy-footer-29">
@@ -571,10 +534,6 @@ p {
 				</p>
 			</div>
 		</div>
-		<!-- //copyright-->
 	</section>
-	<!-- //form section start -->
-
 </body>
-
 </html>
