@@ -3,7 +3,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	List<Product> productList = (List)request.getAttribute("productList");
-	int cnt = (int)(request.getAttribute("cnt"));
 	int totalRecord = productList.size();
 	int blockSize = 10; //한번에 보여질 최대 페이지 수
 	int pageSize = 10; //한번에 보여질 최대 요소 수 (게시글..회원 등등)
@@ -40,14 +39,16 @@
 <div class="container">
   <h2>전체 상품 목록</h2>
   <p>현재 등록된 상품 수는 총 <%=productList.size() %>건입니다. </p>
+  
   <table class="table">
     <thead class="thead-dark">
       <tr>
         <th>No.</th>
+        <th>카테고리</th>
         <th>상품명</th>
+        <th>브랜드</th>
         <th>가격</th>
         <!--  어떤 항목 추가할지..
-        <th>전화번호</th>
         <th>주소</th>
         <th>이메일</th>
         <th>가입일자</th>
@@ -55,11 +56,14 @@
       </tr>
     </thead>
     <tbody>
-    <%for(Product product : productList){ %>
-      <tr class= "product-bar">
-        <td><%=product.getProduct_id() %></td>
-        <td><%=product.getProduct_name() %></td>
-        <td><%=product.getPrice() %></td>
+    <%for(int i = for_i; i<for_i+pageSize; i++){ %>
+    <%if(num<1)break; %>
+      <tr class= "product-bar" onclick="location.href='/admin/main/product/detail?product_id=<%=productList.get(i).getProduct_id()%>';">
+        <td><%=num-- %></td>
+        <td><%=productList.get(i).getTopCategory().getTop_name() %></td>
+        <td><%=productList.get(i).getProduct_name() %></td>
+        <td><%=productList.get(i).getBrand() %></td>
+        <td><%=productList.get(i).getPrice() %></td>
       </tr>
       <%} %>
     </tbody>

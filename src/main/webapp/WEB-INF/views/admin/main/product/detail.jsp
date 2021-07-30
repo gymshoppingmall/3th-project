@@ -1,7 +1,10 @@
-<%@page import="ga.dgmarket.gymshopping.domain.Member"%>
+<%@page import="ga.dgmarket.gymshopping.domain.TopCategory"%>
+<%@page import="java.util.List"%>
+<%@page import="ga.dgmarket.gymshopping.domain.Product"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	Member member = (Member)request.getAttribute("member");	
+	Product product = (Product)request.getAttribute("product");	
+	List<TopCategory> topCategoryList = (List)request.getAttribute("topCategoryList");
 %>
 <!DOCTYPE html>
 <html>
@@ -37,56 +40,48 @@
 		<!--등록폼 시작-->
 			<div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">회원 상세 정보</h3>
+                <h3 class="card-title">상품 상세 정보</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form name="form1">
-              <input type="hidden" name="member_id" value="<%=member.getMember_id()%>">
-              <input type="hidden" name="member_img" value="<%=member.getProfile_img()%>">
+              <input type="hidden" name="product_id" value="<%=product.getProduct_id()%>">
                 <div class="card-body">
                   <div class="form-group">
                     
-                    <label for="exampleInputEmail1">회원 등급</label>
+                    <label for="exampleInputEmail1">카테고리</label>
 						
-	                        <select class="form-control" name="user_grade">
-	                        	<option value="0">등급 선택</option>
-	                        	<option value="1">일반 회원</option>
-	                        	<option value="2">우수 회원</option>
-	                        	<option value="3">판매자</option>
-	                        	<option value="4">내가바로 리뷰왕</option>
-	                        	<option value="5">내가바로 판매왕</option>
-	                        	<option value="6">블랙리스트</option>	                          
+	                        <select class="form-control" name="top_category_id">
+	                        	<option value="0">카테고리 선택</option>
+	                        	<%for(TopCategory topCategory : topCategoryList){ %>
+	                        	<option value="<%=product.getTopCategory().getTop_category_id()%>"><%=product.getTopCategory().getTop_name() %></option>
+	                        	<%} %>
 	                        </select>
                       
                     </div>                    
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">ID</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" value="<%=member.getUser_id() %>" name="user_id" readonly="readonly">
+                    <label for="exampleInputEmail1">상품명</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" value="<%=product.getProduct_name() %>" name="product_name">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">이름</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getName() %>" name = "name" readonly="readonly">
+                    <label for="exampleInputPassword1">브랜드</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=product.getBrand() %>" name = "brand">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">닉네임</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getStorename() %>" name = "storename" >
+                    <label for="exampleInputPassword1">가격</label>
+                    <input type="number" class="form-control" id="exampleInputPassword1" value="<%=product.getPrice() %>" name = "price" >
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">이메일</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getEmail() %>" name = "email" readonly="readonly">
+                    <label for="exampleInputPassword1">수량</label>
+                    <input type="number" class="form-control" id="exampleInputPassword1" value="<%=product.getProduct_inven() %>" name = "product_inven" >
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">전화번호</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getPhone() %>" name = "phone" readonly="readonly">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">가입일</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getRegdate() %>" name = "regdate" value="" readonly="readonly">
+                  <label for="exampleInputPassword1">상세정보</label>
+                    <textarea class="form-control" placeholder="상품 상세정보" name="product_detail"><%=product.getProduct_detail() %></textarea>
                   </div>                  
                   <div class="form-group">
-                    <label for="exampleInputFile">프로필 변경</label>
+                    <label for="exampleInputFile">사진 등록</label>
                     <div class="input-group">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="photo">
@@ -103,7 +98,7 @@
                 <div class="card-footer">
                   <button type="button" class="btn btn-primary" onClick="update()">수정</button>
                   <button type="button" class="btn btn-primary" onClick="del()">삭제</button>
-                  <button type="button" class="btn btn-primary" onClick="location.href='/admin/main/member'">목록</button>
+                  <button type="button" class="btn btn-primary" onClick="location.href='/admin/main/productlist'">목록</button>
                 </div>
               </form>
             </div>		
