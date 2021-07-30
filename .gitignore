@@ -1,5 +1,6 @@
-# Created by https://www.toptal.com/developers/gitignore/api/eclipse,dbeaver,windows,maven
-# Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,dbeaver,windows,maven
+
+# Created by https://www.toptal.com/developers/gitignore/api/maven,eclipse,dbeaver,windows
+# Edit at https://www.toptal.com/developers/gitignore?templates=maven,eclipse,dbeaver,windows
 
 ### DBeaver ###
 # ide config file
@@ -110,4 +111,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/eclipse,dbeaver,windows,maven
+# End of https://www.toptal.com/developers/gitignore/api/maven,eclipse,dbeaver,windows
