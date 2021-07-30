@@ -9,4 +9,5 @@ public class Product {
 	private String product_name;
 	private String product_detail;
 	private int price;
+	private String product_img;
 }

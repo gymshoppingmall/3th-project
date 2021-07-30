@@ -11,12 +11,11 @@
    member.setName("성일");
 
    session.setAttribute("member", member);
-   System.out.print(session.getAttribute("member"));
+   
 %>
 <%
 	//메인페이지 호출과 동시에 상품 받아오기 --도균--
 	List<Product> productNewList =(List)request.getAttribute("productNewList");
-
 %>
 <!doctype html>
 <html lang="en">
@@ -28,7 +27,7 @@
 
 <!-- jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Favicon  -->
 <link rel="icon" href="/resources/img/reallogo.png">
@@ -45,8 +44,7 @@
 <script src="/resources/js/popper.min.js"></script>
 <!-- Plugins js -->
 <script src="/resources/js/plugins.js"></script>
-<!-- Active js -->
-<script src="/resources/js/active.js"></script>
+
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -120,16 +118,19 @@
     <div class="product1">
         <div class="product-suggestion">따끈 따끈 신제품!!</div>
         <!-- Product DB에 있는 자료로 반복문 이용 상품카드 생성 -->
+        <form>
         	<%for(Product product : productNewList){ %>
             <div class="card" style="width:300px">
                 <img class="card-img-top" src="/resources/img/img1.jpg" alt="Card image">
                 <div class="card-body">
                     <h4 class="card-title"><%=product.getProduct_name() %></h4>
+                    <input type="hidden" name="product_img" value="이미지">
                     <p class="card-text"><%=product.getPrice() %>원</p>
-                    <a href="#" class="btn btn-primary" onclick="getDetail()">둘러보기</a>
+                    <a class="btn btn-primary" onclick="location.href='/member/detail?=<%=product.getProduct_id()%>'">둘러보기</a>
                 </div>
             </div>
-			<%} %>
+			<%} %>      
+        </form>
     </div>
     <!-- 신상품 상품진열 끝-->
 
@@ -239,9 +240,13 @@
     <!-- 상품 상세정보 요청 --도균-- -->
 	<script>
 		function getDetail(){
-			alert("누름?");
+ 			$("form").attr({
+			action:"/member/detail",
+			method:"POST",
+			enctype:"multipart/form-data"
+			});
+			$("form").submit(); 
 		}
-	       
 	</script>
 </body>
 </html>
