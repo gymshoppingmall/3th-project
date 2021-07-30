@@ -13,11 +13,21 @@
 		select="TopCategory.select"/>
 	</resultMap>
 	
+
 	<select id="selectAll" resultMap="ProductTopCategory">
 		select product_id, product_name , product_img, price, brand ,tc.top_category_id , top_name
 		from product p , top_category tc 
 		where p.top_category_id = tc.top_category_id 
 	</select>
+<<<<<<< HEAD
+	 
+	<!-- 상품상세보기를 위한 한건가져오기 from.도균 
+	<select id="select" parameterType="int" resultType="Product">
+		select * from product where product_id=#{product_id}
+	</select>
+	-->
+	
+=======
 	
 	<!-- 상품상세보기를 위한 한건가져오기 from.도균 -->
 	<!-- 
@@ -25,6 +35,7 @@
 		select * from product where product_id=#{product_id}
 	</select>
 	 -->
+>>>>>>> 5e166092deb6255fd2bd0ac3267b517d81c6cd29
 	<!-- 신제품 전시를 위한 목록불러오기 from.도균-->
 	<select id="selectNewItem" resultType="Product">
 		select * from product order by product_id desc limit 4;
@@ -42,6 +53,7 @@
 		<association column="top_category_id" property="topCategory" javaType="TopCategory"
 		select="TopCategory.select"/>
 	</resultMap>
+	
 	
 	<select id="select" resultMap="ProductTopCategoryDetail" parameterType="int">
 		select product_id, product_name , product_img, price, brand ,tc.top_category_id , top_name , product_inven , product_detail
