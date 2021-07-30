@@ -82,6 +82,10 @@
                     <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getPhone() %>" name = "phone" readonly="readonly">
                   </div>
                   <div class="form-group">
+                    <label for="exampleInputPassword1">주소</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getAddr() %>" name = "addr" readonly="readonly">
+                  </div>
+                  <div class="form-group">
                     <label for="exampleInputPassword1">가입일</label>
                     <input type="text" class="form-control" id="exampleInputPassword1" value="<%=member.getRegdate() %>" name = "regdate" value="" readonly="readonly">
                   </div>                  
