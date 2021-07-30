@@ -50,11 +50,12 @@
                   <div class="form-group">
                     
                     <label for="exampleInputEmail1">카테고리</label>
-						
+						<input type="hidden" value="<%=product.getTopCategory().getTop_category_id()%>">
 	                        <select class="form-control" name="top_category_id">
 	                        	<option value="0">카테고리 선택</option>
 	                        	<%for(TopCategory topCategory : topCategoryList){ %>
-	                        	<option value="<%=product.getTopCategory().getTop_category_id()%>"><%=product.getTopCategory().getTop_name() %></option>
+	                        	<option value="<%=topCategory.getTop_category_id()%>" 
+	                        	<%if(topCategory.getTop_category_id()==product.getTopCategory().getTop_category_id()){%>selected<%} %>><%=topCategory.getTop_name() %></option>
 	                        	<%} %>
 	                        </select>
                       
