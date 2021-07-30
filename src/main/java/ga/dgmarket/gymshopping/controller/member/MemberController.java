@@ -65,7 +65,6 @@ public class MemberController {
 	// 로그인 폼 요청 처리
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
 	public String loginForm() {
-
 		return "member/login/loginform";
 	}
 
@@ -80,8 +79,10 @@ public class MemberController {
 		// 4단계: 저장
 		session.setAttribute("member", obj);
 		model.addAttribute("member", obj);
-		return "member/main/index";
+		
+		return "redirect:/member/main";
 	}
+	
 	
 	//멤버 메인 페이지 요청 및 리퀘스트에 상품저장 --도균--
 	@GetMapping("/main")
