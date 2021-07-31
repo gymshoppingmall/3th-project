@@ -249,7 +249,8 @@ ul li.tag-item{
 </script>
 </head>
 <body>
-
+	<!-- 득근 마켓 top_navi -->
+	<%@ include file="../../inc/top_navi.jsp" %>
 	<!-- 중고거래 top_navi -->
 	<%@ include file="../inc/top_navi.jsp" %>
 	<!-- 중고거래 side_controll -->

@@ -22,7 +22,7 @@
 		});
 	});
 </script>
-<div class="row text-center" style="width :80%; margin:auto; margin-top: 50px; 
+<div class="row text-center" style="width :80%; margin:auto; margin-top: 40px; 
 margin-bottom: 35px; padding-left: 250px; padding-right: 250px;">
 	<div class="col-sm-1">
 		<select style="height: 30px">
@@ -55,4 +55,4 @@ margin-bottom: 35px; padding-left: 250px; padding-right: 250px;">
 		<span onclick="location.href='#'"><h4><strong>대화</strong></h4></span>
 	</div>
 </div>
- <hr style="border: black 2px solid">
+ <hr style="border: black 1px solid">

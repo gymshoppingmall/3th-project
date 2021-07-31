@@ -141,6 +141,8 @@ function delFavorites(used_product_id, used_favorites_id){
 </script>
 </head>
 <body>
+	<%@ include file="../inc/top_navi.jsp" %>
+
 	<!-- 중고거래 top_navi -->
 	<%@ include file="./inc/top_navi.jsp" %>
 	<!-- 중고거래 side_controll -->

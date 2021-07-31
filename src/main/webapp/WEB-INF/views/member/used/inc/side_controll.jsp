@@ -8,17 +8,16 @@
 var controllDiv;
 $(function(){
     controllDiv = document.getElementById("controllDiv");
-    console.log(window.innerWidth+"gd");
     controllDiv.style.left = window.innerWidth-(controllDiv.offsetWidth+100)+"px";
-    controllDiv.style.top = ((window.innerHeight/2)-150+window.scrollY)+"px";
+    controllDiv.style.top = ((window.innerHeight/2)-130+window.scrollY)+"px";
 
     $(window).resize(function(){
         controllDiv.style.left = window.innerWidth-(controllDiv.offsetWidth+100)+"px";
-        controllDiv.style.top = ((window.innerHeight/2)-150+window.scrollY)+"px";
+        controllDiv.style.top = ((window.innerHeight/2)-130+window.scrollY)+"px";
     });
 
     $(window).scroll(function(){
-        controllDiv.style.top = (window.innerHeight/2)-150+"px";
+        controllDiv.style.top = (window.innerHeight/2)-130+"px";
         console.log("div 탑 위치"+controllDiv.offsetTop);
         console.log("스크롤 위치"+window.scrollY);
         console.log("더한 값"+(controllDiv.offsetTop+window.scrollY));
