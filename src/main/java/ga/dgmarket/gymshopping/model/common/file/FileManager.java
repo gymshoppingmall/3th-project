@@ -42,6 +42,18 @@ public class FileManager {
 			System.out.println("파일삭제됨");
 		}
 	}
+
+	//파일 삭제 (추가경로 지정 시)//석민
+	public void deleteFile(ServletContext context, String filename, String additionalPath) throws FileHandleException{
+		String folderPath = context.getRealPath(savePath)+additionalPath;
+		System.out.println("파일삭제메서드 "+folderPath+filename);
+		File file = new File(folderPath+"/"+filename);
+		if(!file.delete()) {
+			throw new FileHandleException(filename+" 을 삭제하지 못했습니다.");
+		}else {
+			System.out.println("파일삭제됨");
+		}
+	}
 	
 	//지정된 경로로 파일 저장
 	public void saveFile(ServletContext context, String filename, MultipartFile multi) throws UploadException{

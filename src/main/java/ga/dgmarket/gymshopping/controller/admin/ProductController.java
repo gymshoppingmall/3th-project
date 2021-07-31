@@ -32,7 +32,11 @@ public class ProductController {
 	private TopCategoryService topCategoryService;
 	@Autowired
 	private FileManager fileManager;
-
+	@GetMapping("/main/product")
+	public String admin_product(HttpServletRequest request) {
+		return "admin/main/product";
+	}
+	
 	//모든 상품 가져오기
 
 	@GetMapping("/main/productlist")
@@ -76,6 +80,31 @@ public class ProductController {
 		model.addAttribute("topCategoryList",topCategoryList);
 		return "admin/main/product/detail";
 	}
+	
+	//상품 삭제
+	@PostMapping("/product/delete")
+	public String product_delete(Product product, HttpServletRequest request) {
+		ServletContext context = request.getServletContext();
+		productService.delete(product.getProduct_id());
+		
+		fileManager.deleteFile(context, product.getProduct_img(), "product/img/");
+		return "redirect:/admin/main/productlist";
+	}
+	
+	//상품 수정
+	@PostMapping("/product/update")
+	public String product_update(Product product, HttpServletRequest request) {
+		ServletContext context = request.getServletContext();
+		fileManager.deleteFile(context, product.getProduct_img(), "product/img/");
+		MultipartFile photo = product.getPhoto();
+		Long time = System.currentTimeMillis();
+		String filename = time+"."+fileManager.getExt(photo.getOriginalFilename());
+		fileManager.saveFile(context, photo, "product/img/");
+		product.setProduct_img(filename);
+		productService.update(product);
+		return "redirect:/admin/main/productlist";
+	}
+	
 	@ExceptionHandler(UploadException.class)
 	public String handleException(UploadException e, Model model) {
 		model.addAttribute("e",e);

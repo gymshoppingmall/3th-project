@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import ga.dgmarket.gymshopping.domain.UsedFavorites;
 import ga.dgmarket.gymshopping.domain.UsedProduct;
 import ga.dgmarket.gymshopping.domain.UsedProductExtend;
+import ga.dgmarket.gymshopping.domain.UsedTag;
 import ga.dgmarket.gymshopping.exception.DMLException;
 
 @Repository
@@ -77,5 +78,36 @@ public class MybatisUsedProductDAO implements UsedProductDAO{
 			throw new DMLException("찜 등록에 실패했습니다.");
 		}
 		return usedFavorites.getUsed_favorites_id();
+	}
+
+	//태크를 통해 상품 조회
+	public List selectByTagName(UsedTag usedTag) {
+		return sqlSessionTemplate.selectList("UsedProductExtend.selectByTagName", usedTag);
+	}
+	
+	//상품명을 통해 조회
+	public List selectByProductName(UsedProductExtend productExtend) {
+		return sqlSessionTemplate.selectList("UsedProductExtend.selectByProductName", productExtend);
+	}
+
+	//상점 아이디를 통해 조회
+	public List selectByStoreId(UsedProductExtend productExtend) {
+		return sqlSessionTemplate.selectList("UsedProductExtend.selectByStoreId", productExtend);
+	}
+
+	//상점 이름을 통해 조회
+	public List selectByStoreName(UsedProductExtend productExtend) {
+		return sqlSessionTemplate.selectList("UsedProductExtend.selectByStoreName", productExtend);
+	}
+
+	//상품의 최대가격을 통해 조회
+	public List selectByMaxPrice(UsedProductExtend productExtend) {
+		return sqlSessionTemplate.selectList("UsedProductExtend.selectByMaxPrice", productExtend);
+	}
+
+	//상품의 최소가격을 통해 조회
+	public List selectByMinPrice(UsedProductExtend productExtend) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("UsedProductExtend.selectByMinPrice", productExtend);
 	}
 }
