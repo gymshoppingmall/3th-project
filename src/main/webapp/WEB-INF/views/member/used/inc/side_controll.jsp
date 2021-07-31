@@ -1,4 +1,9 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	List<Map> historyList = (List) session.getAttribute("historyList");
+%>
 <script>
 var controllDiv;
 $(function(){
@@ -24,4 +29,13 @@ $(function(){
 </script>
 <div id="controllDiv" style="width: 150px; position: absolute; border: 2px solid black; text-align: center;">
 	<div><strong>최근 본 상품 </strong><span onclick="">x<span></div>
+
+	<% //if (historyList != null){%>
+		<% //for(int i = 0; i < historyList.size()-1; i ++){ %>
+		<% //Map map = (Map)historyList.get(i) %>
+		<!-- 
+			이미지 태그와 onclick이용해서 product_detail로 이동 시킬 예정
+		 -->
+		<% //} %>
+	<% //} %>
 </div>

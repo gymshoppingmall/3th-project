@@ -8,8 +8,17 @@
 		$("#getMainByKeyword").on("click", function(){
 			var type = $("select").val();
 			var keyword = $("#keyword").val();
-			
-			location.href = "/member/used/main/search?type="+type+"&keyword="+keyword;
+			if(keyword == "" || keyword == null){ 
+				bootbox.alert("검색어를 입력해주세요.", function(){});
+			}else{
+				if(type == "max_price" && isNaN(keyword)){
+					bootbox.alert("최대 금액은 숫자를 입력하세요.", function(){});	
+				}else if(type == "max_price" && isNaN(keyword)){
+					bootbox.alert("최소 금액은 숫자를 입력하세요.", function(){});	
+				}else{
+					location.href = "/member/used/main/search?type="+type+"&keyword="+keyword;			
+				}
+			}
 		});
 	});
 </script>

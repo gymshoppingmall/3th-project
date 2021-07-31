@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -42,6 +43,7 @@ public class UsedProductController {
 		return "member/used/main";
 	}
 	
+	//상품 검색을 담당하는
 	@GetMapping("/used/main/search")
 	public String getMainByKeyword(Model model, HttpServletRequest request, String type, String keyword) {
 		System.out.println("keyword : "+keyword+".");
@@ -70,7 +72,7 @@ public class UsedProductController {
 	@GetMapping("/used/product/detail")
 	public String getDetail(HttpServletRequest request, Model model, int used_product_id) {
 		Map<String, Object> map = usedProductService.getDetail(request, used_product_id);
-		model.addAttribute("map", map);
+		model.addAttribute("map", map);	
 		
 		return "member/used/product/detail";
 	}
@@ -117,11 +119,6 @@ public class UsedProductController {
 		usedProductService.delFavorites(request, used_favorites_id);
 		return "";
 	}
-	
-	
-	
-	
-	
 	
 	
 	//DML 실패 시 만나게 되는 에러 전용 핸들러

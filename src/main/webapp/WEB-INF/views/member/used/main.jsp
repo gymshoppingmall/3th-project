@@ -1,13 +1,12 @@
 <%@page import="ga.dgmarket.gymshopping.domain.UsedProductExtend"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Member"%>
-<%@page import="org.eclipse.jdt.internal.compiler.lookup.MemberTypeBinding"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-
 <%
 	Member member = (Member)session.getAttribute("member");
 	List<UsedProductExtend> usedProductList = (List)request.getAttribute("usedProductList");
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,15 +145,16 @@ function delFavorites(used_product_id, used_favorites_id){
 	<%@ include file="./inc/top_navi.jsp" %>
 	<!-- 중고거래 side_controll -->
 	<%@ include file="./inc/side_controll.jsp"  %>
-    
-
+   
     <!-- 중고상품의 이미지, 정보 등을 볼 수 있는 하나의 박스 -->
     <!-- 페이징 처리와 비슷하게 한 번에 4개의 상품만을 노출 시키고 +버튼을 눌렀을 때 다음 4개의 상품을 노출 시킬 계획 -->
     <!-- cuur 같은 변수를 만들고 +버튼을 누를 때 마다 1씩 증가 시키고 새로고침을 해도 cuur은 유지되게 만들어야 함 -->
 
-
     <div class="row text-center" id="product_box">
         <!--하나의 상품을 나타낼 박스-->
+        <% if(usedProductList.size() == 0){ %>
+        <h1 style="margin: auto">검색되는 상품이 없습니다.</h1>
+        <% } %>
         <% for(UsedProductExtend usedProduct : usedProductList){ %>
         <div class="col-xl-3">
             <div class="card">
@@ -186,7 +186,13 @@ function delFavorites(used_product_id, used_favorites_id){
                 <img src="/resources/data/used/product/img/<%= usedProduct.getUsed_img() %>" alt="">
                 <div class="card-body">
                     <!-- 상품 가격 올 곳 -->
-                    <h5 class="card-title"><%= usedProduct.getUsed_product_price() %></h5>
+                    <h5 class="card-title">
+                    	<% if(usedProduct.getUsed_product_price() != 0){ %>
+                    		<%= usedProduct.getUsed_product_price() %>
+                    	<% }else{%>
+                    	<strong>무료나눔</strong>
+                    	<% } %>
+                    </h5>
                     <p class="card-text">
                         <!-- 판매자 아이디 올 곳+링크는 판매자 상점으로 이동 -->
                         판매자 : <a href='/member/used/store?member_id=<%=usedProduct.getMember_id()%>'>[<%=usedProduct.getStorename()%>]</a>
