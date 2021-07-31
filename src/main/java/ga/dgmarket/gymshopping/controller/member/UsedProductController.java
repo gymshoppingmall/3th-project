@@ -42,10 +42,19 @@ public class UsedProductController {
 		return "member/used/main";
 	}
 	
+	@GetMapping("/used/main/search")
+	public String getMainByKeyword(Model model, HttpServletRequest request, String type, String keyword) {
+		System.out.println("keyword : "+keyword+".");
+		System.out.println("type : "+type+".");
+		List usedProductList = usedProductService.selectByKeyword(request, type, keyword);
+		model.addAttribute("usedProductList", usedProductList);
+		
+		return "member/used/main";
+	}
+	
 	//중고상품 등록 폼 요청을 처리하는 메서드
 	@GetMapping("/used/product/registForm")
 	public String registForm(HttpServletRequest request) {
-		
 		return  "member/used/product/registForm";
 	}
 
@@ -101,12 +110,18 @@ public class UsedProductController {
 		return Integer.toString(favorites_id);
 	}
 	
+	//찜 삭제하기
 	@GetMapping("/used/product/delfavorites")
 	@ResponseBody
 	public String delfavorites(HttpServletRequest request, int used_favorites_id) {
 		usedProductService.delFavorites(request, used_favorites_id);
 		return "";
 	}
+	
+	
+	
+	
+	
 	
 	
 	//DML 실패 시 만나게 되는 에러 전용 핸들러

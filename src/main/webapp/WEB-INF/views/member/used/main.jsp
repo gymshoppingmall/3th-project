@@ -153,7 +153,7 @@ function delFavorites(used_product_id, used_favorites_id){
     <!-- cuur 같은 변수를 만들고 +버튼을 누를 때 마다 1씩 증가 시키고 새로고침을 해도 cuur은 유지되게 만들어야 함 -->
 
 
-    <div class="row text-center">
+    <div class="row text-center" id="product_box">
         <!--하나의 상품을 나타낼 박스-->
         <% for(UsedProductExtend usedProduct : usedProductList){ %>
         <div class="col-xl-3">
@@ -198,7 +198,7 @@ function delFavorites(used_product_id, used_favorites_id){
         </div>   
         <% } %>            
     </div>    
-    <div style="width: 100%; height: 100px; padding-top: 35px;" class="text-center">
+    <div id="product_bt" style="width: 100%; height: 100px; padding-top: 35px;" class="text-center">
         <div class="btn btn-success center" id="load" onclick="">더보기</div>
     </div>
 </body>

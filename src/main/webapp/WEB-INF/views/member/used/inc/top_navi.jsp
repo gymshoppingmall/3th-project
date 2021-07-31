@@ -3,22 +3,33 @@
 <%
 	Member mem = (Member)session.getAttribute("member");
 %>    
+<script type="text/javascript">
+	$(function(){
+		$("#getMainByKeyword").on("click", function(){
+			var type = $("select").val();
+			var keyword = $("#keyword").val();
+			
+			location.href = "/member/used/main/search?type="+type+"&keyword="+keyword;
+		});
+	});
+</script>
 <div class="row text-center" style="width :80%; margin:auto; margin-top: 50px; 
 margin-bottom: 35px; padding-left: 250px; padding-right: 250px;">
 	<div class="col-sm-1">
 		<select style="height: 30px">
-			<option>상품명</option>
-			<option>상점명</option>
-			<option>상점ID</option>
-			<option>상한가</option>
-			<option>하한가</option>
+			<option value="product_name" selected="true">상품명</option>
+			<option value="tag_name">태그명</option>			
+			<option value="store_name">상점명</option>
+			<option value="store_id">상점ID</option>
+			<option value="max_price">상한가</option>
+			<option value="min_price">하한가</option>
 		</select>
 	</div>
 	<div class="col-sm-2" style="width: 100%">
-		<input type="text" placeholder="검색어">				
+		<input id="keyword" type="text" placeholder="검색어">				
 	</div>
 	<div class="col-sm-1">
-		<button style="background-color: #5cb85c; color: white">검색</button>
+		<button id="getMainByKeyword" style="background-color: #5cb85c; color: white">검색</button>
 	</div>
 	<div class="col-sm-1">
 	</div>

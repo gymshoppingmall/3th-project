@@ -103,6 +103,70 @@ public class UsedProductServiceImpl implements UsedProductService{
 		return usedProductDAO.selectAll(mem.getMember_id());
 	}	
 	
+	//키워드를 통해 각기 다른 결과 반환
+	public List selectByKeyword(HttpServletRequest request, String type, String keyword) {
+		//현재 세션에 있는 멤버 id 구해오기
+		HttpSession session  = request.getSession();
+		Member member = (Member)session.getAttribute("member");
+		int member_id = member.getMember_id();
+		
+		List<UsedProductExtend> list = null;
+		UsedProductExtend productExtend = null;
+		UsedTag usedTag = null;
+		
+		
+		switch(type) {
+			case "product_name": //상품명으로 검색했을 때
+				productExtend = new UsedProductExtend();
+				productExtend.setUsed_product_name(keyword);
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByProductName(productExtend);
+				break;
+				
+			case "tag_name": //태그명으로 검색했을 때
+				usedTag = new UsedTag();
+				usedTag.setUsed_product_id(member_id);
+				usedTag.setTag_name(keyword);
+				list = usedProductDAO.selectByTagName(usedTag);
+				break;
+				
+			case "store_name": //상점이름으로 검색했을 때
+				productExtend = new UsedProductExtend();
+				productExtend.setStorename(keyword);
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByStoreName(productExtend);
+				break;
+				
+			case "store_id": //상점 id로 검색했을 때
+				productExtend = new UsedProductExtend();
+				productExtend.setStorename(keyword); //원래라면 store_id를 넣어줘야 됐지만 꼼수 씀...
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByStoreId(productExtend);
+				
+				break;
+				
+			case "max_price": //최대 금액으로 검색했을 때
+				productExtend = new UsedProductExtend();
+				productExtend.setUsed_product_price(Integer.parseInt(keyword));
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByMaxPrice(productExtend);
+				break;
+				
+			case "min_price": //최소 금액으로 검색 했을 때 
+				productExtend = new UsedProductExtend();
+				productExtend.setUsed_product_price(Integer.parseInt(keyword));
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByMinPrice(productExtend);
+				break;
+		}
+		return list;
+	}
+	
 	//상품의 상세보기 요청을 했을 때
 	//used_product+storename+favorites_id+tag 꺼내오기
 	//product_img 가져오기
@@ -119,13 +183,8 @@ public class UsedProductServiceImpl implements UsedProductService{
 		//맵에 담을 애들
 		UsedProductExtend usedProductExtend = usedProductDAO.getDetail(productExtend); //상품정보+찜 정보 가져오기
 		UsedFavorites usedFavorites =usedProductDAO.getFavoritesCount(used_product_id); //찜 갯수가져오기
-		System.out.println("favorites 비었음? : "+usedFavorites);
 		List<UsedProductImg> imgList = usedProductImgDAO.getProductImg(used_product_id);//이미지 가져오기
 		List<UsedTag> tagList = usedProductDAO.getProductTag(used_product_id);//태그 가져오기
-		System.out.println("usedProductExtend : "+usedProductExtend);
-		System.out.println("usedFavorites : "+usedFavorites);
-		System.out.println("imgList : "+imgList);
-		System.out.println("tagList : "+tagList);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("usedProductExtend", usedProductExtend);
 		map.put("usedFavorites", usedFavorites);
