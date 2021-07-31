@@ -3,22 +3,42 @@
 <%
 	Member mem = (Member)session.getAttribute("member");
 %>    
-<div class="row text-center" style="width :80%; margin:auto; margin-top: 50px; 
+<script type="text/javascript">
+	$(function(){
+		$("#getMainByKeyword").on("click", function(){
+			var type = $("select").val();
+			var keyword = $("#keyword").val();
+			if(keyword == "" || keyword == null){ 
+				bootbox.alert("검색어를 입력해주세요.", function(){});
+			}else{
+				if(type == "max_price" && isNaN(keyword)){
+					bootbox.alert("최대 금액은 숫자를 입력하세요.", function(){});	
+				}else if(type == "max_price" && isNaN(keyword)){
+					bootbox.alert("최소 금액은 숫자를 입력하세요.", function(){});	
+				}else{
+					location.href = "/member/used/main/search?type="+type+"&keyword="+keyword;			
+				}
+			}
+		});
+	});
+</script>
+<div class="row text-center" style="width :80%; margin:auto; margin-top: 40px; 
 margin-bottom: 35px; padding-left: 250px; padding-right: 250px;">
 	<div class="col-sm-1">
 		<select style="height: 30px">
-			<option>상품명</option>
-			<option>상점명</option>
-			<option>상점ID</option>
-			<option>상한가</option>
-			<option>하한가</option>
+			<option value="product_name" selected="true">상품명</option>
+			<option value="tag_name">태그명</option>			
+			<option value="store_name">상점명</option>
+			<option value="store_id">상점ID</option>
+			<option value="max_price">상한가</option>
+			<option value="min_price">하한가</option>
 		</select>
 	</div>
 	<div class="col-sm-2" style="width: 100%">
-		<input type="text" placeholder="검색어">				
+		<input id="keyword" type="text" placeholder="검색어">				
 	</div>
 	<div class="col-sm-1">
-		<button style="background-color: #5cb85c; color: white">검색</button>
+		<button id="getMainByKeyword" style="background-color: #5cb85c; color: white">검색</button>
 	</div>
 	<div class="col-sm-1">
 	</div>
@@ -35,4 +55,4 @@ margin-bottom: 35px; padding-left: 250px; padding-right: 250px;">
 		<span onclick="location.href='#'"><h4><strong>대화</strong></h4></span>
 	</div>
 </div>
- <hr style="border: black 2px solid">
+ <hr style="border: black 1px solid">

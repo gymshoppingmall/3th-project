@@ -21,4 +21,5 @@ public interface UsedProductService {
 	public void soldout(HttpServletRequest request, int used_product_id);
 	public int addFavorites(HttpServletRequest request, UsedFavorites usedFavorites);
 	public void delFavorites(HttpServletRequest request, int	used_favorites_id);
+	public List selectByKeyword(HttpServletRequest request, String type, String keyowrd);
 }
