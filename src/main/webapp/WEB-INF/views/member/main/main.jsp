@@ -4,19 +4,8 @@
 <%@page import="ga.dgmarket.gymshopping.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-   Member member = new Member();
-   member.setMember_id(6);
-   member.setUser_id("used_test");
-   member.setPassword("1234");
-   member.setName("성일");
-
-   session.setAttribute("member", member);
-   /* System.out.print(session.getAttribute("member")); */
-%>
-<%
 	//메인페이지 호출과 동시에 상품 받아오기 --도균--
 	List<Product> productNewList =(List)request.getAttribute("productNewList");
-
 %>
 <!doctype html>
 <html lang="en">
@@ -45,8 +34,7 @@
 <script src="/resources/js/popper.min.js"></script>
 <!-- Plugins js -->
 <script src="/resources/js/plugins.js"></script>
-<!-- Active js -->
-<script src="/resources/js/active.js"></script>
+
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -120,16 +108,19 @@
     <div class="product1">
         <div class="product-suggestion">따끈 따끈 신제품!!</div>
         <!-- Product DB에 있는 자료로 반복문 이용 상품카드 생성 -->
+        <form>
         	<%for(Product product : productNewList){ %>
             <div class="card" style="width:300px">
                 <img class="card-img-top" src="/resources/img/img1.jpg" alt="Card image">
                 <div class="card-body">
                     <h4 class="card-title"><%=product.getProduct_name() %></h4>
+                    <input type="hidden" name="product_img" value="이미지">
                     <p class="card-text"><%=product.getPrice() %>원</p>
-                    <a href="#" class="btn btn-primary" onclick="getDetail(<%=product.getProduct_id()%>)">둘러보기</a>
+                    <a class="btn btn-primary" onclick="location.href='/member/product/detail?product_id=<%=product.getProduct_id()%>'">둘러보기</a>
                 </div>
             </div>
-			<%} %>
+			<%} %>      
+        </form>
     </div>
     <!-- 신상품 상품진열 끝-->
 
@@ -214,16 +205,9 @@
             </div>
     </div>
     <!-- 중고상품 상품진열 끝 -->
-
-
-
-
-
+    
     <div id="footer">푸터 올 곳</div>
-
-
-
-
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -236,11 +220,5 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    <!-- 상품 상세정보 요청 --도균-- -->
-	<script>
-		function getDetail(product_id){
-			alert(product_id);
-		}
-	</script>
 </body>
 </html>

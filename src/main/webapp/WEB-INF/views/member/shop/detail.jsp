@@ -1,4 +1,9 @@
+<%@page import="ga.dgmarket.gymshopping.domain.Product"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	Product product = (Product)request.getAttribute("product");
+	System.out.println(product);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -150,5 +155,8 @@
         <div class="col-sm-2" ></div>
     </div>
     <!-- <div id="footer">푸터 올 곳</div> -->
+<script>
+
+</script>
 </body>
 </html>

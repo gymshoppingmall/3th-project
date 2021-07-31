@@ -16,5 +16,4 @@ public class Product {
 	private String product_img;
 	MultipartFile photo;
 	private TopCategory topCategory;
-
 }
