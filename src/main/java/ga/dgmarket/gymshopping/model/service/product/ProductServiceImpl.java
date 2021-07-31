@@ -33,14 +33,12 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	public void update(Product product) {
-		// TODO Auto-generated method stub
-		
+		productDAO.update(product);
 	}
 
 	@Override
 	public void delete(int product_id) {
-		// TODO Auto-generated method stub
-		
+		productDAO.delete(product_id);
 	}
 
 
