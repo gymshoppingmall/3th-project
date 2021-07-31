@@ -97,16 +97,6 @@ public class MemberController {
 		return "member/main/main";
 	}
 
-	//상세보기 페이지 요청
-	@GetMapping("/detail")
-	public String productDetail(int product_id, Model model) {
-		System.out.println("컨트롤러에 닿은 물품 ID는 = "+product_id);
-		Product product=productService.select(product_id);
-		model.addAttribute("product", product);
-		
-		return "member/shop/detail";
-	}
-		
 		
 	// 회원가입 폼 요청
 	@GetMapping("/registform")
