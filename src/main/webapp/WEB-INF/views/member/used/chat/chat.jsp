@@ -191,16 +191,13 @@ function openSocket(){ //대화를 위한 소켓 오픈
 
 //메시지 전송
 function send(){
-	var receiver = document.getElementById("receiver").value;
-	if(receiver == null || receiver == undefind){
-		bootbox.alert("메시지를 보낼 상대를 선택해주세요.", function(){
-			return;			
-		});
-	}else{
-		var text = document.getElementById("messageinput").value+",<%=member.getMember_id()%>,"+;
-		ws.send(text);		
-	}
-	
+	//var receiver = document.getElementById("receiver").value;
+	//if(receiver == null || receiver == undefind){
+		//return;
+	//}else{
+		var text = document.getElementById("messageinput").value+",<%=member.getMember_id()%>";
+		ws.send(text);		 //메시지 전송
+	//}
 }
  
 function closeSocket(){
@@ -228,7 +225,7 @@ $(function(){
 	<%@ include file="../../inc/top_navi.jsp" %>
 	<%@ include file="../inc/top_navi.jsp" %>
 	<%@ include file="../inc/side_controll.jsp" %>
-<input type="text" id="receiver" value=""> <!-- 메세지를 받게 될 사람의 아이디 넣기 -->
+<!-- <input type="text" id="receiver" value="">  --><!-- 메세지를 받게 될 사람의 아이디 넣기 -->
 <div class="container">
 	<div class="messaging">
 		<div class="inbox_msg">
