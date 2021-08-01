@@ -21,4 +21,5 @@ public class Member {
 	private String regdate;
 	private String emailchk;
 	MultipartFile photo;
+	private int user_grade;
 }

@@ -94,13 +94,17 @@ public class ProductController {
 	//상품 수정
 	@PostMapping("/product/update")
 	public String product_update(Product product, HttpServletRequest request) {
-		ServletContext context = request.getServletContext();
-		fileManager.deleteFile(context, product.getProduct_img(), "product/img/");
-		MultipartFile photo = product.getPhoto();
-		Long time = System.currentTimeMillis();
-		String filename = time+"."+fileManager.getExt(photo.getOriginalFilename());
-		fileManager.saveFile(context, photo, "product/img/");
-		product.setProduct_img(filename);
+		int leng = product.getPhoto().getOriginalFilename().length();
+		
+		if(leng>0) {
+			ServletContext context = request.getServletContext();
+			fileManager.deleteFile(context, product.getProduct_img(), "product/img/");
+			MultipartFile photo = product.getPhoto();
+			Long time = System.currentTimeMillis();
+			String filename = time+"."+fileManager.getExt(photo.getOriginalFilename());
+			fileManager.saveFile(context, photo, "product/img/");
+			product.setProduct_img(filename);			
+		}
 		productService.update(product);
 		return "redirect:/admin/main/productlist";
 	}

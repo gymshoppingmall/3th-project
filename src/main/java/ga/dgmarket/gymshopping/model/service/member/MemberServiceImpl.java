@@ -59,5 +59,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.idCheck(memberId);
 	}
 
+	@Override
+	public void updateByAdmin(Member member) {
+		memberDAO.updateByAdmin(member);
+	}
+
 	
 }
