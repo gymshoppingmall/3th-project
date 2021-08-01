@@ -18,6 +18,7 @@
 		select product_id, product_name , product_img, price, brand ,tc.top_category_id , top_name
 		from product p , top_category tc 
 		where p.top_category_id = tc.top_category_id 
+		order by product_id desc
 	</select>
 
 	 
@@ -63,4 +64,10 @@
 		insert into product(top_category_id, product_name, product_detail, price, brand, product_inven, product_img)
 		values (#{top_category_id}, #{product_name}, #{product_detail}, #{price}, #{brand}, #{product_inven},#{product_img})
 	</insert>
+	
+	<update id="update" parameterType="Product">
+		update product set top_category_id=#{top_category_id}, product_name=#{product_name}
+		, product_detail=#{product_detail}, price=#{price}, brand=#{brand}, product_inven=#{product_inven}, product_img=#{product_img}
+		where product_id = #{product_id}
+	</update>
 </mapper>

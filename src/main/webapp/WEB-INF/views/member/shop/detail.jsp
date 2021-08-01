@@ -1,8 +1,9 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Product"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	Product product = (Product)request.getAttribute("product");
-	System.out.println(product);
+	System.out.print(product);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,12 +69,12 @@
                 <div class="col-sm-7" id="product-choice">
                     <hr class="top-line">
                     <div class="product-name">
-                        <h2 style="margin-left: 20px; margin-bottom: 15px;">득근 덤벨 세트 <span class="badge badge-secondary">Hot</span></h2>
+                        <h2 style="margin-left: 20px; margin-bottom: 15px;"><%=product.getProduct_name()%> <span class="badge badge-secondary">Hot</span></h2>
                     </div>
                     <hr style="background-color: rgb(186, 186, 186); height: 2/1px; margin: 0%;">
                     <div class="row">
                         <div class="col-sm-4" id="product-price">판매가</div>
-                        <div class="col-sm-6" id="product-price" style="font-weight: bold; color: rgb(214, 6, 208);">18000원</div>
+                        <div class="col-sm-6" id="product-price" style="font-weight: bold; color: rgb(214, 6, 208);"><%=product.getPrice()%>원</div>
                     </div>
                     <hr style="margin: 0%;">
                     <div class="row">
@@ -83,16 +84,16 @@
                     <hr style="margin: 0%;">
                     <div class="row">
                         <div class="col-sm-4">적립금</div>
-                        <div class="col-sm-6">180원</div>
+                        <div class="col-sm-6"><%=Math.round(product.getPrice()*0.01)%></div>
                     </div>
                     <hr style="margin: 0%;">
                     <div class="row">
                         <div class="col-sm-4">제조사</div>
-                        <div class="col-sm-6">득근컴퍼니</div>
+                        <div class="col-sm-6"><%=product.getBrand() %></div>
                     </div>
                     <hr style="margin: 0%; background: rgb(112, 112, 112);">
                     <div class="row" style="background: rgb(221, 221, 221); margin-left: 0%; margin-right: 0%;">
-                        <div class="col-sm-4">상품선택</div>
+                        <!-- <div class="col-sm-4">상품선택</div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
@@ -104,7 +105,7 @@
                                   <option>바벨 20kg X 2, 10kg X 2, 5kg X 2 세트(+20000)</option>
                                 </select>
                               </div>
-                        </div>
+                        </div> -->
                     </div>
                     <hr style="margin: 0%; background: rgb(112, 112, 112);">
                     
@@ -115,7 +116,7 @@
                     </div>
                     <hr style="margin: 0%; background: rgb(112, 112, 112);">
                     <div class="row" style="background: rgb(221, 221, 221); margin-left: 0%; margin-right: 0%;">
-                        <div class="col-md-6" >아령 5kg X 2 기본 세트(+0)</div>
+                        <div class="col-md-6" >&nbsp&nbsp<%=product.getProduct_name()%></div>
                         <div class="col-md-3">
                             <form class="cart clearfix mb-50 d-flex" method="post">
                                 <div class="quantity">

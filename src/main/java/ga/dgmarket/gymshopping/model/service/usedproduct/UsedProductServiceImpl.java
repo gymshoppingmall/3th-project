@@ -86,7 +86,7 @@ public class UsedProductServiceImpl implements UsedProductService{
 	//세션에 있는 member_id을 통해 조회할 예정
 	public List selectAll(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		//임의로 값 넣기===========================================
+		//임의로 세션 값 넣기===========================================
 		Member member = new Member();
 		member.setMember_id(36);
 		member.setUser_id("admin");
@@ -102,6 +102,71 @@ public class UsedProductServiceImpl implements UsedProductService{
 		
 		return usedProductDAO.selectAll(mem.getMember_id());
 	}	
+	
+	//키워드를 통해 각기 다른 결과 반환
+	//두번 째 매개변수로 넘어온 [type]에 따라 검색 조건이 달라지며,
+	//세번 째 매개변수로 넘어온 [keyword] 가 검색하는 키가 됨.  from.성일
+	public List selectByKeyword(HttpServletRequest request, String type, String keyword) {
+		//현재 세션에 있는 멤버 id 구해오기
+		HttpSession session  = request.getSession();
+		Member member = (Member)session.getAttribute("member");
+		int member_id = member.getMember_id();
+		
+		List<UsedProductExtend> list = null;
+		UsedProductExtend productExtend = null;
+		UsedTag usedTag = null;
+		
+		switch(type) {
+			case "product_name": //상품명으로 검색했을 때
+				productExtend = new UsedProductExtend();
+				productExtend.setUsed_product_name(keyword);
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByProductName(productExtend);
+				break;
+				
+			case "tag_name": //태그명으로 검색했을 때
+				usedTag = new UsedTag();
+				usedTag.setUsed_product_id(member_id);
+				usedTag.setTag_name(keyword);
+				list = usedProductDAO.selectByTagName(usedTag);
+				break;
+				
+			case "store_name": //상점이름으로 검색했을 때
+				productExtend = new UsedProductExtend();
+				productExtend.setStorename(keyword);
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByStoreName(productExtend);
+				break;
+				
+			case "store_id": //상점 id로 검색했을 때
+				productExtend = new UsedProductExtend();
+				productExtend.setStorename(keyword); //원래라면 store_id를 넣어줘야 됐지만 꼼수 씀...
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByStoreId(productExtend);
+				
+				break;
+				
+			case "max_price": //최대 금액으로 검색했을 때
+				productExtend = new UsedProductExtend();
+				productExtend.setUsed_product_price(Integer.parseInt(keyword));
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByMaxPrice(productExtend);
+				break;
+				
+			case "min_price": //최소 금액으로 검색 했을 때 
+				productExtend = new UsedProductExtend();
+				productExtend.setUsed_product_price(Integer.parseInt(keyword));
+				productExtend.setMember_id(member_id);
+				
+				list = usedProductDAO.selectByMinPrice(productExtend);
+				break;
+		}
+		return list;
+	}
 	
 	//상품의 상세보기 요청을 했을 때
 	//used_product+storename+favorites_id+tag 꺼내오기
@@ -119,22 +184,49 @@ public class UsedProductServiceImpl implements UsedProductService{
 		//맵에 담을 애들
 		UsedProductExtend usedProductExtend = usedProductDAO.getDetail(productExtend); //상품정보+찜 정보 가져오기
 		UsedFavorites usedFavorites =usedProductDAO.getFavoritesCount(used_product_id); //찜 갯수가져오기
-		System.out.println("favorites 비었음? : "+usedFavorites);
 		List<UsedProductImg> imgList = usedProductImgDAO.getProductImg(used_product_id);//이미지 가져오기
+		
+		addSessionProduct(request, imgList.get(0)); //세션에 상품 정보 넣기		
+		
 		List<UsedTag> tagList = usedProductDAO.getProductTag(used_product_id);//태그 가져오기
-		System.out.println("usedProductExtend : "+usedProductExtend);
-		System.out.println("usedFavorites : "+usedFavorites);
-		System.out.println("imgList : "+imgList);
-		System.out.println("tagList : "+tagList);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("usedProductExtend", usedProductExtend);
 		map.put("usedFavorites", usedFavorites);
 		map.put("imgList", imgList);
 		map.put("tagList", tagList);
 		
+		
 		return map;
 	}
 	
+	//제품 상세보기를 할 때 최근 본 목록을 처리하는 메서드
+	public void addSessionProduct(HttpServletRequest request, UsedProductImg productImg){
+		HttpSession session = request.getSession();
+		List<Map> historyList = null;
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("used_product_id", Integer.toString(productImg.getUsed_product_id()));
+		map.put("used_img", productImg.getUsed_img());
+		
+		//만약에 세션에 historyList가 없다면 생성하고 있다면 받아오자
+		 if((List)session.getAttribute("historyList") == null) {
+			 historyList  = new ArrayList<Map>();
+		 }else {
+			 historyList = (List)session.getAttribute("historyList");
+		 }
+		 
+		 //최근 본 상품은 3개 까지 조회 가능하게 만들 것이므로, 배열의 길이가 3보다 작으면 그냥 add하고
+		 //3보다 같거나 크다면 첫번 째 값을 지우고 add하자
+		 if(historyList.size() < 3) {
+			 historyList.add(map);
+		 }else {
+			 historyList.remove(0);
+			 historyList.add(map);
+		 }
+		 session.setAttribute("historyList", historyList);
+	}
+	
+
 	/*상품 한 건 삭제를 처리하는 서비스
 	상품이미지 삭제[디비, 파일]
 	상품태그삭제

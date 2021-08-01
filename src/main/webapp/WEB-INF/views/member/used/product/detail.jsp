@@ -120,6 +120,8 @@ function delFavorites(used_favorites_id){
 </script>
 </head>
 <body>
+	<!-- 득근 마켓 top_navi -->
+	<%@ include file="../../inc/top_navi.jsp" %>
 	<!-- 중고거래 top_navi -->
 	<%@ include file="../inc/top_navi.jsp" %>
 	<!-- 중고거래 side_controll -->
@@ -135,7 +137,7 @@ function delFavorites(used_favorites_id){
 	            	<span style="padding-right: 15px;"><a href="/member/used/main">등록된 태그가 없습니다.</a></span>
 	            <%} else {%>
 		            <%for(UsedTag usedTag : tagList){%>
-		            	<span style="padding-right: 15px;"><a href="#">#<%=usedTag.getTag_name() %></a></span>
+		            	<span style="padding-right: 15px;"><a href="/member/used/main/search?type=tag_name&keyword=<%=usedTag.getTag_name() %>">#<%=usedTag.getTag_name() %></a></span>
 		            <% } %>
 	            <% } %>
             <% } %>
@@ -168,11 +170,11 @@ function delFavorites(used_favorites_id){
                             		<%UsedProductImg productImg = imgList.get(i); %>
 	                                <%if(i==0){ %>
 		                                <div class="carousel-item active">
-		                                    <img src="/resources/data/used/product/img/<%= productImg.getUsed_img()%>" alt="Los Angeles">
+		                                    <img src="/resources/data/used/product/img/<%= productImg.getUsed_img()%>" alt="">
 		                                </div>
 	                                <%} else {%>
 		                                <div class="carousel-item">
-		                                    <img src="/resources/data/used/product/img/<%= productImg.getUsed_img()%>" alt="Los Angeles">
+		                                    <img src="/resources/data/used/product/img/<%= productImg.getUsed_img()%>" alt="">
 		                                </div>
 	                                <% } %>
                                 <%} %>

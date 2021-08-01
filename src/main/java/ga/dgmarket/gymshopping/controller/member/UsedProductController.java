@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -42,10 +43,20 @@ public class UsedProductController {
 		return "member/used/main";
 	}
 	
+	//상품 검색을 담당하는
+	@GetMapping("/used/main/search")
+	public String getMainByKeyword(Model model, HttpServletRequest request, String type, String keyword) {
+		System.out.println("keyword : "+keyword+".");
+		System.out.println("type : "+type+".");
+		List usedProductList = usedProductService.selectByKeyword(request, type, keyword);
+		model.addAttribute("usedProductList", usedProductList);
+		
+		return "member/used/main";
+	}
+	
 	//중고상품 등록 폼 요청을 처리하는 메서드
 	@GetMapping("/used/product/registForm")
 	public String registForm(HttpServletRequest request) {
-		
 		return  "member/used/product/registForm";
 	}
 
@@ -61,7 +72,7 @@ public class UsedProductController {
 	@GetMapping("/used/product/detail")
 	public String getDetail(HttpServletRequest request, Model model, int used_product_id) {
 		Map<String, Object> map = usedProductService.getDetail(request, used_product_id);
-		model.addAttribute("map", map);
+		model.addAttribute("map", map);	
 		
 		return "member/used/product/detail";
 	}
@@ -101,6 +112,7 @@ public class UsedProductController {
 		return Integer.toString(favorites_id);
 	}
 	
+	//찜 삭제하기
 	@GetMapping("/used/product/delfavorites")
 	@ResponseBody
 	public String delfavorites(HttpServletRequest request, int used_favorites_id) {

@@ -32,14 +32,12 @@ public class MybatisProductDAO implements ProductDAO{
 
 	@Override
 	public void update(Product product) {
-		// TODO Auto-generated method stub
-		
+		sqlSessionTemplate.update("Product.update",product);
 	}
 
 	@Override
 	public void delete(int product_id) {
-		// TODO Auto-generated method stub
-		
+		sqlSessionTemplate.delete("Product.delete", product_id);
 	}
 
 }

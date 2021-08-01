@@ -40,31 +40,11 @@ public class AdminController {
 		model.addAttribute("admin", obj);
 		return "redirect:/admin/main/index";
 	}
-	
 	@GetMapping("/main/index")
 	public String adminMain(HttpServletRequest request) {
 		return "admin/login/index";
 	}
-	//모든 회원 가져오기
-	@GetMapping("/main/member")
-	public String admin_member(Model model, HttpServletRequest request) {
-		List memberList = memberService.selectAll();
-		int cnt = memberService.countUser();
-		model.addAttribute("memberList",memberList);
-		model.addAttribute("cnt",cnt);
-		return "admin/main/member";
-	}
-	//단일 회원 가져오기
-	@GetMapping("/main/member/detail")
-	public String getDetail(int member_id, Model model, HttpServletRequest request) {
-		Member member = memberService.select(member_id);
-		model.addAttribute("member",member);
-		return "admin/main/member/detail";
-	}
-	@GetMapping("/main/product")
-	public String admin_product(HttpServletRequest request) {
-		return "admin/main/product";
-	}
+
 	@GetMapping("/main/qna")
 	public String admin_qna(HttpServletRequest request) {
 		return "admin/main/qna";

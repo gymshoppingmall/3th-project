@@ -51,6 +51,7 @@
                     
                     <label for="exampleInputEmail1">카테고리</label>
 						<input type="hidden" value="<%=product.getTopCategory().getTop_category_id()%>">
+						<input type="hidden" value="<%=product.getProduct_img()%>" name="product_img">
 	                        <select class="form-control" name="top_category_id">
 	                        	<option value="0">카테고리 선택</option>
 	                        	<%for(TopCategory topCategory : topCategoryList){ %>
@@ -109,4 +110,26 @@
     </section>
     <!-- /.content -->
   </div>
+  <script>
+  function del() {
+	if(confirm("정말로 삭제하시겠어요?")){
+		$("form").attr({
+			action:"/admin/product/delete",
+			method:"post",
+			enctype:"multipart/form-data"
+		});
+		$("form").submit();
+	}
+}
+  function update() {
+	if(confirm("정말로 수정하시겠어요?")){
+		$("form").attr({
+			action:"/admin/product/update",
+			method:"post",
+			enctype:"multipart/form-data"			
+		});
+		$("form").submit();
+	}
+}
+  </script>
 </html>
