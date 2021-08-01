@@ -1,16 +1,6 @@
-/* header */
-#header{
-    text-align: center;
-    height: 200px;
-    background: rgba(77, 223, 109, 0.867);
-    font-size: 50px;
-    font-weight: bold;
-    line-height: 200px;
-}
 
 /* 이미지 슬라이더 */
 .carousel img{
-    margin-top: 50px;
     height: 400px;
 }
 .carousel h5{

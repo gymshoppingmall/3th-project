@@ -54,7 +54,11 @@
     <link rel="icon" href="img/reallogo.png">
 </head>
 <body>
-    <div id="header">헤더 올 곳</div>
+	<!-- 헤더 시작 -->
+    <div id="header" >
+		<%@include file="../inc/top_navi.jsp" %>
+	</div>
+	<!-- 헤더 끝 -->
     <div class="row">
         <div class="col-sm-2" ></div>
         <div class="col-sm-8">

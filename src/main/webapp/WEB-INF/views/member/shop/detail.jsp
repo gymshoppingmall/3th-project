@@ -4,7 +4,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	Product product = (Product)request.getAttribute("product");
-	System.out.print(product);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +79,7 @@
                     <hr style="margin: 0%;">
                     <div class="row">
                         <div class="col-sm-4">배송비</div>
-                        <div class="col-sm-6">5000원</div>
+                        <div class="col-sm-6" id="ship-cost">5000</div>
                     </div>
                     <hr style="margin: 0%;">
                     <div class="row">
@@ -123,20 +122,20 @@
                                 <div class="quantity" ondragstart="false" id="detail-form">
                                 	<input type="hidden" name="product_id" value="<%=product.getProduct_id()%>">
                                     <input type="hidden" name="member_id" value="<%=1%>">
-                                	<span class="qty-minus" ondragstart="false" style="cursor: pointer;" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false; "><i class="fa fa-minus" aria-hidden="true" onclick="changePrice();"></i></span>
+                                	<span class="qty-minus" ondragstart="false" style="cursor: pointer;" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false; "><i class="fa fa-minus" aria-hidden="true" onclick="changePrice(-1);"></i></span>
                                     <input type="number" ondragstart="false" class="qty-text" id="qty" step="1" min="1" max="12" name="ea" value="1">
-                                    <span class="qty-plus" ondragstart="false" style="cursor: pointer;"onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false; "><i class="fa fa-plus" aria-hidden="true" onclick="changePrice();"></i></span>
+                                    <span class="qty-plus" ondragstart="false" style="cursor: pointer;"onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false; "><i class="fa fa-plus" aria-hidden="true" onclick="changePrice(1);"></i></span>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-3" id="total-price"><%=product.getPrice()*1%>원</div>
+                        <div class="col-md-3" id="total-price"><%=product.getPrice()%></div>
                     </div>
                     <hr style="margin: 0%; background: rgb(112, 112, 112);">
-                    <div class="row">
-                        <div class="col-md-4" style=" margin-left: 15px;"></div>
-                        <div class="col-md-4" style="font-size: 25px; height: 50px; margin-top: 20px;" >총 상품 금액</div>
-                        <div class="col-md-2" style="font-size: 25px; margin-left: 80px;" id="total-price-with-shipping"><%=product.getPrice()*1%>원</div>
-                    </div>
+<%--                     <div class="row">
+                        <div class="col-md-2" style=" margin-left: 15px;"></div>
+                        <div class="col-md-4" style="font-size: 25px; height: 50px;padding-left: 80px; margin-top: 20px;" >총 상품 금액</div>
+                        <div class="col-md-4" style="font-size: 25px; margin-left: 100px; margin-top: 20px;" id="total-price-with-shipping"><%=product.getPrice()*1%>원</div>
+                    </div> --%>
 
                 </div>
             </div>
@@ -163,15 +162,19 @@
 <script>
 
 /* 수량 변경시 가격변경과 장바구니에 담기 */
-function changePrice(){
-
-	//alert("인식");
-	var json={
-		product_id:$("#detail-form input[name='product_id']").val(),
-		ea:$("#detail-form input[type='number']").val
+function changePrice(a){
+	//수량 int형으로 변환
+	var ea= $("#detail-form input[type='number']").val() 
+	ea=ea*1+a;
+	
+	if(ea==0){
+		return
 	}
-	console.log("전송할 수량은", json);
-
+		
+	var product_price=<%=product.getPrice()%> //상품금액
+	var tag=ea*product_price;//상품금액*수량
+	var price = document.getElementById("total-price");
+	price.innerHTML= tag;
 }
 
 
