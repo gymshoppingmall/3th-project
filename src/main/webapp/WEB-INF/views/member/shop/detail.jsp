@@ -1,9 +1,12 @@
+<%@page import="ga.dgmarket.gymshopping.domain.Member"%>
 <%@page import="java.util.jar.Attributes.Name"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Product"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	Product product = (Product)request.getAttribute("product");
+	Member member = (Member)session.getAttribute("member");
+	System.out.print("상세보기"+member);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +60,11 @@
     <title>상세보기</title>
 </head>
 <body>
-    <div id="header">헤더 올 곳</div>
+    <!-- 헤더 시작 -->
+    <div id="header" >
+		<%@include file="../inc/top_navi.jsp" %>
+	</div>
+	<!-- 헤더 끝 -->
     <div class="row">
         <div class="col-sm-2" ></div>
         <div class="col-sm-8" id="product-detail">
