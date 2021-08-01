@@ -1,3 +1,4 @@
+<%@page import="java.util.jar.Attributes.Name"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Product"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
@@ -14,7 +15,7 @@
 
 <!-- jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Favicon  -->
 <link rel="icon" href="/resources/img/reallogo.png">
@@ -108,30 +109,33 @@
                         </div> -->
                     </div>
                     <hr style="margin: 0%; background: rgb(112, 112, 112);">
-                    
+
                     <div class="row" style="width: 100%;">
                         <div class="col-md-6" style=" margin-left: 30px;">상품명</div>
-                        <div class="col-md-2" id="product-number">상품수</div>
-                        <div class="col-md-3" >가격</div>
+                        <div class="col-md-2" id="product-number">&nbsp&nbsp상품수</div>
+                        <div class="col-md-3" style="margin-left: 30px; padding-left: 40px;"> 가격</div>
                     </div>
                     <hr style="margin: 0%; background: rgb(112, 112, 112);">
                     <div class="row" style="background: rgb(221, 221, 221); margin-left: 0%; margin-right: 0%;">
                         <div class="col-md-6" >&nbsp&nbsp<%=product.getProduct_name()%></div>
                         <div class="col-md-3">
-                            <form class="cart clearfix mb-50 d-flex" method="post">
-                                <div class="quantity">
-                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="12" name="quantity" value="1">
-                                    <i class="fas fa-times-circle"></i>
+                            <form class="cart clearfix mb-50 d-flex" method="post" >
+                                <div class="quantity" ondragstart="false" id="detail-form">
+                                	<input type="hidden" name="product_id" value="<%=product.getProduct_id()%>">
+                                    <input type="hidden" name="member_id" value="<%=1%>">
+                                	<span class="qty-minus" ondragstart="false" style="cursor: pointer;" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false; "><i class="fa fa-minus" aria-hidden="true" onclick="changePrice();"></i></span>
+                                    <input type="number" ondragstart="false" class="qty-text" id="qty" step="1" min="1" max="12" name="ea" value="1">
+                                    <span class="qty-plus" ondragstart="false" style="cursor: pointer;"onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false; "><i class="fa fa-plus" aria-hidden="true" onclick="changePrice();"></i></span>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-3">18000원</div>
+                        <div class="col-md-3" id="total-price"><%=product.getPrice()*1%>원</div>
                     </div>
                     <hr style="margin: 0%; background: rgb(112, 112, 112);">
                     <div class="row">
                         <div class="col-md-4" style=" margin-left: 15px;"></div>
                         <div class="col-md-4" style="font-size: 25px; height: 50px; margin-top: 20px;" >총 상품 금액</div>
-                        <div class="col-md-2" style="font-size: 25px; margin-left: 80px;">원</div>
+                        <div class="col-md-2" style="font-size: 25px; margin-left: 80px;" id="total-price-with-shipping"><%=product.getPrice()*1%>원</div>
                     </div>
 
                 </div>
@@ -158,6 +162,29 @@
     <!-- <div id="footer">푸터 올 곳</div> -->
 <script>
 
+/* 수량 변경시 가격변경과 장바구니에 담기 */
+function changePrice(){
+
+	//alert("인식");
+	var json={
+		product_id:$("#detail-form input[name='product_id']").val(),
+		ea:$("#detail-form input[type='number']").val
+	}
+	console.log("전송할 수량은", json);
+
+}
+
+
+
+
+
 </script>
 </body>
 </html>
+
+
+
+
+
+
+

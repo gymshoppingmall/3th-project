@@ -40,6 +40,7 @@ import ga.dgmarket.gymshopping.model.email.DM;
 import ga.dgmarket.gymshopping.model.email.EmailSender;
 import ga.dgmarket.gymshopping.model.service.member.MemberService;
 import ga.dgmarket.gymshopping.model.service.product.ProductService;
+import ga.dgmarket.gymshopping.model.service.usedproduct.UsedProductService;
 
 /**
  * Handles requests for the application home page.
@@ -57,6 +58,9 @@ public class MemberController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private UsedProductService usedProductService;
 	
 	@Autowired
 	private EmailSender emailSender;
@@ -80,22 +84,33 @@ public class MemberController {
 		session.setAttribute("member", obj);
 		model.addAttribute("member", obj);
 		
+		System.out.println("로그인시 넘어갈 멤버 정보는"+obj);
+		
 		return "redirect:/member/main";
 	}
 	
 	
-	//멤버 메인 페이지 요청 및 리퀘스트에 상품저장 --도균--
+	//멤버 메인 페이지 요청 및 리퀘스트에 회원정보,신상품,중고상품 저장 --도균--
 	@GetMapping("/main")
-	public String getMain(HttpServletRequest request) {
-		
+	public String getProductToMain(HttpServletRequest request, HttpSession session) {
+		Member member = (Member)session.getAttribute("member");
+
 		// 3단계: 일 시키기
 		List productNewList = productService.selectNewItem();
+		List UsedProductNewList= usedProductService.selectMainList();
 		
 		// 4단계: 저장
 		request.setAttribute("productNewList", productNewList);
+		request.setAttribute("UsedProductNewList", UsedProductNewList);
+		request.setAttribute("member", member);
 		
+
 		return "member/main/main";
 	}
+	
+	
+	
+	
 
 		
 	// 회원가입 폼 요청

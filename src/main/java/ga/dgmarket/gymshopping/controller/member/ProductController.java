@@ -17,6 +17,8 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	
+	
 	// 메인에서 상품클릭시 상세보기 요청처리 --도균--
 		@GetMapping("/product/detail")
 		public String detailform(int product_id, Model model) {

@@ -1,3 +1,5 @@
+<%@page import="ga.dgmarket.gymshopping.domain.UsedProduct"%>
+<%@page import="ga.dgmarket.gymshopping.domain.UsedProductExtend"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
@@ -6,6 +8,8 @@
 <%
 	//메인페이지 호출과 동시에 상품 받아오기 --도균--
 	List<Product> productNewList =(List)request.getAttribute("productNewList");
+	List<UsedProductExtend> UsedProductNewList = (List)request.getAttribute("UsedProductNewList");
+	Member member=(Member)request.getAttribute("member");
 %>
 <!doctype html>
 <html lang="en">
@@ -171,38 +175,16 @@
     <!-- 중고상품 상품진열 -->
     <div class="product1">
         <div class="product-suggestion">인기 중고</div>
+        <%for(UsedProduct usedProduct : UsedProductNewList){ %>
             <div class="card" style="width:300px">
                 <img class="card-img-top" src="/resources/img/img16.jpg" alt="Card image">
                 <div class="card-body">
-                    <h4 class="card-title">훔친 공원 기구</h4>
-                    <p class="card-text">13000원</p>
+                    <h4 class="card-title"><%=usedProduct.getUsed_product_name()%></h4>
+                    <p class="card-text"><%=usedProduct.getUsed_product_price() %>원</p>
                     <a href="#" class="btn btn-primary">둘러보기</a>
                 </div>
             </div>
-            <div class="card" style="width:300px">
-                <img class="card-img-top" src="/resources/img/img10.jpg" alt="Card image">
-                <div class="card-body">
-                    <h4 class="card-title">사이클 머신</h4>
-                    <p class="card-text">49000원</p>
-                    <a href="#" class="btn btn-primary">둘러보기</a>
-                </div>
-            </div>
-            <div class="card" style="width:300px">
-                <img class="card-img-top" src="/resources/img/img11.jpg" alt="Card image">
-                <div class="card-body">
-                    <h4 class="card-title">고무밴드(손잡이 포함)</h4>
-                    <p class="card-text">8000원</p>
-                    <a href="#" class="btn btn-primary">둘러보기</a>
-                </div>
-            </div>
-            <div class="card" style="width:300px">
-                <img class="card-img-top" src="/resources/img/img12.jpg" alt="Card image">
-                <div class="card-body">
-                    <h4 class="card-title">재미어트 철봉</h4>
-                    <p class="card-text">45000원</p>
-                    <a href="#" class="btn btn-primary">둘러보기</a>
-                </div>
-            </div>
+		<%} %>  
     </div>
     <!-- 중고상품 상품진열 끝 -->
     
