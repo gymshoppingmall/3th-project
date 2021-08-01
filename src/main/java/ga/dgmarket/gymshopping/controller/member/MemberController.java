@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.servlet.ServletContext;
@@ -16,6 +17,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ga.dgmarket.gymshopping.domain.Member;
 import ga.dgmarket.gymshopping.domain.Product;
@@ -65,6 +68,8 @@ public class MemberController {
 	@Autowired
 	private EmailSender emailSender;
 	
+	@Inject
+	private BCryptPasswordEncoder pwdEncoder;
 
 	// 로그인 폼 요청 처리--하연--
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
@@ -76,15 +81,34 @@ public class MemberController {
 
 	// 로그인 요청 처리--하연--
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Member member, HttpSession session, Model model) {
-		// 3단계: 일 시키기
-		Member obj = memberService.login(member);
+	public String login(Member member, HttpSession session, Model model, HttpServletRequest request, RedirectAttributes ra) {
 
-		// 4단계: 저장
-		session.setAttribute("member", obj);
-		model.addAttribute("member", obj);
-		
-		System.out.println("로그인시 넘어갈 멤버 정보는"+obj);
+		// HttpServletRequest를 사용하면 값을 받아 올수 있다.
+		session = request.getSession();
+		Member obj = memberService.login(member);
+			
+		// 이렇게 안하면 db에 없는 아이디를 입력하고 로그인하면 에러코드 발생
+		/*
+		if(obj == null ) { 
+			ra.addFlashAttribute("result", "loginFalse");
+			return "redirect:/";
+		}
+		*/
+			
+		logger.info("원래 비밀번호 : " + obj.getPassword());
+		logger.info("로그인할때 입력한 비밀번호 : " + member.getPassword());
+			
+			
+		boolean passwordMatch = pwdEncoder.matches(member.getPassword(), obj.getPassword());
+		logger.info("원래 비밀번호와 로그인할 때 입력한 비밀번호가 같으면 트루 : " + passwordMatch);
+		if(obj != null && passwordMatch == true) {
+			session.setAttribute("member", obj);
+			model.addAttribute("member", obj);
+			ra.addFlashAttribute("result", "loginOK");
+		} else {
+			session.setAttribute("member", null);
+			ra.addFlashAttribute("result", "loginFalse");
+		}
 		
 		return "redirect:/member/main";
 	}
@@ -108,11 +132,7 @@ public class MemberController {
 		return "member/main/main";
 	}
 	
-	
-	
-	
 
-		
 	// 회원가입 폼 요청--하연--
 	@GetMapping("/registform")
 	public String joinForm(Model model) {
@@ -135,7 +155,14 @@ public class MemberController {
 	// 회원가입 요청--하연--
 	@PostMapping("/main/regist")
 	public String join(Member member, HttpServletRequest request) {
-
+		//비밀번호 암호화 작업
+		String PlaintextPassword = member.getPassword();
+		String encryptionPassword = pwdEncoder.encode(PlaintextPassword);
+		member.setPassword(encryptionPassword);
+		
+		System.out.println(PlaintextPassword);
+		System.out.println(encryptionPassword);
+		
 		// VO에 등록한 MultipartFile 객체에 업로드된 파일이 이미 들어있으므로 개발자는 이 객체를 이용하여 업로드된 파일을 원하는대로
 		// 제어하면 된다
 		MultipartFile photo = member.getPhoto();
@@ -147,6 +174,7 @@ public class MemberController {
 		fileManager.saveFile(context, filename, photo);
 		System.out.println(filename);
 		member.setProfile_img(filename);
+		
 		memberService.regist(member);
 		HttpSession session = request.getSession();
 		session.setAttribute("member", member);
