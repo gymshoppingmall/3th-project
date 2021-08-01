@@ -15,6 +15,7 @@
 		<typeAlias type="ga.dgmarket.gymshopping.domain.Admin" alias="Admin" />
 		<typeAlias type="ga.dgmarket.gymshopping.domain.Product" alias="Product" />
 		<typeAlias type="ga.dgmarket.gymshopping.domain.Grade" alias="Grade" />
+		
 		<!-- 관리자/클라이언트 혼용 -->
 		<typeAlias type="ga.dgmarket.gymshopping.domain.TopCategory" alias="TopCategory" />
 		
@@ -25,6 +26,8 @@
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedProductImg" alias="UsedProductImg"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedReview" alias="UsedReview"/>
 		<typeAlias type="ga.dgmarket.gymshopping.domain.UsedTag" alias="UsedTag"/>
+		<!-- qna 게시판 from.성일 -->
+		<typeAlias type="ga.dgmarket.gymshopping.domain.Qna" alias="Qna"/>
 	</typeAliases>
 	<mappers>
 		<!-- 쇼핑 영역 from.도균 -->
@@ -47,5 +50,7 @@
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/UsedProductImgMapper.xml"/>
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/UsedReviewMapper.xml"/>
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/UsedTagMapper.xml"/>
+		<!-- qna 게시판 from.성일 -->
+		<mapper resource="ga/dgmarket/gymshopping/mybatis/QnaMapper.xml"/>
 	</mappers>
 </configuration>
