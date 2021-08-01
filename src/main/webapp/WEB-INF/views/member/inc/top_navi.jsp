@@ -19,14 +19,14 @@
 
 #navbar {
   overflow: hidden;
-  background-color: #DCE2F0;
+  background-color: #333;;
   border-bottom: 2px black solid;
 }
 
 #navbar a {
   float: left;
   display: block;
-  color: #50586C;
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -88,15 +88,6 @@
     margin: 2px 0px 0px 0px;
 }
 
-
-
-
-
-
-
-
-
-
 </style>
 </head>
 <body>
@@ -106,7 +97,7 @@
 </div>
 
 <div id="navbar">
-  <a href="javascript:void(0)" style="margin-left: 5%">운동기구</a>
+  <a href="javascript:void(0)" style="margin-left: 2%">운동기구</a>
   <a href="javascript:void(0)">스포츠의류</a>
   <a href="javascript:void(0)">액세사리</a>
   <a href="javascript:void(0)">보조식품</a>
