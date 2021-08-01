@@ -24,5 +24,7 @@ public interface UsedProductDAO {
 	public List selectByStoreName(UsedProductExtend productExtend);
 	public List selectByMaxPrice(UsedProductExtend productExtend);
 	public List selectByMinPrice(UsedProductExtend productExtend);
+	//메인화면에 나올 최신순위 4개 리스트 from.도균
+	public List selectMainList();
 	
 }

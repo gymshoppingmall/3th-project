@@ -259,6 +259,11 @@ public class UsedProductServiceImpl implements UsedProductService{
 	public void delFavorites(HttpServletRequest request, int used_favorites_id) throws DMLException{
 		usedProductDAO.deleteFavoritesOne(used_favorites_id);
 	}
+
+	//메인화면에 나올 최신순위 4개 리스트 from.도균
+	public List selectMainList() {
+		return usedProductDAO.selectMainList();
+	}
 }
 
 
