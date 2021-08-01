@@ -1,5 +1,9 @@
+<%@page import="ga.dgmarket.gymshopping.domain.Product"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<% %>
+<% 
+	List<Product> cntList = (List)request.getAttribute("cnt");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +21,7 @@
   <p>현재 배송중인 상품은 %n건입니다.</p>
 
 	<div id="piechart"></div>
+	<div id="piechart2"></div>
 </div>
 
 
@@ -30,11 +35,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
   ['Task', 'Hours per Day'],
-  ['운동기구', 4],
-  ['보조식품', 12],
-  ['운동복', 9],
-  ['신발', 11],
-  ['기타', 8]
+  <%for(Product product : cntList){%>
+  ['<%=product.getTopCategory().getTop_name()%>',<%=product.getCnt()%>],
+  <%}%>
 ]);
 
   // Optional; add a title and set the width and height of the chart
@@ -43,6 +46,8 @@ function drawChart() {
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
   chart.draw(data, options);
+  var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+  chart2.draw(data, options);
 }
 </script>
 </body>

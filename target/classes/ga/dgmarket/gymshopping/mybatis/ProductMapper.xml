@@ -32,6 +32,8 @@
 	<select id="selectNewItem" resultType="Product">
 		select * from product order by product_id desc limit 4;
 	</select>	
+	
+	
 
 	<!-- 단일상품 디테일-->
 	<resultMap type="Product" id="ProductTopCategoryDetail">
@@ -42,6 +44,7 @@
 		<result column="brand" property="brand"/>	
 		<result column="product_inven" property="product_inven"/>
 		<result column="product_detail" property="product_detail"/>
+		<result column="cnt" property="cnt"/>
 		<association column="top_category_id" property="topCategory" javaType="TopCategory"
 		select="TopCategory.select"/>
 	</resultMap>
@@ -52,6 +55,13 @@
 		from product p , top_category tc 
 		where p.top_category_id = tc.top_category_id
 		and product_id = #{product_id}
+	</select>
+	
+	<select id="selectForCategory" resultMap="ProductTopCategoryDetail">
+		select p.top_category_id, tc.top_name, COUNT(tc.top_name) as cnt 
+		from product p, top_category tc 
+		WHERE p.top_category_id = tc.top_category_id 
+		group by p.top_category_id, tc.top_name  ;
 	</select>
 	
 	

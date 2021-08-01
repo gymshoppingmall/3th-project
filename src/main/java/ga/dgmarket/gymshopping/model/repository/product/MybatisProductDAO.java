@@ -40,4 +40,9 @@ public class MybatisProductDAO implements ProductDAO{
 		sqlSessionTemplate.delete("Product.delete", product_id);
 	}
 
+	@Override
+	public List selectForCategory() {
+		return sqlSessionTemplate.selectList("Product.selectForCategory");
+	}
+
 }
