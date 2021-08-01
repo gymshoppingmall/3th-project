@@ -495,7 +495,7 @@ p {
 			<div class="wrapper">
 				<div class="logo">
 					<h1>
-						<a class="brand-logo" href="index.html"><span>득근마켓</span>
+						<a class="brand-logo"><span>득근마켓</span>
 							로그인</a>
 					</h1>
 				</div>
