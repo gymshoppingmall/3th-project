@@ -62,8 +62,16 @@
     height: 200px;
 }
 
+.reviewTr{
+	display: none;
+}
+
 </style>
 <script>
+
+$(function(){
+	loadReview();
+});
 
 //상점 ID 복사하기
 function copyLink(){
@@ -114,6 +122,14 @@ function deleteReview(used_review_id){
 		}
 	});
 }
+
+function loadReview(){
+	console.log($(".reviewTr:hidden").length);
+    $(".reviewTr:hidden").slice(0, 4).show();
+    if($(".reviewTr:hidden").length == 0){
+        $("#load").css("display", "none");
+    }
+}
 </script>
 </head>
 <body>
@@ -142,9 +158,9 @@ function deleteReview(used_review_id){
         <!-- 개인상점에서 카테고리를 선택할 수 있는 네비 -->
         <div class="category_container" style="margin: auto; width: 100%; margin-top: 20px; margin-bottom: 20px;">
             <ul class="nav justify-content-center">
-                <%  if(member.getMember_id()==storeMember.getMember_id()) { %>
+                <%  if(member.getMember_id()==storeMember.getMember_id()) { %> <!-- 본인의 상점일 때 보이는 메뉴 -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><h5>판매목록</h5></a>
+                    <a class="nav-link" href="/member/used/main/search?type=store_name&keyword=<%=storeMember.getStorename()%>"><h5>판매목록</h5></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><h5>찜목록</h5></a>
@@ -159,7 +175,7 @@ function deleteReview(used_review_id){
                 <li class="nav-item">
                     <a class="nav-link" href="#"><h5>1 : 1 대화하기</h5></a>
                 </li>
-                <% } %>
+                <% } %><!-- 다른 사람의 상점일 때 보이는 메뉴 -->
             </ul>
         </div>
 
@@ -172,7 +188,7 @@ function deleteReview(used_review_id){
 	                <!-- 더보기 글씨 넣기 -->
 	                <div class="row text-left">
 	                    <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님의 판매 상품</h4></div>
-	                    <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
+	                    <div class="col-sm-2"><h5><a href="/member/used/main/search?type=store_name&keyword=<%=storeMember.getStorename()%>">더보기+</a></h5></div>
 	                </div>
 	                
 	                <div class="row text-center">
@@ -210,7 +226,7 @@ function deleteReview(used_review_id){
 		                <!-- 더보기 글씨 넣기 -->
 		                <div class="row text-left">
 		                    <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님이 찜한 상품</h4></div>
-		                    <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
+		                    <div class="col-sm-2" id="load"><h5><a href="#">더보기+</a></h5></div>
 		                </div>
 		                <div class="row text-center">
 		                    <%for(int i = 0; i < favoritesList.size(); i++){ %> <!-- 찜한 상품 미리보기 -->
@@ -244,7 +260,6 @@ function deleteReview(used_review_id){
 				<div class="review_container" style="margin-top: 60px; margin-bottom: 50px">
 				    <div class="row text-left">
 				        <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님 상점 이용 후기</h4></div>
-				        <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
 				    </div>
 				    <table class="table" style="width: 100%">
 				        <thead>
@@ -259,9 +274,9 @@ function deleteReview(used_review_id){
 				        		<%if(i > 4) break; %>
 				        		<% UsedReview review = (UsedReview)reviewList.get(i); %>
 				        		<%if(review.getWriter_id() == member.getMember_id()) {%>
-						        	<tr style="background-color: ivory;" onclick="deleteReview(<%= review.getUsed_review_id()%>)">
+						        	<tr class="reviewTr" style="background-color: ivory;" onclick="deleteReview(<%= review.getUsed_review_id()%>)">
 						        <% } else {%>    
-						        	<tr>
+						        	<tr class="reviewTr">
 						        <% } %>
 						                 <td><%=review.getContent() %></td>
 						                 <td><%=review.getWriter() %></td>
@@ -280,6 +295,7 @@ function deleteReview(used_review_id){
 					        <% } %>
 						</tbody>
 				    </table>
+				    <div id="load"><h5><a href="javascript:loadReview();">더보기+</a></h5></div>
 				</div>	
             <%} else { %> <!-- 작성된 후기가 없다면 -->
 				<div class="review_container" style="margin-top: 60px; margin-bottom: 50px">

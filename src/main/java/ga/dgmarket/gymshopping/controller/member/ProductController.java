@@ -29,9 +29,6 @@ public class ProductController {
 			// 4단계: 저장
 			model.addAttribute("product", product);
 
-			
 			return "member/shop/detail";
-		}
-	
-	
+	}
 }

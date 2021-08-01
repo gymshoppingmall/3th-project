@@ -13,4 +13,5 @@ public interface MemberService {
 	public Member select(int member_id);
 	public int idCheck(String memberId);
 	public int countUser();
+	public void updateByAdmin(Member member); // 관리자의 회원수정
 }

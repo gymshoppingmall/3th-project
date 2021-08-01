@@ -66,7 +66,7 @@ public class MemberController {
 	private EmailSender emailSender;
 	
 
-	// 로그인 폼 요청 처리
+	// 로그인 폼 요청 처리--하연--
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
 	public String loginForm() {
 		return "member/login/loginform";
@@ -74,7 +74,7 @@ public class MemberController {
 
 	
 
-	// 로그인 요청 처리
+	// 로그인 요청 처리--하연--
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Member member, HttpSession session, Model model) {
 		// 3단계: 일 시키기
@@ -113,13 +113,13 @@ public class MemberController {
 	
 
 		
-	// 회원가입 폼 요청
+	// 회원가입 폼 요청--하연--
 	@GetMapping("/registform")
 	public String joinForm(Model model) {
 		return "member/login/join/regist";
 	}
 	
-	// 아이디 중복 검사
+	// 아이디 중복 검사--하연--
 		@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
 		@ResponseBody
 		public String memberIdChkPOST(Member member) throws Exception{
@@ -132,7 +132,7 @@ public class MemberController {
 			}	
 		}
 
-	// 회원가입 요청
+	// 회원가입 요청--하연--
 	@PostMapping("/main/regist")
 	public String join(Member member, HttpServletRequest request) {
 
@@ -154,7 +154,7 @@ public class MemberController {
 		return "member/login/loginform";
 	}
 
-	// 회원정보상세 요청
+	// 회원정보상세 요청--하연--
 	@GetMapping("/join/detail")
 	public String getDetail(int member_id, Model model) {
 		Member member = memberService.select(member_id);
@@ -166,7 +166,7 @@ public class MemberController {
 		return "member/login/join/content";
 	}
 	
-	//회원수청요청처리
+	//회원수청요청처리--하연--
 	@PostMapping("/join/update")
 	public String update(Member member, HttpServletRequest request, Model model) {
 		System.out.println("지금 멤버 프로필 이미지는 "+member.getProfile_img());
@@ -190,7 +190,7 @@ public class MemberController {
 		return "member/main/index";
 	}
 
-	// 회원탈퇴요청처리
+	// 회원탈퇴요청처리--하연--
 	@PostMapping("/join/del")
 	public String delete(Member member, HttpServletRequest request) {
 		memberService.delete(member.getMember_id());
@@ -199,7 +199,7 @@ public class MemberController {
 		return "member/main/index";
 	}
 	
-	//이메일
+	//이메일--하연--
 	@RequestMapping("/certifiedMail")
 	@ResponseBody
 	public String certifiedMail(@RequestParam(required = false)String user_email) {

@@ -49,6 +49,7 @@
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported><!-- 웹 소켓을 위한 비동기 지원 설정 -->
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>memberServlet</servlet-name>

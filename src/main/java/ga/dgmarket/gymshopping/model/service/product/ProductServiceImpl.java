@@ -41,5 +41,10 @@ public class ProductServiceImpl implements ProductService{
 		productDAO.delete(product_id);
 	}
 
+	@Override
+	public List selectForCategory() {
+		return productDAO.selectForCategory();
+	}
+
 
 }

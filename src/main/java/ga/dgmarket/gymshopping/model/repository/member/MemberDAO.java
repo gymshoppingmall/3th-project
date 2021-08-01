@@ -13,4 +13,5 @@ public interface MemberDAO {
 	public Member select(int member_id);
 	public int idCheck(String memberId); //아이디 중복체크
 	public int countUser(); // 한달간 가입한 회원 수
+	public void updateByAdmin(Member member); // 관리자의 회원수정
 }

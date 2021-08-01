@@ -1,7 +1,10 @@
+<%@page import="ga.dgmarket.gymshopping.domain.Grade"%>
+<%@page import="java.util.List"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	Member member = (Member)request.getAttribute("member");	
+	Member member = (Member)request.getAttribute("member");
+	List<Grade> gradeList = (List)request.getAttribute("gradeList");
 %>
 <!DOCTYPE html>
 <html>
@@ -51,12 +54,10 @@
 						
 	                        <select class="form-control" name="user_grade">
 	                        	<option value="0">등급 선택</option>
-	                        	<option value="1">일반 회원</option>
-	                        	<option value="2">우수 회원</option>
-	                        	<option value="3">판매자</option>
-	                        	<option value="4">내가바로 리뷰왕</option>
-	                        	<option value="5">내가바로 판매왕</option>
-	                        	<option value="6">블랙리스트</option>	                          
+	                        	<%for(Grade grade : gradeList){ %>
+	                        	<option value="<%=grade.getUser_grade()%>" 
+	                        	<%if(grade.getUser_grade()==member.getUser_grade()){%>selected<%} %>><%=grade.getGrade_name() %></option>
+	                        	<%} %>	                        
 	                        </select>
                       
                     </div>                    
@@ -106,7 +107,6 @@
 
                 <div class="card-footer">
                   <button type="button" class="btn btn-primary" onClick="update()">수정</button>
-                  <button type="button" class="btn btn-primary" onClick="del()">삭제</button>
                   <button type="button" class="btn btn-primary" onClick="location.href='/admin/main/member'">목록</button>
                 </div>
               </form>
@@ -117,4 +117,16 @@
     </section>
     <!-- /.content -->
   </div>
+<script>
+  function update() {
+	if(confirm("정말로 수정하시겠어요?")){
+		$("form").attr({
+			action:"/admin/member/update",
+			method:"post",
+			enctype:"multipart/form-data"			
+		});
+		$("form").submit();
+	}
+}
+  </script>
 </html>
