@@ -169,7 +169,7 @@ function openSocket(){ //대화를 위한 소켓 오픈
         return;
     }
     //웹소켓 객체 만드는 코드
-    ws = new WebSocket("ws://localhost:9999/used/chat");
+    ws = new WebSocket("ws://localhost:8888/used/chat");
     
     ws.onopen = function(event){
         if(event.data === undefined){
