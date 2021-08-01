@@ -9,6 +9,8 @@ public class ChatController {
 	
 	@GetMapping("/used/chat/list")
 	public String chatList() {
+
+		
 		
 		
 		return "member/used/chat/chat";
