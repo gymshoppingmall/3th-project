@@ -71,6 +71,11 @@ public class MybatisMemberDAO implements MemberDAO{
 		return sqlSessonTemplate.selectOne("Member.idCheck",memberId);
 	}
 
+	@Override
+	public void updateByAdmin(Member member) {
+		sqlSessonTemplate.update("Member.updateByAdmin",member);
+	}
+
 	
 
 }

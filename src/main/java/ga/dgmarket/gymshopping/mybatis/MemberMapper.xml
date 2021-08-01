@@ -36,5 +36,11 @@
 	<select id="countUser" resultType="int">
 		select count(member_id) from member WHERE regdate>=date_add(now(), INTERVAL -1 MONTH )
 	</select>
+	<!-- 관리자가 회원 수정할 경우 -->
+	<update id="updateByAdmin" parameterType="Member">
+		update member set 
+		storename=#{storename}, profile_img=#{profile_img}, user_grade=#{user_grade} 
+		where member_id=#{member_id}
+	</update>
 
 </mapper>
