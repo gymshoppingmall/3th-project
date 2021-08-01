@@ -5,7 +5,7 @@
 <%
 %>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="/member/main" target='_blank'>
   	<img src="/resources/admin/imgs/reallogo.png" width="50px" height="50px">
   </a>
   <ul class="navbar-nav">

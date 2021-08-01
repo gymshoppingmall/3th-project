@@ -45,4 +45,9 @@ public class MybatisProductDAO implements ProductDAO{
 		return sqlSessionTemplate.selectList("Product.selectForCategory");
 	}
 
+	@Override
+	public List selectTodayRegisted() {
+		return sqlSessionTemplate.selectList("Product.selectTodayRegisted");
+	}
+
 }

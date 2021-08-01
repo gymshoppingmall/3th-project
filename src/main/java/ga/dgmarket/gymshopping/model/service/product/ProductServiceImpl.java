@@ -46,5 +46,10 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.selectForCategory();
 	}
 
+	@Override
+	public List selectTodayRegisted() {
+		return productDAO.selectTodayRegisted();
+	}
+
 
 }
