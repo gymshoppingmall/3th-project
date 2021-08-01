@@ -65,9 +65,13 @@
 </head>
 
 <body>
-    <div id="header">헤더 올 곳</div>
+	<!-- 헤더 시작 -->
+    <div id="header" >
+		<%@include file="../inc/top_navi.jsp" %>
+	</div>
+	<!-- 헤더 끝 -->
     <!-- 이미지 슬라이더 시작 -->
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin-top: 0px">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
