@@ -35,7 +35,9 @@ public class ProductController {
 	@GetMapping("/main/product")
 	public String admin_product(HttpServletRequest request, Model model) {
 		List cnt = productService.selectForCategory();
+		List cntToday = productService.selectTodayRegisted();
 		model.addAttribute("cnt",cnt);
+		model.addAttribute("cntToday",cntToday);
 		return "admin/main/product";
 	}
 	

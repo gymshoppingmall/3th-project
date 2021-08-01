@@ -64,6 +64,11 @@
 		group by p.top_category_id, tc.top_name  ;
 	</select>
 	
+	<select id="selectTodayRegisted" resultMap="ProductTopCategoryDetail">
+		select COUNT(product_id) as cnt 
+		from product 
+		where regdate > date_format(curdate( ), '%Y-%m-%d %H:%i:%s' ) ;
+	</select>
 	
 	<!-- 상품삭제 -->
 	<delete id="delete" parameterType="int">

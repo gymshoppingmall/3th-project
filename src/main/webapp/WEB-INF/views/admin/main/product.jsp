@@ -3,6 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <% 
 	List<Product> cntList = (List)request.getAttribute("cnt");
+	List<Product> cntToday = (List)request.getAttribute("cntToday");
 %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +17,7 @@
 
 <div class="container p-3 my-3 bg-dark text-white">
   <h1>상품관리 페이지입니다.</h1>
-  <p>오늘 등록된 상품은 %n건입니다.</p>
+  <p>오늘 등록된 상품은 <%=cntToday.get(0).getCnt() %>건입니다.</p>
   <p>오늘 판매된 상품은 %n건입니다.</p>
   <p>현재 배송중인 상품은 %n건입니다.</p>
 
@@ -46,8 +47,6 @@ function drawChart() {
   // Display the chart inside the <div> element with id="piechart"
   var chart = new google.visualization.PieChart(document.getElementById('piechart'));
   chart.draw(data, options);
-  var chart2 = new google.visualization.PieChart(document.getElementById('piechart2'));
-  chart2.draw(data, options);
 }
 </script>
 </body>
