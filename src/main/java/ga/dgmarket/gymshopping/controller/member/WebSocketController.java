@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ga.dgmarket.gymshopping.chat.ServletAwareConfig;
 import ga.dgmarket.gymshopping.domain.Member;
 
 
@@ -44,7 +45,6 @@ public class WebSocketController {
             final Basic basic=session.getBasicRemote();
             basic.sendText("채팅방과 연결 됐습니다.");
         }catch (Exception e) {
-            // TODO: handle exception
             System.out.println(e.getMessage());
         }
         sessionList.add(session);
@@ -56,23 +56,22 @@ public class WebSocketController {
      * @param sender
      * @param message
      */ //메시지를 전송할 때 디비에 넣야할 것 같음 //얘는 send 역할
-//    private void sendAllSessionToMessage(Session self, String sender, String message, int receiver_id, HandshakeRequest request) {
-//    	HttpSession memberSession = (HttpSession) request.getHttpSession();
-//    	Member member = (Member)memberSession.getAttribute("member");
-//    	int member_id = member.getMember_id();
-//
-//        try {
-//            for(Session session : WebSocketController.sessionList) { //모든 사용자에게 전송하기
-//                if(!self.getId().equals(session.getId())) { //세션에 들어있는 사용자id와 수신자의id가 일치하다면 메세지 출력
-//                	if(member_id == receiver_id) {
-//                		session.getBasicRemote().sendText(sender+" : "+message);
-//                	}
-//                }
-//            }
-//        }catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
+    private void sendAllSessionToMessage(Session self, String sender, String message) {
+    	//HttpSession memberSession = (HttpSession) request.getHttpSession();
+    	//Member member = (Member)memberSession.getAttribute("member");
+    	//int member_id = member.getMember_id();
+        try {
+            for(Session session : WebSocketController.sessionList) { //모든 사용자에게 전송하기
+                if(!self.getId().equals(session.getId())) { //세션에 들어있는 사용자id와 수신자의id가 일치하다면 메세지 출력
+                	//if(member_id == receiver_id) {
+                		session.getBasicRemote().sendText(sender+" : "+message);
+                	//}
+                }
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
     
     /*
      * 메세지를 받는 곳 즉, listener 역할을 함
@@ -83,12 +82,9 @@ public class WebSocketController {
     @OnMessage
     public void onMessage(String message, Session session) {
     	
-    	
     	System.out.println("실행 순서 1"); //얘가 가장 먼저임
     	message = message.split(",")[0];
     	String sender = message.split(",")[1];
-    	int receiver_id = Integer.parseInt(message.split(".")[2]);
-    	
     	
 		try {
             final Basic basic=session.getBasicRemote();
@@ -97,8 +93,7 @@ public class WebSocketController {
             // TODO: handle exception
             System.out.println(e.getMessage());
         }
-
-    	//sendAllSessionToMessage(session, sender, message, receiver_id, request); 
+    	sendAllSessionToMessage(session, sender, message); 
     }
     
     @OnError

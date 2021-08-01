@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 --used product 관련 데이터 밀어버리기!!!!!
 set sql_safe_updates = 0;
 delete from used_tag;
@@ -78,5 +78,4 @@ from used_product p, member m
 where p.member_id=m.member_id and p.used_product_id=#{product_id};
 
 --favorites count 가져오기
->>>>>>> 2eecb6f9d2980674cc958da13cb40e2219604ff8
 select count(*) as count from used_favorites where used_product_id=#{used_product_id} group by used_favorites_id;
