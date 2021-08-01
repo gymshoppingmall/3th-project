@@ -41,3 +41,7 @@ set foreign_key_checks = 1; // 지정
 create table grade(user_grade int primary key auto_increment, grade_name varchar(20)
 )default character set utf8;
 
+--카테고리별 상품 수
+select p.top_category_id, tc.top_name, COUNT(tc.top_name) as cnt from product p, top_category tc 
+WHERE p.top_category_id = tc.top_category_id 
+group by p.top_category_id, tc.top_name  ;

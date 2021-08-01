@@ -33,7 +33,9 @@ public class ProductController {
 	@Autowired
 	private FileManager fileManager;
 	@GetMapping("/main/product")
-	public String admin_product(HttpServletRequest request) {
+	public String admin_product(HttpServletRequest request, Model model) {
+		List cnt = productService.selectForCategory();
+		model.addAttribute("cnt",cnt);
 		return "admin/main/product";
 	}
 	
