@@ -86,9 +86,19 @@ public class UsedProductServiceImpl implements UsedProductService{
 	//세션에 있는 member_id을 통해 조회할 예정
 	public List selectAll(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		Member mem = (Member)session.getAttribute("member");
-		System.out.println(mem+"member는");
 		
+		//테스트하려고 정보 넣는 중==============
+		Member member = new Member();
+		member.setMember_id(6);
+		member.setStorename("성일샵");
+		member.setName("성일");
+		member.setUser_id("used_test");
+		member.setPassword("1234");
+		
+		session.setAttribute("member", member);
+		//==========================
+		
+		Member mem = (Member)session.getAttribute("member");
 		return usedProductDAO.selectAll(mem.getMember_id());
 	}	
 	

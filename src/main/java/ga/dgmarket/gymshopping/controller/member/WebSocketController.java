@@ -40,14 +40,20 @@ public class WebSocketController {
     @OnOpen
     public void onOpen(Session session) {
     	System.out.println("실행 순서 0");
-        logger.info("Open session id:"+session.getId());
+        logger.info("[onOpen]Open session id:"+session.getId());
         try {
+	        for(Session obj : sessionList) {
+	        	if(obj.getId().equals(session.getId())) {
+	        		System.out.println("이미 접속 중인 세션입니다.");
+	        		return;
+	        	}
+	        }
+	        sessionList.add(session);
             final Basic basic=session.getBasicRemote();
-            basic.sendText("채팅방과 연결 됐습니다.");
+            basic.sendText("채팅방과 연결 됐습니다. 현재 채팅방 접속 인원  수 : "+sessionList.size()+"명");
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        sessionList.add(session);
     }
     
     /*
@@ -57,15 +63,14 @@ public class WebSocketController {
      * @param message
      */ //메시지를 전송할 때 디비에 넣야할 것 같음 //얘는 send 역할
     private void sendAllSessionToMessage(Session self, String sender, String message) {
+    	System.out.println("sendAllSessionToMessage 호출");
     	//HttpSession memberSession = (HttpSession) request.getHttpSession();
     	//Member member = (Member)memberSession.getAttribute("member");
     	//int member_id = member.getMember_id();
         try {
             for(Session session : WebSocketController.sessionList) { //모든 사용자에게 전송하기
-                if(!self.getId().equals(session.getId())) { //세션에 들어있는 사용자id와 수신자의id가 일치하다면 메세지 출력
-                	//if(member_id == receiver_id) {
-                		session.getBasicRemote().sendText(sender+" : "+message);
-                	//}
+                if(!self.getId().equals(session.getId())) {
+            		session.getBasicRemote().sendText(sender+" : "+message);
                 }
             }
         }catch (Exception e) {
@@ -75,20 +80,20 @@ public class WebSocketController {
     
     /*
      * 메세지를 받는 곳 즉, listener 역할을 함
-     * @param message
-     * @param session
      */ //메시지를 전송할 때 message에 담기는 값은 "메시지,보내는사람이름, 받는사람_id" 순으로 담긴다.
     //http 세션을 구해와야함
     @OnMessage
     public void onMessage(String message, Session session) {
     	
-    	System.out.println("실행 순서 1"); //얘가 가장 먼저임
-    	message = message.split(",")[0];
+    	System.out.println("onMessage 호출"); //얘가 가장 먼저임
     	String sender = message.split(",")[1];
+    	message = message.split(",")[0];
+    	
+    	logger.info("[onMessage] Message From "+sender + ": "+message);
     	
 		try {
-            final Basic basic=session.getBasicRemote();
-            basic.sendText("<나> : "+message);
+			final Basic basic=session.getBasicRemote();
+			basic.sendText("<나> : "+message);
         }catch (Exception e) {
             // TODO: handle exception
             System.out.println(e.getMessage());
@@ -104,8 +109,8 @@ public class WebSocketController {
     //페이지 닫을 시 세션 삭제
     @OnClose
     public void onClose(Session session) {
-    	System.out.println("실행 순서 3");
-        logger.info("Session "+session.getId()+" has ended");
+    	System.out.println("onClose() 호출");
+        logger.info("[onClose] Session "+session.getId()+" has ended");
         sessionList.remove(session);
     }
 }

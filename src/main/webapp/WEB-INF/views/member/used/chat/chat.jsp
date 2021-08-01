@@ -173,7 +173,7 @@ function openSocket(){ //대화를 위한 소켓 오픈
     
     ws.onopen = function(event){
         if(event.data === undefined){
-        	writeResponse("넘어온 데이터가 없습니다.");
+        	writeResponse("대화방에 연결 됐습니다.");
       		return;
         }
         writeResponse(event.data);
@@ -181,7 +181,7 @@ function openSocket(){ //대화를 위한 소켓 오픈
     
     //메시지를 수신 받는 곳
     ws.onmessage = function(event){
-    	msg_history.innerHTML += "<br/>"+event.data;
+    	writeResponse(event.data);
     };
     
     ws.onclose = function(event){
@@ -191,13 +191,16 @@ function openSocket(){ //대화를 위한 소켓 오픈
 
 //메시지 전송
 function send(){
+	//받는 사람 설정은 일단 채팅 완성하고 나서
 	//var receiver = document.getElementById("receiver").value;
 	//if(receiver == null || receiver == undefind){
-		//return;
+	//return;
 	//}else{
-		var text = document.getElementById("messageinput").value+",<%=member.getMember_id()%>";
-		ws.send(text);		 //메시지 전송
 	//}
+	var text = document.getElementById("messageinput").value+",<%=member.getStorename()%>";
+	console.log("send()함수 호출 입니다. 전송 값은 : "+text);
+	ws.send(text);		 //메시지 전송
+	text = "";
 }
  
 function closeSocket(){
