@@ -1,26 +1,27 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@page import="ga.dgmarket.gymshopping.domain.Member"%>
+<% 
+	Member member = (Member) session.getAttribute("member");
+%>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Popper JS -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-	alt></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" alt></script>
 <!-- bootbox cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
 <!-- 아이콘 처리 -->
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<!-- bootbox cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
 <style>
 .container{max-width:1170px; margin:auto;}
 img{ max-width:100%;}
@@ -36,7 +37,6 @@ img{ max-width:100%;}
   overflow: hidden;
 }
 .top_spac{ margin: 20px 0 0;}
-
 
 .recent_heading {float: left; width:40%;}
 .srch_bar {
@@ -158,128 +158,139 @@ img{ max-width:100%;}
   overflow-y: auto;
 }
 
-</style>
+</style><script>
+var ws = null;
+var msg_history = null;
+
+
+function openSocket(){ //대화를 위한 소켓 오픈
+	if(ws !== null){
+        writeResponse("WebSocket is already opened.");
+        return;
+    }
+    //웹소켓 객체 만드는 코드
+    ws = new WebSocket("ws://localhost:9999/used/chat");
+    
+    ws.onopen = function(event){
+        if(event.data === undefined){
+        	writeResponse("넘어온 데이터가 없습니다.");
+      		return;
+        }
+        writeResponse(event.data);
+    };
+    
+    //메시지를 수신 받는 곳
+    ws.onmessage = function(event){
+    	msg_history.innerHTML += "<br/>"+event.data;
+    };
+    
+    ws.onclose = function(event){
+        writeResponse("대화 종료");
+    }
+}
+
+//메시지 전송
+function send(){
+	var receiver = document.getElementById("receiver").value;
+	if(receiver == null || receiver == undefind){
+		bootbox.alert("메시지를 보낼 상대를 선택해주세요.", function(){
+			return;			
+		});
+	}else{
+		var text = document.getElementById("messageinput").value+",<%=member.getMember_id()%>,"+;
+		ws.send(text);		
+	}
+	
+}
+ 
+function closeSocket(){
+	ws.close();
+}
+ 
+function writeResponse(text){
+	msg_history.innerHTML += "<br/>"+text;
+}
+ 
+function clearText(){
+	console.log(msg_history.parentNode);
+	msg_history.parentNode.removeChild(msg_history);
+}
+
+
+$(function(){
+	msg_history = document.getElementById("msg_history");
+	openSocket();
+	
+});
+</script>
 </head>
-<body>
+<body onbeforeunload="javascript:closeSocket()">
 	<%@ include file="../../inc/top_navi.jsp" %>
 	<%@ include file="../inc/top_navi.jsp" %>
 	<%@ include file="../inc/side_controll.jsp" %>
-    <div class="container">
-        <div class="messaging">
-              <div class="inbox_msg">
-                <div class="inbox_people">
-                  <div class="headind_srch">
-                    <div class="recent_heading">
-                      <h4>대화 목록</h4>
-                    </div>
-                    <div class="srch_bar">
-                      <div class="stylish-input-group">
-                        <input type="text" class="search-bar"  placeholder="Search" >
-                        <span class="input-group-addon">
-                        <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                        </span> </div>
-                    </div>
-                  </div>
-                  <div class="inbox_chat">
-                    <div class="chat_list active_chat">
-                      <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                          <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                          <p>Test, which is a new approach to have all solutions 
-                            astrology under one roof.</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div class="chat_list">
-                      <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                          <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                          <p>Test, which is a new approach to have all solutions 
-                            astrology under one roof.</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    
+<input type="text" id="receiver" value=""> <!-- 메세지를 받게 될 사람의 아이디 넣기 -->
+<div class="container">
+	<div class="messaging">
+		<div class="inbox_msg">
+			<div class="inbox_people">
+			<div class="headind_srch">
+				<div class="recent_heading">
+					<h2>채팅목록</h2>
+				</div>
+			</div>
+			<div class="inbox_chat">
+			
+			<!-- 채팅 기록 한건 당 채팅 방 하나 -->
+			<div class="chat_list">
+				<div class="chat_people">
+					<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+					<div class="chat_ib">
+						<h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+						<p>Test, which is a new approach to have all solutions 
+						  astrology under one roof.</p>
+					</div>
+				</div>
+			</div>
+			<!-- 채팅 방 한건 끝 -->
 
-
-                    <div class="chat_list">
-                      <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                          <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                          <p>Test, which is a new approach to have all solutions 
-                            astrology under one roof.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="chat_list">
-                      <div class="chat_people">
-                        <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                        <div class="chat_ib">
-                          <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                          <p>Test, which is a new approach to have all solutions 
-                            astrology under one roof.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="mesgs">
-                  <div class="msg_history">
-                    <div class="incoming_msg">
-                      <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                      <div class="received_msg">
-                        <div class="received_withd_msg">
-                          <p>Test which is a new approach to have all
-                            solutions</p>
-                          <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                      </div>
-                    </div>
-                    <div class="outgoing_msg">
-                      <div class="sent_msg">
-                        <p>Test which is a new approach to have all
-                          solutions</p>
-                        <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-                    </div>
-                    <div class="incoming_msg">
-                      <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                      <div class="received_msg">
-                        <div class="received_withd_msg">
-                          <p>Test, which is a new approach to have</p>
-                          <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                      </div>
-                    </div>
-                    <div class="outgoing_msg">
-                      <div class="sent_msg">
-                        <p>Apollo University, Delhi, India Test</p>
-                        <span class="time_date"> 11:01 AM    |    Today</span> </div>
-                    </div>
-                    <div class="incoming_msg">
-                      <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                      <div class="received_msg">
-                        <div class="received_withd_msg">
-                          <p>We work directly with our designers and suppliers,
-                            and sell direct to you, which means quality, exclusive
-                            products, at a price anyone can afford.</p>
-                          <span class="time_date"> 11:01 AM    |    Today</span></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="type_msg">
-                    <div class="input_msg_write">
-                      <input type="text" class="write_msg" placeholder="Type a message" />
-                      <button class="msg_send_btn" type="button"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <p class="text-center top_spac"> Design by <a target="_blank" href="https://www.linkedin.com/in/sunil-rajput-nattho-singh/">Sunil Rajput</a></p>
-            </div></div>
+			</div>
+			</div>
+			<div class="mesgs">
+				<div class="msg_history" id ="msg_history">
+					                 
+					<!-- 조건문을 통해 내가 보낸 메시지 라면... -->
+					<div class="outgoing_msg">
+						<div class="sent_msg">
+							<p>Test which is a new approach to have all
+							  solutions</p>
+							<span class="time_date"> 11:01 AM    |    June 9</span>
+						</div>
+					</div>
+					<!-- 내가 보낸 메시지 끝 -->
+					
+					<!-- 상대가 보낸 메세지라면 -->
+					<div class="incoming_msg">
+						<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+						<div class="received_msg">
+							<div class="received_withd_msg">
+								<p>Test, which is a new approach to have</p>
+								<span class="time_date"> 11:01 AM    |    Yesterday</span>
+							</div>
+						</div>
+					</div>
+					<!-- 상대가 보낸 메시지 끝 -->
+				  
+				
+				</div>
+				<div class="type_msg">
+					<div class="input_msg_write">
+						<input type="text" class="write_msg" id="messageinput" placeholder="Type a message" />
+						<button class="msg_send_btn" type="button" onclick="send()"><i class="fas fa-paper-plane"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>

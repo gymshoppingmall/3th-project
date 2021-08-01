@@ -86,17 +86,6 @@ public class UsedProductServiceImpl implements UsedProductService{
 	//세션에 있는 member_id을 통해 조회할 예정
 	public List selectAll(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		//임의로 세션 값 넣기===========================================
-		Member member = new Member();
-		member.setMember_id(36);
-		member.setUser_id("admin");
-		member.setPassword("1234");
-		member.setName("김도균");
-		member.setStorename("도균");
-
-		session.setAttribute("member", member);
-		//임의로 값 넣기===========================================
-
 		Member mem = (Member)session.getAttribute("member");
 		System.out.println(mem+"member는");
 		

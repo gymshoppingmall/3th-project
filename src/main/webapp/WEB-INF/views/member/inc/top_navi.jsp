@@ -59,11 +59,6 @@
 .topnav-right {
   float: right;
 }
-
-
-
-
-
 .dropdown{
     position: relative;
     display: inline-block;
@@ -91,7 +86,6 @@
 </style>
 </head>
 <body>
-
 <div class="header">
   득근을 위한 <h1 onclick="location.href='#'">득근마켓</h1> 모두의 마켓
 </div>

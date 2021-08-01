@@ -200,6 +200,21 @@
          <version>${org.springframework-version}</version>
       </dependency>
 
+	<!-- spring-websocket 추가[성일] -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-websocket</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+	
+	<!-- javax.websocket 추가 [성일] -->
+	<dependency>
+		<groupId>javax.websocket</groupId>
+		<artifactId>javax.websocket-api</artifactId>
+		<version>1.1</version>
+	</dependency>
+	
+
 
       <!-- Test -->
       <dependency>
