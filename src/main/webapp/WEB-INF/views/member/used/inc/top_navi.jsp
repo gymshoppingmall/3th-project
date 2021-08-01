@@ -35,7 +35,7 @@ margin-bottom: 35px; padding-left: 250px; padding-right: 250px;">
 		</select>
 	</div>
 	<div class="col-sm-2" style="width: 100%">
-		<input id="keyword" type="text" placeholder="검색어">				
+		<input id="keyword" maxlength="10" type="text" placeholder="검색어">				
 	</div>
 	<div class="col-sm-1">
 		<button id="getMainByKeyword" style="background-color: #5cb85c; color: white">검색</button>
@@ -52,7 +52,7 @@ margin-bottom: 35px; padding-left: 250px; padding-right: 250px;">
 		<span onclick="location.href='/member/used/store?member_id=<%=mem.getMember_id()%>'"><h4><strong>상점</strong></h4></span>
 	</div>
 	<div class="col-sm-1">
-		<span onclick="location.href='#'"><h4><strong>대화</strong></h4></span>
+		<span onclick="location.href='/member/used/chat/list'"><h4><strong>대화</strong></h4></span>
 	</div>
 </div>
  <hr style="border: black 1px solid">

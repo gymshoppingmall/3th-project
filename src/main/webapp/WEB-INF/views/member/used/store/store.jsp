@@ -62,8 +62,16 @@
     height: 200px;
 }
 
+.reviewTr{
+	display: none;
+}
+
 </style>
 <script>
+
+$(function(){
+	loadReview();
+});
 
 //상점 ID 복사하기
 function copyLink(){
@@ -113,6 +121,14 @@ function deleteReview(used_review_id){
 			});	
 		}
 	});
+}
+
+function loadReview(){
+	console.log($(".reviewTr:hidden").length);
+    $(".reviewTr:hidden").slice(0, 4).show();
+    if($(".reviewTr:hidden").length == 0){
+        $("#load").css("display", "none");
+    }
 }
 </script>
 </head>
@@ -210,7 +226,7 @@ function deleteReview(used_review_id){
 		                <!-- 더보기 글씨 넣기 -->
 		                <div class="row text-left">
 		                    <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님이 찜한 상품</h4></div>
-		                    <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
+		                    <div class="col-sm-2" id="load"><h5><a href="#">더보기+</a></h5></div>
 		                </div>
 		                <div class="row text-center">
 		                    <%for(int i = 0; i < favoritesList.size(); i++){ %> <!-- 찜한 상품 미리보기 -->
@@ -244,7 +260,6 @@ function deleteReview(used_review_id){
 				<div class="review_container" style="margin-top: 60px; margin-bottom: 50px">
 				    <div class="row text-left">
 				        <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님 상점 이용 후기</h4></div>
-				        <div class="col-sm-2"><h5><a href="#">더보기+</a></h5></div>
 				    </div>
 				    <table class="table" style="width: 100%">
 				        <thead>
@@ -259,9 +274,9 @@ function deleteReview(used_review_id){
 				        		<%if(i > 4) break; %>
 				        		<% UsedReview review = (UsedReview)reviewList.get(i); %>
 				        		<%if(review.getWriter_id() == member.getMember_id()) {%>
-						        	<tr style="background-color: ivory;" onclick="deleteReview(<%= review.getUsed_review_id()%>)">
+						        	<tr class="reviewTr" style="background-color: ivory;" onclick="deleteReview(<%= review.getUsed_review_id()%>)">
 						        <% } else {%>    
-						        	<tr>
+						        	<tr class="reviewTr">
 						        <% } %>
 						                 <td><%=review.getContent() %></td>
 						                 <td><%=review.getWriter() %></td>
@@ -280,6 +295,7 @@ function deleteReview(used_review_id){
 					        <% } %>
 						</tbody>
 				    </table>
+				    <div id="load"><h5><a href="javascript:loadReview();">더보기+</a></h5></div>
 				</div>	
             <%} else { %> <!-- 작성된 후기가 없다면 -->
 				<div class="review_container" style="margin-top: 60px; margin-bottom: 50px">
