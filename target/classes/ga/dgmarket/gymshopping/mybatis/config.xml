@@ -8,7 +8,7 @@
 		<!-- 쇼핑영역 from.도균 -->
 		<typeAlias type="ga.dgmarket.gymshopping.domain.Cart" alias="Cart" />
 	
-		<!-- 클라이언트 로그인 영역 -->
+		<!-- 클라이언트 로그인 영역 from.조하연 -->
 		<typeAlias type="ga.dgmarket.gymshopping.domain.Member" alias="Member" />
 		
 		<!-- 관리자 영역 //공석민-->
@@ -30,7 +30,7 @@
 		<!-- 쇼핑 영역 from.도균 -->
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/CartMapper.xml"/>
 		
-		<!-- 클라이언트 로그인 영역 -->
+		<!-- 클라이언트 로그인 영역 from.조하연-->
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/MemberMapper.xml" />
 		<mapper resource="ga/dgmarket/gymshopping/mybatis/MemberJoinMapper.xml" />
 			
