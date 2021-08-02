@@ -1,180 +1,380 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="ga.dgmarket.gymshopping.domain.Qna"%>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	Member member = (Member) session.getAttribute("member");
+	List<Qna> qnaList = (List)request.getAttribute("qnaList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>qna list JSP</title>
-<style type="text/css">
-@charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
-
-body {
-	margin: 0 auto;
-	text-align: center;
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#myInput {
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	width: 89%;
 	font-size: 16px;
-	font-family: 'Noto Sans KR', sans-serif;
+	padding: 8px 15px 3px 10px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
 }
 
-a:link, a:visited {
-	text-decoration: none;
-	color: #000;
+#mySelect{
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	width: 10%;
+	padding: 6px 15px 2px 10px;
+	font-size: 18px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
 }
 
-#content {
-	padding: 20px 0;
-	min-width: 1024px;	/* 창의 최소 크기 지정 */
+#myTable {
+border-collapse: collapse;
+width: 100%;
+border: 1px solid #ddd;
+font-size: 18px;
+}
+#myTable th, #myTable td {
+text-align: center;
+padding: 15px;
+font-weight: bold;
 }
 
-img {
-	vertical-align: middle;	/* 세로축 가운데 정렬 */
+#myTable tr {
+border-bottom: 1px solid #ddd;
 }
 
-table {
-	width: 80%;
-	margin: 0 auto;
-	border: 1px solid;
-	border-collapse: collapse;	/* 테두리 겹침 설정 collapse: 겹치지 않게 처리 */
+#myTable tr.qna_header, #myTable tr:hover {
+background-color: #f1f1f1;
 }
 
-table th, table td {
-	border: 1px solid;
-	padding: 5px 10px;
+
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
 }
 
-table td a:hover { font-weight: bold; }
-
-.btnSet { margin-top: 20px;	}
-
-a.btn-fill, a.btn-empty {
-	text-align: center;
-	padding: 3px 10px;
-	border:1px solid #3367d6;
-	border-radius: 3px;
-	box-shadow: 2px 2px 3px #022d72;
-	/* 오른쪽, 아래쪽, 번진 정도 */
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
 }
 
-a.btn-fill { 
-	background-color: #3367d6;
-	color: #fff;
+/* Set a style for all buttons */
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
 }
 
-a.btn-empty { 
-	background-color: #fff;
-	color: #3367d6
+button:hover {
+  opacity:1;
 }
 
-a.btn-fill-s, a.btn-empty-s {
-	text-align: center;
-	padding: 1px 10px;
-	border:1px solid #c4dafc
-	border-radius: 3px;
-	box-shadow: 2px 2px 3px #022d72;
-	font-size: 13px;
+.reply_bt{
+	background-color: #04AA6D;
+	color: white;
+	padding: 0;
+
+	border: none;
+	cursor: pointer;
+	opacity: 0.9;
 }
 
-a.btn-fill-s { 
-	background-color: #bacdfa;
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
 }
 
-a.btn-empty-s { 
-	background-color: #fff;
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
 }
 
-.btnSet a:not(:first-child) {
-	margin-left: 3px;
+/* Add padding to container elements */
+.container {
+  padding: 16px;
 }
 
-a:hover { cursor:pointer; }
-
-input {
-	height: 22px;
-	padding: 3px 5px;
-	font-size: 15px;
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #474e5d;
+  padding-top: 50px;
 }
 
-input[type=radio] {
-	width: 18px;
-	margin: 0 5px 3px;
-	vertical-align: middle;
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
 }
 
-table tr td label:not(:last-child) {
-	margin-right: 20px;	
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+ 
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
 }
 
-.w-pct60 { width: 60% }
-.w-pct70 { width: 70% }
-.w-pct80 { width: 80% }
-.w-px40 { width: 40px }
-.w-px60 { width: 60px }
-.w-px80 { width: 80px }
-.w-px100 { width: 100px }
-.w-px120 { width: 120px }
-.w-px140 { width: 140px }
-.w-px160 { width: 160px }
-.w-px180 { width: 180px }
-.w-px200 { width: 200px }
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
 
-.left { text-align: left }
-.right { text-align: right }
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
-.font-img { cursor: pointer; }
-
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
 </style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- 아이콘 처리 -->
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<!-- bootbox cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
+<script>
+function myFunction() {
+	var input, filter, table, tr, td, i, txtValue;
+	input = document.getElementById("myInput");
+	filter = input.value.toUpperCase();
+	table = document.getElementById("myTable");
+	tr = table.getElementsByTagName("tr");
+
+	for (i = 0; i < tr.length; i++) {
+		td = tr[i].getElementsByTagName("td")[$("#mySelect").val()];
+		if (td) {
+			txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = "";
+			} else {
+				tr[i].style.display = "none";
+			}
+		}       
+	}
+}
+
+var modal = document.getElementById('id01');
+var modal2 = document.getElementById('id02');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+	if (event.target == modal) {
+		modal.style.display = "none";
+	}else if(event.target == modal2){
+		modal2.style.display = "none";
+	}
+}
+
+//게시글 등록
+function regist(){
+	$("#form1").attr({
+		action : "/member/qna/regist",
+		method : "POST"
+	});
+	$("#form1").submit();
+}
+
+function reply(){
+	$("#form2").attr({
+		action : "/member/qna/reply",
+		method : "POST"
+	});
+	$("#form2").submit();
+	
+}
+
+function showReply(tr){
+	if($('.'+tr).is(":visible")){ //display none이 아닐 경우
+		$('.'+tr).css("display", "none");
+	}else{ //none일 경우
+		$('.'+tr).css("display", ""); //크롬이나 표준 에서는 block을 명시하지 않고 비워둬야함....
+	};
+}
+
+//댓글 폼을 전송하기 전에 내가 선택한 행의 qna_id를 val에 넣어 전송
+function changeQna_id(qna_id){
+	$("#form2_qna_id").val(qna_id);
+}
+
+//원글 삭제하기
+function deleteQna(qna_id){
+	bootbox.confirm("게시글을 삭제하시겠습니까?", function(e){
+		if(e){
+			$.ajax({
+				url : "/member/qna/delete",
+				type : "post",
+				data : {
+					"qna_id" : qna_id
+				},
+				success : function(result){
+					bootbox.alert("삭제를 완료했습니다.", function(){
+						location.href="/member/qna/list";	
+					});						
+				}
+			});
+		}
+	});
+}
+
+//댓글 삭제하기
+function deleteReply(qna_id){
+	bootbox.confirm("댓글을 삭제하시겠습니까?", function(e){
+		if(e){
+			$.ajax({
+				url : "/member/qna/reply/delete",
+				type : "post",
+				data : {
+					"qna_id" : qna_id
+				},
+				success : function(result){
+					bootbox.alert("삭제를 완료했습니다.", function(){
+						location.href="/member/qna/list";	
+					});			
+				}
+			});
+		}
+	});
+}
+
+</script>
 </head>
 <body>
-<h3>Q&A</h3>
-<form method="post" action="/member/qna/qnalist" id="list">
-	<input type="hidden" name="curPage" value="1" />
-	
-	<div id="list-top">
-		<div>
-			<ul>
-				<li>
-					<select name="search" class="w-px80">
-						<option value="all" ${page.search eq 'all' ? 'selected' : '' }>전체</option>
-						<option value="title" ${page.search eq 'title' ? 'selected' : '' }>제목</option>
-						<option value="content" ${page.search eq 'content' ? 'selected' : '' }>내용</option>
-						<option value="writer" ${page.search eq 'writer' ? 'selected' : '' }>작성자</option>
-					</select>
-				</li>
-				<li><input value="${page.keyword }" type="text" name="keyword" class="w-px300" /></li>
-				<li><a class="btn-fill" onclick="$('form').submit()">검색</a></li>
-			</ul>
-			<ul>
-				<!--<core:if test="${login_info.admin eq 'Y' }">-->
-					<li><a class="btn-fill" href="new.qna">글쓰기</a></li>
-				</core:if>			
-			</ul>
-		</div>
-	</div>
-</form>
+<%@ include file="../inc/top_navi.jsp" %>
+<select name="" id="mySelect">
+	<option value="1" selected>제목</option>
+	<option value="2">내용</option>
+	<option value="3">작성자</option>
+</select>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="게시글의 제목이나 내용을 검색하세요" title="Type in a name">
 
-<table>
+<table id="myTable" style="text-align: center;">
 	<tr>
-		<th class="w-px60">번호</th>
+		<th></th>
 		<th>제목</th>
-		<th class="w-px100">작성자</th>
-		<th class="w-px120">작성일자</th>
+		<th>내용</th>
+		<th>작성자</th>
+		<th>작성일시</th>
+		<th></th>
 	</tr>
-	<core:forEach items="${page.list }" var="vo">
-		<tr>
-			<td>${vo.no }</td>
-			<td class="left">
-				<core:forEach var="i" begin="1" end="${vo.indent }">
-					<!-- ${i eq vo.indent ? "<img src='img/re.gif' />" : "&nbsp;&nbsp;" } -->
-				</core:forEach>
-				<a href="detail.qna?id=${vo.qna_id }" >${vo.title }</a>
-			</td>
-			<td>${vo.writer }</td>
-			<td>${vo.writedate }</td>
-		</tr>
-	</core:forEach>
+	<% for(Qna qna : qnaList) {%> <!-- 꺼내온 게시글 만큼 돌리기 -->		
+		<% if(qna.getDepth() == 0 ){ %> <!-- 원글이라면 -->
+			<tr style="background-color: #f2f2f2;">
+				<td><button id="<%= qna.getQna_id() %>" class="reply_bt" onclick="document.getElementById('id02').style.display='block'; changeQna_id(<%= qna.getQna_id() %>)">답변달기</button></td>
+				<td>[<%= qna.getTitle() %>]</td>
+			<% if(qna.getMember_id() == member.getMember_id()){ %> <!-- 내가 작성한 글이라면 -->
+				<td onclick="deleteQna(<%=qna.getQna_id()%>)"><%= qna.getContent() %></td>
+			<% } else {%><!-- 내가 작성한 글이 아니라면 -->
+				<td><%= qna.getContent() %></td>
+			<% } %>
+				<td>[<%= qna.getWriter() %>]</td>
+				<td>[<%= qna.getRegdate() %>]</td>
+				<td onclick="showReply('tr<%=qna.getTeam()%>')">댓글보기[<%= qna.getCnt() %>]</td>
+			</tr>
+		<% } else { %> <!-- 댓글이라면 -->
+			<tr class="tr<%=qna.getTeam()%>" style="display: none;">			
+				<td>[RE]</td>
+				<td>[답변]</td>
+			<% if(qna.getMember_id() == member.getMember_id()) { %><!-- 내가 작성한 댓글이라면 -->
+				<td onclick="deleteReply(<%=qna.getQna_id()%>)"><%= qna.getContent() %></td>
+			<% } else { %> <!-- 내가 작성한 댓글이 아니라면 -->
+				<td><%= qna.getContent() %></td>
+			<% } %>
+				<td>[<%= qna.getWriter() %>]</td>
+				<td>[<%= qna.getRegdate() %>]</td>
+				<td></td>
+			</tr>
+		<% } %>
+	<% } %>
 </table>
-<div class="btnSet">
-	<jsp:include page="/WEB-INF/views/member/inc/page.jsp"/>
+<button onclick="document.getElementById('id01').style.display='block'" style="float: right;">게시글 작성</button>
+
+<div id="id01" class="modal">
+	<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+	<form id="form1" class="modal-content">
+		<div class="container">
+			<h1>게시글 작성하기</h1>
+			<hr>
+			<label for="title"><b>제목</b></label>
+			<input type="text" placeholder="게시글의 제목을 입력하세요." name="title" required>
+			<label for="psw-repeat"><b>내용</b></label>
+			<textarea name="content" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
+			<input type="hidden" name="member_id" value=<%=member.getMember_id()%>>
+			<div class="clearfix">
+				<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">취소</button>
+				<button type="button" class="signupbtn" onclick="regist()">등록</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div id="id02" class="modal">
+	<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+	<form id="form2" class="modal-content">
+		<div class="container">
+			<h1>답글 작성하기</h1>
+			<hr>
+			<label for="psw-repeat"><b>답변의 내용을 입력하세요.</b></label>
+			<textarea name="content" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
+			<input type="hidden" name="member_id" value=<%=member.getMember_id()%>>
+			<input type="hidden" name="qna_id" id="form2_qna_id" value="">
+
+			<div class="clearfix">
+				<button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">취소</button>
+				<button type="button" class="signupbtn" onclick="reply()">등록</button>
+			</div>
+		</div>
+	</form>
 </div>
 </body>
 </html>
