@@ -2,8 +2,6 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%
-%>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-top">
   <a class="navbar-brand" href="/member/main" target='_blank'>
   	<img src="/resources/admin/imgs/reallogo.png" width="50px" height="50px">
@@ -37,10 +35,14 @@
         <a class="dropdown-item" href="#">블랙리스트</a>
       </div>
     </li>
+    <div class="top_navi_topnav-right">
+      <a class="nav-link" href="/admin/logout">로그아웃</a>    
+    </div>
     <li>
   </ul>
   <ul class="navbar-nav float-right">
       <span class="navbar-text ml-auto">
   	</span>  
   </ul>
+
 </nav>

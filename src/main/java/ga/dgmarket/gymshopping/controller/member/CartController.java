@@ -17,10 +17,18 @@ public class CartController {
 	
 	//장바구니 목록 가져오기 
 	@GetMapping("/cart/list")  //  
-	public String getList() {
+	public String getList(HttpServletRequest request) {
 
 		
 		
 		return "member/shop/cart";
 	}
+	//장바구니 목록 가져오기 
+		@GetMapping("/cart/list2")  //  
+		public String getList2() {
+
+			
+			
+			return "member/shop/cart2";
+		}
 }

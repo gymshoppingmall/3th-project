@@ -73,7 +73,7 @@ public class MemberController {
 
 	// 로그인 폼 요청 처리--하연--
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
-	public String loginForm() {
+	public String loginForm(HttpServletRequest request) {
 		return "member/login/loginform";
 	}
 
@@ -81,24 +81,22 @@ public class MemberController {
 
 	// 로그인 요청 처리--하연--
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Member member, HttpSession session, Model model, HttpServletRequest request, RedirectAttributes ra) {
+	public String login(Member member, Model model, HttpServletRequest request, RedirectAttributes ra) {
 
 		// HttpServletRequest를 사용하면 값을 받아 올수 있다.
-		session = request.getSession();
+		HttpSession session = request.getSession();
 		Member obj = memberService.login(member);
 			
 		// 이렇게 안하면 db에 없는 아이디를 입력하고 로그인하면 에러코드 발생
-		/*
 		if(obj == null ) { 
 			ra.addFlashAttribute("result", "loginFalse");
-			return "redirect:/";
+			return "redirect:/login";
 		}
-		*/
 			
 		logger.info("원래 비밀번호 : " + obj.getPassword());
 		logger.info("로그인할때 입력한 비밀번호 : " + member.getPassword());
 			
-			
+		
 		boolean passwordMatch = pwdEncoder.matches(member.getPassword(), obj.getPassword());
 		logger.info("원래 비밀번호와 로그인할 때 입력한 비밀번호가 같으면 트루 : " + passwordMatch);
 		if(obj != null && passwordMatch == true) {
@@ -109,7 +107,6 @@ public class MemberController {
 			session.setAttribute("member", null);
 			ra.addFlashAttribute("result", "loginFalse");
 		}
-		
 		return "redirect:/member/main";
 	}
 	
@@ -135,7 +132,7 @@ public class MemberController {
 
 	// 회원가입 폼 요청--하연--
 	@GetMapping("/registform")
-	public String joinForm(Model model) {
+	public String joinForm(Model model, HttpServletRequest request) {
 		return "member/login/join/regist";
 	}
 	
@@ -153,16 +150,12 @@ public class MemberController {
 		}
 
 	// 회원가입 요청--하연--
-	@PostMapping("/main/regist")
-	public String join(Member member, HttpServletRequest request) {
-		//비밀번호 암호화 작업
+	@RequestMapping(value="/main/regist", method=RequestMethod.POST)
+	public String join(Member member, HttpServletRequest request, RedirectAttributes ra) {
 		String PlaintextPassword = member.getPassword();
 		String encryptionPassword = pwdEncoder.encode(PlaintextPassword);
 		member.setPassword(encryptionPassword);
-		
-		System.out.println(PlaintextPassword);
-		System.out.println(encryptionPassword);
-		
+
 		// VO에 등록한 MultipartFile 객체에 업로드된 파일이 이미 들어있으므로 개발자는 이 객체를 이용하여 업로드된 파일을 원하는대로
 		// 제어하면 된다
 		MultipartFile photo = member.getPhoto();
@@ -176,15 +169,16 @@ public class MemberController {
 		member.setProfile_img(filename);
 		
 		memberService.regist(member);
-		HttpSession session = request.getSession();
-		session.setAttribute("member", member);
+
+		ra.addFlashAttribute("result", "registerOK");
 		
 		return "member/login/loginform";
+			
 	}
 
 	// 회원정보상세 요청--하연--
 	@GetMapping("/join/detail")
-	public String getDetail(int member_id, Model model) {
+	public String getDetail(int member_id, Model model, HttpServletRequest request) {
 		Member member = memberService.select(member_id);
 		List memberList = memberService.selectAll();
 
