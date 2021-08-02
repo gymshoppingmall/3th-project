@@ -5,7 +5,7 @@
 	<!-- 로그인 체크 -->
 	<select id="login" parameterType="Member" resultType="Member">
 		select *
-		from member where user_id=#{user_id} and password=#{password}
+		from member where user_id=#{user_id}
 	</select>
 
 	<select id="detail" parameterType="int" resultType="Member">
