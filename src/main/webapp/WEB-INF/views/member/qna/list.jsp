@@ -307,7 +307,8 @@ function deleteReply(qna_id){
 		<th>작성일시</th>
 		<th></th>
 	</tr>
-	<% for(Qna qna : qnaList) {%> <!-- 꺼내온 게시글 만큼 돌리기 -->		
+	<% for(Qna qna : qnaList) {%> <!-- 꺼내온 게시글 만큼 돌리기 -->
+		<% String regdate = qna.getRegdate().substring(0, 10); %>		
 		<% if(qna.getDepth() == 0 ){ %> <!-- 원글이라면 -->
 			<tr style="background-color: #f2f2f2;">
 				<td><button id="<%= qna.getQna_id() %>" class="reply_bt" onclick="document.getElementById('id02').style.display='block'; changeQna_id(<%= qna.getQna_id() %>)">답변달기</button></td>
@@ -318,12 +319,15 @@ function deleteReply(qna_id){
 				<td><%= qna.getContent() %></td>
 			<% } %>
 				<td>[<%= qna.getWriter() %>]</td>
-				<td>[<%= qna.getRegdate() %>]</td>
+				<td>[<%= regdate %>]</td>
 				<td onclick="showReply('tr<%=qna.getTeam()%>')">댓글보기[<%= qna.getCnt() %>]</td>
 			</tr>
 		<% } else { %> <!-- 댓글이라면 -->
 			<tr class="tr<%=qna.getTeam()%>" style="display: none;">			
-				<td>[RE]</td>
+				<td>
+					<img alt=""  width="50px"
+						src="https://user-images.githubusercontent.com/67699933/127851598-34f615cd-0a57-407a-b4ab-ef696e553146.png">
+				</td>
 				<td>[답변]</td>
 			<% if(qna.getMember_id() == member.getMember_id()) { %><!-- 내가 작성한 댓글이라면 -->
 				<td onclick="deleteReply(<%=qna.getQna_id()%>)"><%= qna.getContent() %></td>
@@ -331,13 +335,17 @@ function deleteReply(qna_id){
 				<td><%= qna.getContent() %></td>
 			<% } %>
 				<td>[<%= qna.getWriter() %>]</td>
-				<td>[<%= qna.getRegdate() %>]</td>
+				<td>[<%= regdate %>]</td>
 				<td></td>
 			</tr>
 		<% } %>
 	<% } %>
+	<tr>
+		<td colspan="6">
+			<button onclick="document.getElementById('id01').style.display='block'" style ="width: 10%">게시글 작성</button>
+		</td>
+	</tr>
 </table>
-<button onclick="document.getElementById('id01').style.display='block'" style="float: right;">게시글 작성</button>
 
 <div id="id01" class="modal">
 	<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -346,9 +354,9 @@ function deleteReply(qna_id){
 			<h1>게시글 작성하기</h1>
 			<hr>
 			<label for="title"><b>제목</b></label>
-			<input type="text" placeholder="게시글의 제목을 입력하세요." name="title" required>
+			<input type="text" maxlength="40" placeholder="게시글의 제목을 입력하세요." name="title" required>
 			<label for="psw-repeat"><b>내용</b></label>
-			<textarea name="content" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
+			<textarea name="content"  maxlength="100" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
 			<input type="hidden" name="member_id" value=<%=member.getMember_id()%>>
 			<div class="clearfix">
 				<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">취소</button>
@@ -365,7 +373,7 @@ function deleteReply(qna_id){
 			<h1>답글 작성하기</h1>
 			<hr>
 			<label for="psw-repeat"><b>답변의 내용을 입력하세요.</b></label>
-			<textarea name="content" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
+			<textarea name="content" maxlength="100" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
 			<input type="hidden" name="member_id" value=<%=member.getMember_id()%>>
 			<input type="hidden" name="qna_id" id="form2_qna_id" value="">
 

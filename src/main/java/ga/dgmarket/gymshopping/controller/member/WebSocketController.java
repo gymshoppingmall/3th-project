@@ -49,8 +49,7 @@ public class WebSocketController {
 	        	}
 	        }
 	        sessionList.add(session);
-            final Basic basic=session.getBasicRemote();
-            basic.sendText("채팅방과 연결 됐습니다. 현재 채팅방 접속 인원  수 : "+sessionList.size()+"명");
+            sendAllSessionToMessage(session, "[익명"+session.getId()+"] 님이 채팅방과 연결 됐습니다.\n 현재 채팅방 접속 인원  수 : "+sessionList.size()+"명");
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -70,7 +69,7 @@ public class WebSocketController {
         try {
             for(Session session : WebSocketController.sessionList) { //모든 사용자에게 전송하기
                 if(!self.getId().equals(session.getId())) {
-            		session.getBasicRemote().sendText(sender+" : "+message);
+            		session.getBasicRemote().sendText(1+",익명"+sender+","+message);
                 }
             }
         }catch (Exception e) {
@@ -78,24 +77,38 @@ public class WebSocketController {
         }
     }
     
+    /*사용자의 접속 정보나 퇴장 정보를 전체적으로 뿌려주는 역할을 한다.*/
+    private void sendAllSessionToMessage(Session self, String message) {
+    	System.out.println("정보 뿌리기 호출");
+        try {
+            for(Session session : WebSocketController.sessionList) { //모든 사용자에게 전송하기
+            	session.getBasicRemote().sendText(message);
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    
     /*
      * 메세지를 받는 곳 즉, listener 역할을 함
      */ //메시지를 전송할 때 message에 담기는 값은 "메시지,보내는사람이름, 받는사람_id" 순으로 담긴다.
     //http 세션을 구해와야함
     @OnMessage
     public void onMessage(String message, Session session) {
-    	
     	System.out.println("onMessage 호출"); //얘가 가장 먼저임
-    	String sender = message.split(",")[1];
+    	System.out.println("message는??"+message);
+    	
     	message = message.split(",")[0];
+    	System.out.println("걸러진 메시지 : "+message);
+    	String sender = session.getId();
     	
     	logger.info("[onMessage] Message From "+sender + ": "+message);
     	
 		try {
 			final Basic basic=session.getBasicRemote();
-			basic.sendText("<나> : "+message);
+			basic.sendText(0+",나,"+message);
         }catch (Exception e) {
-            // TODO: handle exception
             System.out.println(e.getMessage());
         }
     	sendAllSessionToMessage(session, sender, message); 
@@ -111,6 +124,7 @@ public class WebSocketController {
     public void onClose(Session session) {
     	System.out.println("onClose() 호출");
         logger.info("[onClose] Session "+session.getId()+" has ended");
+        sendAllSessionToMessage(session, "[익명"+session.getId()+"] 님이 채팅방에서 나가셨습니다.\n 현재 채팅방 접속 인원  수 : "+(sessionList.size()-1)+"명");
         sessionList.remove(session);
     }
 }

@@ -2,6 +2,8 @@ package ga.dgmarket.gymshopping.controller.member;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +22,7 @@ public class QnaController {
 	private QnaService qnaService;
 
 	@GetMapping("/qna/list")
-	public String getList(Model model) {
+	public String getList(HttpServletRequest request, Model model) {
 		System.out.println("목록 조회");
 		List qnaList = qnaService.selectAll();
 		
@@ -30,7 +32,7 @@ public class QnaController {
 	}
 	
 	@PostMapping("/qna/regist")
-	public String regist(Qna qna) {
+	public String regist(HttpServletRequest request, Qna qna) {
 		System.out.println("글 등록을 위해 넘어온 값은 : "+qna);
 		System.out.println();
 		qnaService.regist(qna);
@@ -38,7 +40,7 @@ public class QnaController {
 	}
 	
 	@PostMapping("/qna/reply")
-	public String reply(Qna qna) {
+	public String reply(HttpServletRequest request, Qna qna) {
 		System.out.println("댓글 등록을 위해 넘어온 값은 : "+qna);
 		qnaService.reply(qna);
 		return "redirect:/member/qna/list";
@@ -47,7 +49,7 @@ public class QnaController {
 	//글 전체 삭제
 	@PostMapping("/qna/delete")
 	@ResponseBody
-	public String delete(Qna qna) {
+	public String delete(HttpServletRequest request, Qna qna) {
 		System.out.println("글 전체 삭제 시 넘어온 qna : "+qna);
 		qnaService.delete(qna);
 		return "";
@@ -56,7 +58,7 @@ public class QnaController {
 	//댓글 하나 삭제
 	@PostMapping("/qna/reply/delete")
 	@ResponseBody
-	public String deleteReply(Qna qna) {
+	public String deleteReply(HttpServletRequest request, Qna qna) {
 		System.out.println("댓글 삭제 시 넘어온 : "+qna);
 		qnaService.delReply(qna);
 		return "";
