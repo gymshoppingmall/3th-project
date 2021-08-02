@@ -64,12 +64,9 @@
 	    <a href="#search">로그인</a>
 	    <a href="#about">회원가입</a>
     <% } else { %>
-<<<<<<< HEAD
     	<a href="#search">중고마켓</a>
     	<a href="/member/join/detail?member_id=<%=top_navi_member.getMember_id() %>">회원정보</a>
-=======
     	<a href="/member/used/main">중고마켓</a>
->>>>>>> 9d499837007d9638efc0ccc841d8b0d5e04d8eda
     	<a href="#search">로그아웃</a>    	
     <% } %>
   </div>

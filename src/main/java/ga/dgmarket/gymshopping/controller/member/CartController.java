@@ -20,13 +20,15 @@ import ga.dgmarket.gymshopping.model.service.product.CartService;
 @Controller
 public class CartController {
 	
+	@Autowired
+	private CartService cartService;
 	
-	//장바구니 목록 가져오기 
+	
+	//장바구니 담기
 	@RequestMapping(value="/cart", method=RequestMethod.POST, produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String getList(@RequestBody Cart cart, HttpServletRequest request) {
-		System.out.print(cart);
-		
+	public String Regist(@RequestBody Cart cart, HttpServletRequest request) {
+		cartService.insert(cart);
 		/*
 		 * System.out.print("컨트롤러에 온 리퀘스트는"+request); Cart cart=new Cart(); int
 		 * ea=(int)request.getAttribute("ea"); System.out.print("컨트롤러에 온 갯수는"+ea); int
@@ -35,8 +37,7 @@ public class CartController {
 		 * cart.setMember_id(member_id); cart.setProduct_id(product_id);
 		 * System.out.print("컨트롤러에 온 정보는"+cart);
 		 */
-		
-		
+	
 		return "member/shop/cart";
 	}
 	

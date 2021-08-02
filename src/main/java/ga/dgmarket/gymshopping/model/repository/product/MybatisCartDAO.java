@@ -2,14 +2,25 @@ package ga.dgmarket.gymshopping.model.repository.product;
 
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import ga.dgmarket.gymshopping.domain.Cart;
+import ga.dgmarket.gymshopping.exception.DMLException;
 
+@Repository
 public class MybatisCartDAO implements CartDAO{
+	
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
 
-	@Override
+	//카드 1건담기
 	public void insert(Cart cart) {
-		// TODO Auto-generated method stub
-		
+		int result= sqlSessionTemplate.insert("Cart.insert", cart);
+		if(result==0) {
+			throw new DMLException("장바구니 담기에 실패하였습니다");
+		}
 	}
 
 	@Override

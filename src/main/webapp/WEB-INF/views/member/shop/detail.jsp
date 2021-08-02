@@ -5,7 +5,6 @@
 <%
 	Product product = (Product)request.getAttribute("product");
 	Member member = (Member)session.getAttribute("member");
-	System.out.println("상세보기"+member);
 %>
 <!DOCTYPE html>
 <html lang="en">

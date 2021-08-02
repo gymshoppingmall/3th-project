@@ -3,11 +3,13 @@ package ga.dgmarket.gymshopping.model.service.product;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ga.dgmarket.gymshopping.domain.Cart;
 import ga.dgmarket.gymshopping.exception.CartException;
 import ga.dgmarket.gymshopping.model.repository.product.CartDAO;
 
+@Service
 public class CartServiceImpl implements CartService{
 	@Autowired
 	private CartDAO cartDAO;
