@@ -49,3 +49,6 @@ group by p.top_category_id, tc.top_name  ;
 --일일 등록 상품 수
 select COUNT(product_id) as cnt from product where regdate > date_format(curdate( ), '%Y-%m-%d %H:%i:%s' ) ;
 
+--n일 전 데이터
+select COUNT(product_id) as cnt from product where regdate >=(CURDATE()-INTERVAL 1 DAY);
+

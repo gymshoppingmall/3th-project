@@ -17,7 +17,7 @@ public class CartController {
 	
 	//장바구니 목록 가져오기 
 	@GetMapping("/cart/list")  //  
-	public String getList() {
+	public String getList(HttpServletRequest request) {
 
 		
 		
