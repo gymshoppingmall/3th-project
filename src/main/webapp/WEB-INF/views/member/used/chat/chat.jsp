@@ -169,7 +169,7 @@ function openSocket(){ //대화를 위한 소켓 오픈
         return;
     }
     //웹소켓 객체 만드는 코드
-    ws = new WebSocket("ws://localhost:8888/used/chat");
+    ws = new WebSocket("ws://localhost:9999/used/chat");
     
     ws.onopen = function(event){
         if(event.data === undefined){
@@ -181,26 +181,36 @@ function openSocket(){ //대화를 위한 소켓 오픈
     
     //메시지를 수신 받는 곳
     ws.onmessage = function(event){
-    	writeResponse(event.data);
+    	console.log("내가 수신 받는 메시지"+event.data);
+    	var list = event.data.split(",");
+    	console.log("list : "+list);
+    	var sender = list[0];
+    	console.log("sender : "+sender); //0이면 내가 보낸 메시지
+    	var name = list[1];
+    	console.log("name : "+name);
+    	var msg = list[2];
+    	console.log("msg : "+msg);
+    	
+    	if(sender == 0){ //내가 보낸 메시지
+    		myMsg(name, msg);
+    	} else if(sender == 1){ //상대가 보낸 메시지
+    		yourMsg(name, msg);
+    	}else { //메시지 종류가 아니라면
+    		writeResponse(event.data);    		
+    	}
     };
     
     ws.onclose = function(event){
-        writeResponse("대화 종료");
     }
 }
 
 //메시지 전송
 function send(){
-	//받는 사람 설정은 일단 채팅 완성하고 나서
-	//var receiver = document.getElementById("receiver").value;
-	//if(receiver == null || receiver == undefind){
-	//return;
-	//}else{
-	//}
 	var text = document.getElementById("messageinput").value+",<%=member.getStorename()%>";
 	console.log("send()함수 호출 입니다. 전송 값은 : "+text);
 	ws.send(text);		 //메시지 전송
 	text = "";
+	document.getElementById("messageinput").value = "";
 }
  
 function closeSocket(){
@@ -216,11 +226,65 @@ function clearText(){
 	msg_history.parentNode.removeChild(msg_history);
 }
 
+function myMsg(name, msg){
+	var date = new Date();
+	var hours = date.getHours(); // 시
+	var minutes = date.getMinutes();  // 분
+	var seconds = date.getSeconds();  // 초
+
+	var year = date.getFullYear(); // 년도
+	var month = date.getMonth() + 1;  // 월
+	var date = date.getDate();  // 날짜
+
+	var time = hours+" : "+minutes+" : "+seconds+" | "+year+"-"+month+"-"+date;
+	
+	var tag = "<div class='outgoing_msg' style='margin-top : 20px;'>";
+	tag += "<div class='sent_msg'>";
+	tag += "<p>["+name+"] : "+msg+"</p>";
+	tag += "<span class='time_date'> "+time+" </span>";
+	tag += "</div>";
+	tag += "</div>";
+	msg_history.innerHTML += tag;
+	$("#msg_history").scrollTop($("#msg_history")[0].scrollHeight); //스크롤 제일 아래로 이동
+}
+
+function yourMsg(name, msg){
+	var date = new Date();
+	var hours = date.getHours(); // 시
+	var minutes = date.getMinutes();  // 분
+	var seconds = date.getSeconds();  // 초
+
+	var year = date.getFullYear(); // 년도
+	var month = date.getMonth() + 1;  // 월
+	var date = date.getDate();  // 날짜
+
+	var time = hours+" : "+minutes+" : "+seconds+" | "+year+"-"+month+"-"+date;
+	
+	var tag = "<div class='incoming_msg' style='margin-top : 20px;'>";
+	tag += "<div class='received_msg'>";
+	tag += "<div class='received_withd_msg'>";
+	tag += "<p>["+name+"] : "+msg+"</p>";
+	tag += "<span class='time_date'> "+time+" </span>";
+	tag += "</div>";
+	tag += "</div>";
+	tag += "</div>";
+	msg_history.innerHTML += tag;
+	$("#msg_history").scrollTop($("#msg_history")[0].scrollHeight);
+}
+
 
 $(function(){
-	msg_history = document.getElementById("msg_history");
-	openSocket();
+	bootbox.alert("단체 채팅방은 페이지 새로 고침, 이동 시 대화 기록이 사라집니다.", function(){
+		msg_history = document.getElementById("msg_history");
+		openSocket();		
+	});
 	
+	//엔터로 채팅 보내기
+	document.getElementById("messageinput").addEventListener("keyup", function(){
+		if(event.keyCode == 13){
+			send();
+		}
+	});
 });
 </script>
 </head>
@@ -240,25 +304,24 @@ $(function(){
 			</div>
 			<div class="inbox_chat">
 			
-			<!-- 채팅 기록 한건 당 채팅 방 하나 -->
+			 <!-- 채팅 방 한건 시작  -->
 			<div class="chat_list">
 				<div class="chat_people">
-					<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+					<div class="chat_img"> <img src="https://cdn0.iconfinder.com/data/icons/education-flat-7/128/37_Basketball-256.png" alt="sunil"> </div>
 					<div class="chat_ib">
-						<h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-						<p>Test, which is a new approach to have all solutions 
-						  astrology under one roof.</p>
+						<h5>[상대의 상점이름] <span class="chat_date">마지막 대화 시간 올 예정</span></h5>
+						<p>여기에 마지막으로 나눈 대화 내용 올 예정</p>
 					</div>
 				</div>
 			</div>
-			<!-- 채팅 방 한건 끝 -->
-
 			</div>
+			<!-- 채팅 방 한건 끝  -->
+
 			</div>
 			<div class="mesgs">
 				<div class="msg_history" id ="msg_history">
 					                 
-					<!-- 조건문을 통해 내가 보낸 메시지 라면... -->
+					<!-- 조건문을 통해 내가 보낸 메시지 라면...
 					<div class="outgoing_msg">
 						<div class="sent_msg">
 							<p>Test which is a new approach to have all
@@ -268,9 +331,8 @@ $(function(){
 					</div>
 					<!-- 내가 보낸 메시지 끝 -->
 					
-					<!-- 상대가 보낸 메세지라면 -->
+					<!-- 상대가 보낸 메세지라면 
 					<div class="incoming_msg">
-						<div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
 						<div class="received_msg">
 							<div class="received_withd_msg">
 								<p>Test, which is a new approach to have</p>

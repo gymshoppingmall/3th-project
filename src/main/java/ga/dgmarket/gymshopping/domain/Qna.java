@@ -12,4 +12,6 @@ public class Qna {
 	private int team;
 	private int step;
 	private int depth;
+	private String writer;
+	private int cnt;
 }
