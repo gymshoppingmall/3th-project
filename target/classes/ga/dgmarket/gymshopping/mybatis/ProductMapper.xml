@@ -85,4 +85,9 @@
 		, product_detail=#{product_detail}, price=#{price}, brand=#{brand}, product_inven=#{product_inven}, product_img=#{product_img}
 		where product_id = #{product_id}
 	</update>
+	
+	<select id="selectForDays" parameterType="int">
+		select COUNT(product_id) as cnt from product where regdate >=(CURDATE()-INTERVAL #{days} DAY)
+	</select>
+	
 </mapper>

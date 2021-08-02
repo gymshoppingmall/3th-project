@@ -1,12 +1,11 @@
 <%@page import="ga.dgmarket.gymshopping.domain.Member"%>
 <%@page import="java.util.jar.Attributes.Name"%>
-<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Product"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
 	Product product = (Product)request.getAttribute("product");
 	Member member = (Member)session.getAttribute("member");
-	System.out.print("상세보기"+member);
+	System.out.println("상세보기"+member);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -128,7 +127,7 @@
                             <form class="cart clearfix mb-50 d-flex" method="post" >
                                 <div class="quantity" ondragstart="false" id="detail-form">
                                 	<input type="hidden" name="product_id" value="<%=product.getProduct_id()%>">
-                                    <input type="hidden" name="member_id" value="<%=1%>">
+                                    <input type="hidden" name="member_id" value="<%=member.getMember_id()%>">
                                 	<span class="qty-minus" ondragstart="false" style="cursor: pointer;" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false; "><i class="fa fa-minus" aria-hidden="true" onclick="changePrice(-1);"></i></span>
                                     <input type="number" ondragstart="false" class="qty-text" id="qty" step="1" min="1" max="12" name="ea" value="1">
                                     <span class="qty-plus" ondragstart="false" style="cursor: pointer;"onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false; "><i class="fa fa-plus" aria-hidden="true" onclick="changePrice(1);"></i></span>
@@ -153,8 +152,8 @@
                 <div class="col-sm-5" id="product-block"></div>
                 <div class="col-sm-7" id="product-cart">
                     <div class="row">
-                        <div class="col-sm-4" style="padding: 5px;"><button type="button" class="btn btn-dark" id="detail-bt">바로 구매하기</button></div>
-                        <div class="col-sm-4" style="padding: 5px;"><button type="button" class="btn btn-light"  id="detail-bt">장바구니</button></div>
+                        <div class="col-sm-4" style="padding: 5px;"><button type="button" class="btn btn-dark" id="detail-bt">장바구니 가기</button></div>
+                        <div class="col-sm-4" style="padding: 5px;"><button type="button" class="btn btn-light"  id="detail-bt" onClick="addCart()">장바구니담기</button></div>
                         <div class="col-sm-4" style="padding: 5px;"><button type="button" class="btn btn-light"  id="detail-bt">관심상품</button></div>
                     </div>
                 </div>
@@ -168,7 +167,7 @@
     <!-- <div id="footer">푸터 올 곳</div> -->
 <script>
 
-/* 수량 변경시 가격변경과 장바구니에 담기 */
+/* 수량 변경시 가격변경*/
 function changePrice(a){
 	//수량 int형으로 변환
 	var ea= $("#detail-form input[type='number']").val() 
@@ -183,6 +182,41 @@ function changePrice(a){
 	var price = document.getElementById("total-price");
 	price.innerHTML= tag;
 }
+
+
+/* 장바구니에 담기(비동기) */
+function addCart(){
+	//기존 폼을 전송하겠다..
+	var json={
+		product_id:$("#detail-form input[name='product_id']").val(),
+		member_id:$("#detail-form input[name='member_id']").val(), 
+		ea:$("#detail-form input[name='ea']").val()
+	};
+	//var formData = $("#cart-form").serialize(); //product_id=5&member_id=1&ea=5  querystring 화됨
+	console.log("전송할 데이터는 ",json);
+	
+	$.ajax({
+		url:"/member/cart",
+		type:"POST",
+		contentType:"application/json;charset=utf-8",
+		data:JSON.stringify(json),
+		success:function(result, status, xhr){
+			console.log("서버로 부터 전송된 데이터 ", json);
+			if(result.resultCode==1){
+				if(confirm("장바구니에 상품이 담겼습니다.\n장바구니로 이동하실래요?")){
+					location.href="/member/cart";
+				}
+			}else if(result.resultCode==0){
+				alert("장바구니에 상품이 담기지 않았습니다.\n문제가 지속될 경우 관리자에 문의하세요");
+			}
+		},
+		//서버의 에러가 발생했을때 (500, 401,404..즉 요청을 성공할수 없는 심각한 200 초과의 에러들.. )
+		error:function(xhr, status, error){
+			console.log("서버에서 심각한 에러가 발생하여, 요청 자체를 처리할 수 없었다!", status);
+		}			
+	});		
+}
+
 
 
 

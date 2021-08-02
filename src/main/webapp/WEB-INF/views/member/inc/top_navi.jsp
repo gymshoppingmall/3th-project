@@ -58,14 +58,18 @@
   <a href="javascript:void(0)">스포츠의류</a>
   <a href="javascript:void(0)">액세사리</a>
   <a href="javascript:void(0)">보조식품</a>
-  <a href="javascript:void(0)">QnA</a>
+  <a href="/member/qna/list">QnA</a>
   <div class="top_navi_topnav-right">
   	<% if (top_navi_member == null){ %> <!-- 로그인 중이 아니라면 -->
 	    <a href="#search">로그인</a>
 	    <a href="#about">회원가입</a>
     <% } else { %>
+<<<<<<< HEAD
     	<a href="#search">중고마켓</a>
     	<a href="/member/join/detail?member_id=<%=top_navi_member.getMember_id() %>">회원정보</a>
+=======
+    	<a href="/member/used/main">중고마켓</a>
+>>>>>>> 9d499837007d9638efc0ccc841d8b0d5e04d8eda
     	<a href="#search">로그아웃</a>    	
     <% } %>
   </div>

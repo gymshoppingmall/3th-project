@@ -10,9 +10,6 @@
 	List<Product> productNewList =(List)request.getAttribute("productNewList");
 	List<UsedProductExtend> UsedProductNewList = (List)request.getAttribute("UsedProductNewList");
 	Member member=(Member)request.getAttribute("member");
-	System.out.println("메인"+member);
-	System.out.println("상품뉴리스트"+productNewList);
-	System.out.println("사용자상품리스트"+UsedProductNewList);
 %>
 <!doctype html>
 <html lang="en">

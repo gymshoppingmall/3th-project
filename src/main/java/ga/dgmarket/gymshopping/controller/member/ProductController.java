@@ -2,6 +2,8 @@ package ga.dgmarket.gymshopping.controller.member;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,7 @@ public class ProductController {
 	
 	// 메인에서 상품클릭시 상세보기 요청처리 --도균--
 		@GetMapping("/product/detail")
-		public String detailform(int product_id, Model model) {
+		public String detailform(int product_id, Model model, HttpServletRequest request) {
 			// 3단계: 일 시키기
 			Product product = new Product(); //empty VO
 			product = productService.select(product_id);
@@ -31,4 +33,18 @@ public class ProductController {
 
 			return "member/shop/detail";
 	}
+		
+	//상세보기에서 장바구니로 요청 --도균--
+		@GetMapping()
+		public String cartform() {
+			//3단계 : 일시키기
+			
+			
+			
+			
+			
+			return "member/shop/cart";
+		}
+		
+		
 }

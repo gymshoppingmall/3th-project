@@ -73,7 +73,7 @@ public class MemberController {
 
 	// 로그인 폼 요청 처리--하연--
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
-	public String loginForm() {
+	public String loginForm(HttpServletRequest request) {
 		return "member/login/loginform";
 	}
 
@@ -119,6 +119,7 @@ public class MemberController {
 	public String getProductToMain(HttpServletRequest request, HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
 
+
 		// 3단계: 일 시키기
 		List productNewList = productService.selectNewItem();
 		List UsedProductNewList= usedProductService.selectMainList();
@@ -135,7 +136,7 @@ public class MemberController {
 
 	// 회원가입 폼 요청--하연--
 	@GetMapping("/registform")
-	public String joinForm(Model model) {
+	public String joinForm(Model model, HttpServletRequest request) {
 		return "member/login/join/regist";
 	}
 	
@@ -181,7 +182,7 @@ public class MemberController {
 
 	// 회원정보상세 요청--하연--
 	@GetMapping("/join/detail")
-	public String getDetail(int member_id, Model model) {
+	public String getDetail(int member_id, Model model, HttpServletRequest request) {
 		Member member = memberService.select(member_id);
 		List memberList = memberService.selectAll();
 
