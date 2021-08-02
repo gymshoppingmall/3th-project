@@ -218,7 +218,6 @@ h1.header-w3ls {
 	padding: 31px 0px 25px;
 	font-size: 53px;
 	text-align: center;
-	text-transform: capitalize;
 	color: #ffffff;
 	text-shadow: 2px 3px rgba(0, 0, 0, 0.42);
 	letter-spacing: 5px;
@@ -1139,7 +1138,6 @@ button::-moz-focus-inner {
 		<div class="mid-cls">
 			<div class="art-right-w3ls">
 				<form>
-				
 					<input type="hidden" name="member_id"
 						value="<%=member.getMember_id()%>"> 
 						<input type="hidden"
@@ -1172,7 +1170,7 @@ button::-moz-focus-inner {
 							<input type="text" name="storename" required=""
 								value="<%=member.getStorename()%>">
 						</div>
-						<label for="store_id">하단의 문자는 고객님의 스토어 id입니다.</label><br>
+						<label for="store_id" style="color:red">하단의 문자는 랜덤으로 지정된 고객님의 스토어 id입니다. 수정은 어렵습니다.</label><br>
 						<div class="form-left-to-w3l">
 							<input type="text" name="store_id" required=""
 								value="<%=member.getStore_id()%>" readonly>
@@ -1203,8 +1201,8 @@ button::-moz-focus-inner {
 						</div>
 					</div>
 					<div class="btnn">
-						<button type="button" class="btimg" onClick="update()"><img src="/resources/img/edit.png" alt="" style="width:80%; height:60px; cursor:pointer;" title="회원정보수정"></button>
-						<button type="button" class="btimg" onClick="del()"><img src="/resources/img/remove.png" alt="" style="width:80%; height:60px; cursor:pointer;" title="회원탈퇴"></button>
+						<button type="button" class="btimg" onClick="update()"><img src="/resources/img/edit.png" alt="" style="width:50%; height:80px; cursor:pointer;" title="회원정보수정"></button>
+						<button type="button" class="btimg" onClick="del()"><img src="/resources/img/remove.png" alt="" style="width:50%; height:80px; cursor:pointer;" title="회원탈퇴"></button>
 					</div>
 					<div class="banner-agileits-btm">
 						<div class="w3layouts_more-buttn"></div>
@@ -1355,9 +1353,9 @@ button::-moz-focus-inner {
 		if($("#photo").val() != ""){
 			if(!checkImg($("#photo").val())){
 				$("#photo").val(null);
-				bootbox.alert("죄송합니다. 득근 마켓은 [jpg]와 [png]의 확장자 파일만을 지원합니다.", function(){});
+				alert("죄송합니다. 득근 마켓은 [jpg]와 [png]의 확장자 파일만을 지원합니다.", function(){});
 			}else{
-				bootbox.alert("사용 가능한 이미지 파일입니다.", function(){});
+				alert("사용 가능한 이미지 파일입니다.", function(){});
 				//이미지 저장하고 화면에 출력하기
 				showThumb(e.target); //썸네일 출력하기
 			}

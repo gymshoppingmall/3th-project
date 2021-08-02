@@ -13,6 +13,7 @@ Member member = (Member) request.getAttribute("member");
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords"
 	content=" Astronauts sign up & login Form Responsive Widget, Audio and Video players, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Popper JS -->
@@ -1088,7 +1089,7 @@ button::-moz-focus-inner {
 	<div class="art-bothside">
 		<div class="mid-cls">
 			<div class="art-right-w3ls">
-				<form action="/member/main/regist" method="post"
+				<form onsubmit="return checkForm()" action="/member/main/regist" method="post"
 					enctype="multipart/form-data">
 					<div class="main">
 						<div class="form-left-to-w3l">
@@ -1117,7 +1118,7 @@ button::-moz-focus-inner {
 							<input type="text" name="storename" placeholder="Storename"
 								required="">
 						</div>
-						<label for="store_id" style="color:red">하단의 문자는 고객님의 스토어 id입니다.</label><br>
+						<label for="store_id" style="color:red">하단의 문자는 랜덤으로 지정된 고객님의 스토어 id입니다. 수정은 어렵습니다.</label><br>
 						<div class="form-left-to-w3l">
 							<input type="text" name="store_id" id="store_id" required=""
 								value="" readonly>
@@ -1167,12 +1168,14 @@ button::-moz-focus-inner {
 					-->
 					<br>
 					<div class="box-file-input">
-					<label><input type="file" name="photo" id="photo" class="file-input" accept="image/*"></label><span class="filename">파일을 선택해주세요.
+					<label><input type="file" name="photo" id="photo" class="file-input" accept="image/*"></label>
+					<input type="hidden" value="0" name="filecheck">
+					<div id="filename" class="filename">파일을 선택해주세요.</div>
 					<!--  <input type="file" name="photo" required="" id="photo" />		-->			
 					</div>
 					<br>
 					<div class="btnn">
-						<button type="submit" class="btimg"><img src="/resources/img/signup.png" alt="" style="width:80%; height:150px; cursor:pointer;" title="회원가입"></button>
+						<button type="submit" class="btimg"><img src="/resources/img/signup.png" alt="" style="width:100%; height:230px; cursor:pointer;" title="회원가입"></button>
 					</div>
 				</div>
 			</div>
@@ -1194,8 +1197,20 @@ button::-moz-focus-inner {
 
 		password.onchange = validatePassword;
 		confirm_password.onkeyup = validatePassword;
+
 	</script>
 	<script>
+	//submit 전 체크
+	function checkForm() {
+		console.log($(".box-file-input input[name='filecheck']").val());
+		if($(".box-file-input input[name='filecheck']").val()==0){
+			alert("상점의 사진을 선택해주세요!");
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 		// Random Code 생성
 		$('input[name=store_id]')
 				.attr(
@@ -1257,7 +1272,7 @@ button::-moz-focus-inner {
 
 				    $(".filename").text($filename);
 
-				  })
+				  });
 				
 				//메인 이미지를 변경했을 때 Thumb 화면이 바뀌게 되며
 				//이미지 파일을 취소한 경우 기본 이미지인 득근 마켓으로 변경된다.
@@ -1265,11 +1280,15 @@ button::-moz-focus-inner {
 					if($("#photo").val() != ""){
 						if(!checkImg($("#photo").val())){
 							$("#photo").val(null);
-							bootbox.alert("죄송합니다. 득근 마켓은 [jpg]와 [png]의 확장자 파일만을 지원합니다.", function(){});
+							alert("죄송합니다. 득근 마켓은 [jpg]와 [png]의 확장자 파일만을 지원합니다.", function(){});
 						}else{
-							bootbox.alert("사용 가능한 이미지 파일입니다.", function(){});
+							alert("사용 가능한 이미지 파일입니다.", function(){});
 							//이미지 저장하고 화면에 출력하기
 							showThumb(e.target); //썸네일 출력하기
+							
+							console.log($(".box-file-input input[name='filecheck']").val());
+							$(".box-file-input input[name='filecheck']").val(1);
+							console.log($(".box-file-input input[name='filecheck']").val());
 						}
 					}else{
 						//이미지가 안올려져 있다면 기본 이미지로 수정

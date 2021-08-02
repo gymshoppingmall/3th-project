@@ -1,4 +1,3 @@
-<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%

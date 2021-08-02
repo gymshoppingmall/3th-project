@@ -77,8 +77,6 @@ public class MemberController {
 		return "member/login/loginform";
 	}
 
-	
-
 	// 로그인 요청 처리--하연--
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Member member, Model model, HttpServletRequest request, RedirectAttributes ra) {
@@ -89,8 +87,10 @@ public class MemberController {
 			
 		// 이렇게 안하면 db에 없는 아이디를 입력하고 로그인하면 에러코드 발생
 		if(obj == null ) { 
+			model.addAttribute("msg", "아이디 또는 비밀번호가 잘못되었습니다.");
+			model.addAttribute("url", "loginform");
 			ra.addFlashAttribute("result", "loginFalse");
-			return "redirect:/login";
+			return "member/login/alert";
 		}
 			
 		logger.info("원래 비밀번호 : " + obj.getPassword());
@@ -105,7 +105,10 @@ public class MemberController {
 			ra.addFlashAttribute("result", "loginOK");
 		} else {
 			session.setAttribute("member", null);
+			model.addAttribute("msg", "아이디 또는 비밀번호가 잘못되었습니다.");
+			model.addAttribute("url",  "loginform");
 			ra.addFlashAttribute("result", "loginFalse");
+			return "member/login/alert";
 		}
 		return "redirect:/member/main";
 	}
@@ -188,9 +191,9 @@ public class MemberController {
 		return "member/login/join/content";
 	}
 	
-	//회원수청요청처리--하연--
-	@PostMapping("/join/update")
-	public String update(Member member, HttpServletRequest request, Model model) {
+	//회원수정요청처리--하연--
+	@RequestMapping(value="/join/update", method=RequestMethod.POST)
+	public String update(Member member, HttpServletRequest request, Model model, HttpSession session, RedirectAttributes ra) {
 		System.out.println("지금 멤버 프로필 이미지는 "+member.getProfile_img());
 		System.out.println("member's photoe "+member.getPhoto().getOriginalFilename().length());
 		int leng=member.getPhoto().getOriginalFilename().length();
@@ -207,18 +210,29 @@ public class MemberController {
 			member.setProfile_img(filename);
 			
 		}
+		
+		String PlaintextPassword = member.getPassword();
+		System.out.println(PlaintextPassword);
+		String encryptionPassword = pwdEncoder.encode(PlaintextPassword);
+		System.out.println(encryptionPassword);
+		member.setPassword(encryptionPassword);
 		memberService.update(member);
+		ra.addFlashAttribute("result", "updateOK");
 
-		return "member/main/index";
+		return "redirect:/member/main";
 	}
 
 	// 회원탈퇴요청처리--하연--
 	@PostMapping("/join/del")
-	public String delete(Member member, HttpServletRequest request) {
+	public String delete(Member member, HttpServletRequest request, HttpSession session, Model model) {
 		memberService.delete(member.getMember_id());
 		fileManager.deleteFile(request.getServletContext(), member.getProfile_img());
 
-		return "member/main/index";
+		session.invalidate();
+		model.addAttribute("msg", "회원탈퇴가 완료되었습니다. 이용해주셔서 감사합니다!");
+		model.addAttribute("url",  "/member/main");
+		
+		return "member/login/alert";
 	}
 	
 	//이메일--하연--
