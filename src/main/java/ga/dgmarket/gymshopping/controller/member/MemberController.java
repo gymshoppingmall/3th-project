@@ -116,6 +116,7 @@ public class MemberController {
 	public String getProductToMain(HttpServletRequest request, HttpSession session) {
 		Member member = (Member)session.getAttribute("member");
 
+
 		// 3단계: 일 시키기
 		List productNewList = productService.selectNewItem();
 		List UsedProductNewList= usedProductService.selectMainList();

@@ -1,4 +1,9 @@
+<%@page import="ga.dgmarket.gymshopping.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	Member member=(Member)request.getAttribute("member");
+	System.out.println("장바구니"+member);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +15,7 @@
 <!-- jQuery -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Favicon  -->
 <link rel="icon" href="/resources/img/reallogo.png">
@@ -111,7 +116,9 @@
 								</div>
 								<div class="split"></div>
 							</div>
-
+							
+							
+							<!-- 아이템 1건 시작 -->
 							<div class="row data" style="height: 100px">
 								<div class="subdiv">
 									<div class="check">
@@ -130,17 +137,15 @@
 										<input type="hidden" name="p_price" id="p_price1"
 											class="p_price" value="20000">50,000원
 									</div>
+
 									<div class="num">
 										<div class="updown">
-											<input type="text" name="p_num1" id="p_num1" size="2"
-												maxlength="4" class="p_num" value="2"
-												onkeyup="javascript:basket.changePNum(1);"> <span
-												onclick="javascript:basket.changePNum(1);"><i
-												class="fas fa-arrow-alt-circle-up up"></i></span> <span
-												onclick="javascript:basket.changePNum(1);"><i
-												class="fas fa-arrow-alt-circle-down down"></i></span>
+											<input type="text" name="p_num1" id="p_num1" size="2"maxlength="4" class="p_num" value="2"	onkeyup="javascript:basket.changePNum(1);"> 
+											<span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span> 
+											<span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
 										</div>
 									</div>
+								
 									<div class="sum">40,000원</div>
 								</div>
 								<div class="subdiv">
@@ -151,6 +156,8 @@
 								</div>
 							</div>
 						</div>
+						<!-- 아이템 1건 끝 -->
+
 
 						<div class="right-align basketrowcmd">
 							<a href="javascript:void(0)" class="abutton"

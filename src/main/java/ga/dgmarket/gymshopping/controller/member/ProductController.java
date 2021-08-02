@@ -31,4 +31,18 @@ public class ProductController {
 
 			return "member/shop/detail";
 	}
+		
+	//상세보기에서 장바구니로 요청 --도균--
+		@GetMapping()
+		public String cartform() {
+			//3단계 : 일시키기
+			
+			
+			
+			
+			
+			return "member/shop/cart";
+		}
+		
+		
 }
