@@ -49,4 +49,8 @@ public class AdminController {
 	public String admin_qna(HttpServletRequest request) {
 		return "admin/main/qna";
 	}
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		return "admin/login/out";
+	}
 }

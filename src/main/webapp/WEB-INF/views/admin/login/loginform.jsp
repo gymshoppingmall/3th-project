@@ -41,7 +41,7 @@ function loginCheck(){
     <input class="input-field" type="password" placeholder="Password" name="password">
   </div>
   <button type="button" class="btn" style="background: #b8b0b0" id="login">Login</button>
-  <button type="button" class="btn" style="background: #b8b0b0" onclick="location.href='#'">매장으로</button>
+  <button type="button" class="btn" style="background: #b8b0b0" onclick="location.href='/member/main'">매장으로</button>
 	  </form>
 </div>
 	</div>
