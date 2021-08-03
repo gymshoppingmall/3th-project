@@ -147,8 +147,7 @@ function loadReview(){
         <!-- 상점 주인의 정보를 나타내는 박스 -->
         <div class="user_container">
             <!-- 회원가입을 할 때 등록한 사진이 들어올 곳 : 사진이 저장되는 곳 물어보기 (하연)----------------------------------------------------------------------------->
-            <img src="http://www.econovill.com/news/photo/201906/365696_262215_221.jpg" 
-            class="rounded-circle" style="margin-top: 25px;" alt="Cinque Terre" width="304" height="236"> 
+            <img src="/resources/data/<%=storeMember.getProfile_img() %>" class="rounded-circle" style="margin-top: 25px;" alt="Cinque Terre" width="304" height="236"> 
             <div class="alert alert-success" style="width: 100%; margin: auto; margin-top: 25px;">
                 <!-- 상점명이 들어올 곳! -->
                 <strong>[<%=storeMember.getStorename() %>]님의 상점<a href="javascript:copyLink();"><i class="far fa-copy" style="margin-left: 5px;"></i></a></a></strong> 
@@ -163,7 +162,7 @@ function loadReview(){
                     <a class="nav-link" href="/member/used/main/search?type=store_name&keyword=<%=storeMember.getStorename()%>"><h5>판매목록</h5></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><h5>찜목록</h5></a>
+                    <a class="nav-link" href="/member/used/main/favorites?member_id=<%=storeMember.getMember_id()%>"><h5>찜목록</h5></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><h5>채팅목록</h5></a>
@@ -226,7 +225,6 @@ function loadReview(){
 		                <!-- 더보기 글씨 넣기 -->
 		                <div class="row text-left">
 		                    <div class="col-sm-10"><h4>[<%=storeMember.getStorename() %>]님이 찜한 상품</h4></div>
-		                    <div class="col-sm-2" id="load"><h5><a href="#">더보기+</a></h5></div>
 		                </div>
 		                <div class="row text-center">
 		                    <%for(int i = 0; i < favoritesList.size(); i++){ %> <!-- 찜한 상품 미리보기 -->

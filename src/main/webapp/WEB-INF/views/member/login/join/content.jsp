@@ -1,7 +1,6 @@
 <%@page import="java.util.List"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Member"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%
 Member member = (Member) request.getAttribute("member");
 List<Member> memberList = (List) request.getAttribute("memberList");
@@ -60,7 +59,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 /* reset */
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+html, body, div, span, applet, object, iframe, h2, h3, h4, h5, h6, p,
 	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
 	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
 	b, u, i, dl, dt, dd, ol, nav ul, nav li, fieldset, form, label, legend,
@@ -190,7 +189,7 @@ select, input[type="email"], input[type="text"], input[type=password],
 	-ms-transition: 0.5s all;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h2, h3, h4, h5, h6 {
 	margin: 0;
 	padding: 0;
 	font-family: 'Barlow', sans-serif;
@@ -215,7 +214,6 @@ body {
 }
 
 h1.header-w3ls {
-	padding: 31px 0px 25px;
 	font-size: 53px;
 	text-align: center;
 	color: #ffffff;
@@ -1133,6 +1131,7 @@ button::-moz-focus-inner {
 </style>
 </head>
 <body>
+	<%@ include file="../../inc/top_navi.jsp" %>
 	<h1 class="header-w3ls"><%=member.getName() %>님의 회원정보 수정</h1>
 	<div class="art-bothside">
 		<div class="mid-cls">

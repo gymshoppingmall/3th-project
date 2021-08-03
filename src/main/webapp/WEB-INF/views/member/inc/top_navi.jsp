@@ -50,7 +50,7 @@
 </head>
 <body>
 <div class="top_navi_header">
-  득근을 위한 <h1 onclick="location.href='#'" >득근마켓</h1> 모두의 마켓
+  득근을 위한 <h1 onclick="location.href='/member/main'" >득근마켓</h1> 모두의 마켓
 </div>
 
 <div id="top_navi_navbar">
@@ -58,7 +58,7 @@
   <a href="javascript:void(0)">스포츠의류</a>
   <a href="javascript:void(0)">액세사리</a>
   <a href="javascript:void(0)">보조식품</a>
-  <a href="/member/qna/list">QnA</a>
+  <a href="/member/qna/list">커뮤니티</a>
   <div class="top_navi_topnav-right">
   	<% if (top_navi_member == null){ %> <!-- 로그인 중이 아니라면 -->
 	    <a href="/member/loginform">로그인</a>
