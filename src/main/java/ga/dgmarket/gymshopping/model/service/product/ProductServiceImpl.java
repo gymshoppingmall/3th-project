@@ -51,5 +51,15 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.selectTodayRegisted();
 	}
 
+	@Override
+	public Product selectForDays(int days) {
+		return productDAO.selectForDays(days);
+	}
+
+	@Override
+	public Product selectForDaysCount(int days) {
+		return productDAO.selectForDaysCount(days);
+	}
+
 
 }

@@ -85,9 +85,23 @@
 		, product_detail=#{product_detail}, price=#{price}, brand=#{brand}, product_inven=#{product_inven}, product_img=#{product_img}
 		where product_id = #{product_id}
 	</update>
+	<!-- 하루에 등록된 상품 수 -->
+	<select id="selectForDays" parameterType="int" resultType="Product">
 	
-	<select id="selectForDays" parameterType="int">
-		select COUNT(product_id) as cnt from product where regdate >=(CURDATE()-INTERVAL #{days} DAY)
+		select COUNT(product_id) as cnt from product 
+		<![CDATA[
+		where regdate >=(CURDATE()-INTERVAL #{days} DAY)
+		and regdate <= (CURDATE()-INTERVAL #{days}-1 DAY)
+		]]>
+	</select>
+	<!-- 등록된 상품 수(일자별 누적) -->
+	<select id="selectForDaysCount" parameterType="int" resultType="Product">
+	<!-- days의 숫자는 3보다 작고 -2보다 커야 함 -->
+		select COUNT(product_id) as cnt from product 
+		<![CDATA[
+		where regdate >=(CURDATE()-INTERVAL 3 DAY)
+		and regdate <= (CURDATE()-INTERVAL #{days} DAY)
+		]]>
 	</select>
 	
 </mapper>

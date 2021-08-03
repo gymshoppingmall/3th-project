@@ -29,6 +29,9 @@
 .product-bar:hover {
   background-color: #ddd;
 }
+.pageNum{
+	color: red;
+}
 </style>
 <body>
 <%@ include file="../inc/top_navi.jsp" %>
@@ -39,13 +42,14 @@
   <p>최근 한 달 간 가입한 고객의 수는 <%=cnt %>명입니다. </p>
 </div>
 <div class="container">
-  <h2>전체 회원 목록</h2>
-  <p>총 회원 수는 <%=memberList.size() %>명입니다.</p>
+  <h2>회원 목록</h2>
+  <p>검색된 결과 : <%=memberList.size() %> 건</p>
   <p>현재 <%=currentPage %> 페이지</p>
   <table class="table">
     <thead class="thead-dark">
       <tr>
         <th>No.</th>
+        <th>프로필</th>
         <th>ID</th>
         <th>이름</th>
         <th>닉네임</th>
@@ -60,6 +64,7 @@
     <%if(num<1)break; %>
       <tr class= "product-bar" onclick="location.href='/admin/main/member/detail?member_id=<%=memberList.get(i).getMember_id()%>';">
         <td><%=num-- %></td>
+        <td><img src="\resources\data\<%=memberList.get(i).getProfile_img()%>" width="50px" height="50px"> </td>
         <td><%=memberList.get(i).getUser_id() %></td>
         <td><%=memberList.get(i).getName() %></td>
         <td><%=memberList.get(i).getStorename() %></td>
@@ -73,12 +78,20 @@
   </table>
   <tr>
 		<td colspan="6" style = "text-align:center">
+		<%if(firstPage > 1){ %>
 		<a href="/admin/main/member?currentPage=<%=firstPage-1%>">◀</a>
+		<%}else{ %>
+		<a href="/admin/main/member?currentPage=1">◀</a>		
+		<%} %>
 			<%for(int i = firstPage; i <= lastPage ; i++){ %>
 			<%if(i>totalPage)break; %>
 			<a href="/admin/main/member?currentPage=<%=i%>" <%if(currentPage==i){ %>class="pageNum"<%} %>>[<%=i %>]</a>
 			<%} %>
+		<%if(totalPage - lastPage > 10){ %>
 		<a href="/admin/main/member?currentPage=<%=lastPage+1%>">▶</a>
+		<%}else{ %>
+		<a href="/admin/main/member?currentPage=<%=totalPage%>">▶</a>
+		<%} %>
 		</td>
 	</tr>
  </div>

@@ -44,6 +44,7 @@
     <thead class="thead-dark">
       <tr>
         <th>No.</th>
+        <th>미리보기</th>
         <th>카테고리</th>
         <th>상품명</th>
         <th>브랜드</th>
@@ -60,6 +61,7 @@
     <%if(num<1)break; %>
       <tr class= "product-bar" onclick="location.href='/admin/main/product/detail?product_id=<%=productList.get(i).getProduct_id()%>';">
         <td><%=num-- %></td>
+        <td><img src="\resources\data\product\img\<%=productList.get(i).getProduct_img()%>" width="50px" height="50px"> </td>
         <td><%=productList.get(i).getTopCategory().getTop_name() %></td>
         <td><%=productList.get(i).getProduct_name() %></td>
         <td><%=productList.get(i).getBrand() %></td>
@@ -69,14 +71,22 @@
     </tbody>
   </table>
  </div>
-   <tr>
+  <tr>
 		<td colspan="6" style = "text-align:center">
-		<a href="/admin/main/member?currentPage=<%=firstPage-1%>">◀</a>
+		<%if(firstPage > 1){ %>
+		<a href="/admin/main/productlist?currentPage=<%=firstPage-1%>">◀</a>
+		<%}else{ %>
+		<a href="/admin/main/productlist?currentPage=1">◀</a>		
+		<%} %>
 			<%for(int i = firstPage; i <= lastPage ; i++){ %>
 			<%if(i>totalPage)break; %>
-			<a href="/admin/main/member?currentPage=<%=i%>" <%if(currentPage==i){ %>class="pageNum"<%} %>>[<%=i %>]</a>
+			<a href="/admin/main/productlist?currentPage=<%=i%>" <%if(currentPage==i){ %>class="pageNum"<%} %>>[<%=i %>]</a>
 			<%} %>
-		<a href="/admin/main/member?currentPage=<%=lastPage+1%>">▶</a>
+		<%if(totalPage - lastPage > 10){ %>
+		<a href="/admin/main/productlist?currentPage=<%=lastPage+1%>">▶</a>
+		<%}else{ %>
+		<a href="/admin/main/productlist?currentPage=<%=totalPage%>">▶</a>
+		<%} %>
 		</td>
 	</tr>
 

@@ -76,6 +76,16 @@ public class MybatisMemberDAO implements MemberDAO{
 		sqlSessonTemplate.update("Member.updateByAdmin",member);
 	}
 
+	@Override
+	public List selectGoodUser() {
+		return sqlSessonTemplate.selectList("Member.selectGoodUser");
+	}
+
+	@Override
+	public List selectBadUser() {
+		return sqlSessonTemplate.selectList("Member.selectBadUser");
+	}
+
 	
 
 }
