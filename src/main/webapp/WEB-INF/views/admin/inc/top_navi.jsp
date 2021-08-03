@@ -24,6 +24,7 @@
     <!-- Dropdown -->
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      회원관리
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="/admin/main/member">전체관리</a>
