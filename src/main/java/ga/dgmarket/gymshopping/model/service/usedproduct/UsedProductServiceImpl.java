@@ -155,6 +155,11 @@ public class UsedProductServiceImpl implements UsedProductService{
 		return list;
 	}
 	
+	//현재 사용자가 찜한 상품 목록 보기
+	public List selectByFavorites(int member_id){
+		return usedProductDAO.selectByFavorites(member_id);
+	}
+	
 	//상품의 상세보기 요청을 했을 때
 	//used_product+storename+favorites_id+tag 꺼내오기
 	//product_img 가져오기

@@ -22,6 +22,7 @@ public interface UsedProductService {
 	public int addFavorites(HttpServletRequest request, UsedFavorites usedFavorites);
 	public void delFavorites(HttpServletRequest request, int	used_favorites_id);
 	public List selectByKeyword(HttpServletRequest request, String type, String keyowrd);
+	public List selectByFavorites(int member_id);
 	//메인화면에 나올 리스트 from.도균
 	public List selectMainList();
 }

@@ -110,9 +110,14 @@ public class MybatisUsedProductDAO implements UsedProductDAO{
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList("UsedProductExtend.selectByMinPrice", productExtend);
 	}
+	
+	public List selectByFavorites(int member_id) {
+		return sqlSessionTemplate.selectList("UsedProductExtend.selectByFavorites", member_id);
+	}
 
 	//메인화면에 나올 최신순위 4개 리스트 from.도균
 	public List selectMainList() {
 		return sqlSessionTemplate.selectList("UsedProductExtend.selectMainList");
 	}
+	
 }

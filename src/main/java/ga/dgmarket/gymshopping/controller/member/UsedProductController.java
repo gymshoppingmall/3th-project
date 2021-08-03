@@ -1,5 +1,6 @@
 package ga.dgmarket.gymshopping.controller.member;
 
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,15 @@ public class UsedProductController {
 		List usedProductList = usedProductService.selectAll(request);
 		model.addAttribute("usedProductList", usedProductList);
 		
+		return "member/used/main";
+	}
+	
+	//찜한 상품 목록을 가져오기
+	@GetMapping("/used/main/favorites")
+	public String getMainByFavorites(Model model, int member_id, HttpServletRequest request) {
+		List usedProductList = usedProductService.selectByFavorites(member_id);
+		model.addAttribute("usedProductList", usedProductList);
+
 		return "member/used/main";
 	}
 	
