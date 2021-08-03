@@ -27,10 +27,18 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	//패스워드 입력 없이 업데이트할 경우 else로 넘어감
 	@Override
 	public void update(Member member) throws DMLException{
-		memberDAO.update(member);
-		
+		//넘어온 member 패스워드 찍어보기
+		if(member.getPassword().equals("")||member.getPassword()==null) {
+			memberDAO.update_noPass(member);
+		}else {
+			String encryPassword = UserSha256.encrypt(member.getPassword());
+			member.setPassword(encryPassword);
+			memberDAO.update(member);			
+		}
+	
 	}
 
 	/*
@@ -66,6 +74,7 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.updateByAdmin(member);
 	}
 
+	//user_grade 8로 바꾸는 작업(탈퇴)
 	@Override
 	public void update2(Member member) {
 		memberDAO.update2(member);
@@ -79,6 +88,7 @@ public class MemberServiceImpl implements MemberService{
 	public List selectBadUser() {
 		return memberDAO.selectBadUser();
 	}
+
 
 	
 }

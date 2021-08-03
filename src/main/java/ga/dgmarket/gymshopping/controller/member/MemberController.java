@@ -77,6 +77,13 @@ public class MemberController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Member member, Model model, HttpServletRequest request, RedirectAttributes ra, HttpSession session) {
 		// 3단계: 일 시키기
+		// 비밀번호 암호화
+		String user_pw = member.getPassword();
+		member.setPassword(UserSha256.encrypt(user_pw));
+
+		// 암호화 확인
+		System.out.println("user_pw : " + member.getPassword());
+
 	      Member obj = memberService.login(member);
 
 	      // 4단계: 저장
@@ -93,8 +100,8 @@ public class MemberController {
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		session.setAttribute("member", null); //지워버리기
-		return "redirect:/member/main";
+		session.invalidate(); //지워버리기
+		return "/member/main";
 	}
 	*/
 	
@@ -154,7 +161,7 @@ public class MemberController {
 	      
 	      // 암호 확인
 			System.out.println("첫번째:" + member.getPassword());
-			// 비밀번호 암호화 (sha256
+			// 비밀번호 암호화 (sha256)
 			String encryPassword = UserSha256.encrypt(member.getPassword());
 			member.setPassword(encryPassword);
 			System.out.println("두번째:" + member.getPassword());
@@ -199,6 +206,12 @@ public class MemberController {
 	         member.setProfile_img(filename);
 	         
 	      }
+	        // 암호 확인
+			System.out.println("첫번째:" + member.getPassword());
+			// 비밀번호 암호화 (sha256)
+			
+			System.out.println("두번째:" + member.getPassword());
+	      
 	      memberService.update(member);
 
 	      return "redirect:/member/main";
@@ -221,6 +234,12 @@ public class MemberController {
 			member.setProfile_img(filename);
 			
 		}
+		// 암호 확인
+		System.out.println("첫번째:" + member.getPassword());
+		// 비밀번호 암호화 (sha256)
+		String encryPassword = UserSha256.encrypt(member.getPassword());
+		member.setPassword(encryPassword);
+		System.out.println("두번째:" + member.getPassword());
 		
 		memberService.update2(member);
 		

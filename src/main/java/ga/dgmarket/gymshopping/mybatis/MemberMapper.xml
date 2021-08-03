@@ -5,7 +5,7 @@
 	<!-- 로그인 체크 -->
 	<select id="login" parameterType="Member" resultType="Member">
 		select *
-		from member where user_id=#{user_id}
+		from member where user_id=#{user_id} and password=#{password}
 	</select>
 
 	<select id="detail" parameterType="int" resultType="Member">
@@ -23,6 +23,13 @@
 		addr=#{addr}, email=#{email}, user_grade=#{user_grade} where member_id=#{member_id}
 	</update>
 	
+	<update id="update_noPass" parameterType="Member">
+		update member set user_id=#{user_id}, name=#{name},
+		storename=#{storename}, profile_img=#{profile_img}, phone=#{phone},
+		addr=#{addr}, email=#{email}, user_grade=#{user_grade} where member_id=#{member_id}
+	</update>
+	
+	<!-- user_grade 8 로 바꾸는 작업(탈퇴)-->
 	<update id="update2" parameterType="Member">
 		update member set user_grade=8 where member_id=#{member_id}
 	</update>
