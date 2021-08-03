@@ -225,6 +225,7 @@ function regist(){
 	$("#form1").submit();
 }
 
+//댓글 등록 요청
 function reply(){
 	$("#form2").attr({
 		action : "/member/qna/reply",
@@ -234,6 +235,7 @@ function reply(){
 	
 }
 
+//댓글 더보기
 function showReply(tr){
 	if($('.'+tr).is(":visible")){ //display none이 아닐 경우
 		$('.'+tr).css("display", "none");
@@ -293,9 +295,9 @@ function deleteReply(qna_id){
 <%@ include file="../inc/top_navi.jsp" %>
 <div style="width: 80%; margin: auto;">
 <select name="" id="mySelect">
-	<option value="1" selected>제목</option>
-	<option value="2">내용</option>
-	<option value="3">작성자</option>
+	<option value="1" selected>내용</option>
+	<option value="2">작성자</option>
+	<option value="3">작성일시</option>
 </select>
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="게시글의 제목이나 내용을 검색하세요" title="Type in a name">
 </div>
@@ -318,7 +320,11 @@ function deleteReply(qna_id){
 			<% } else {%><!-- 내가 작성한 글이 아니라면 -->
 				<td><%= qna.getContent() %></td>
 			<% } %>
+			<%if(qna.getUser_grade() == 7){ %> <!-- 탈퇴한 회원이라면 -->
+				<td>[탈퇴한 회원]</td>
+			<%} else{ %>
 				<td>[<%= qna.getWriter() %>]</td>
+			<% } %>
 				<td>[<%= regdate %>]</td>
 				<td onclick="showReply('tr<%=qna.getTeam()%>')">댓글보기[<%= qna.getCnt() %>]</td>
 			</tr>
@@ -333,7 +339,11 @@ function deleteReply(qna_id){
 			<% } else { %> <!-- 내가 작성한 댓글이 아니라면 -->
 				<td><%= qna.getContent() %></td>
 			<% } %>
+			<%if(qna.getUser_grade() == 7){ %> <!-- 탈퇴한 회원이라면 -->
+				<td>[탈퇴한 회원]</td>
+			<%} else{ %>
 				<td>[<%= qna.getWriter() %>]</td>
+			<% } %>
 				<td>[<%= regdate %>]</td>
 				<td></td>
 			</tr>

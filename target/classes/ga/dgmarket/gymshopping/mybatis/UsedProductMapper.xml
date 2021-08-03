@@ -20,7 +20,8 @@
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
 		from used_product p, used_product_img i, member m
-		where p.used_product_id=i.used_product_id and i.used_img_index=0 and p.member_id=m.member_id and p.soldout='no'
+		where p.used_product_id=i.used_product_id and m.user_grade!=7 and
+		i.used_img_index=0 and p.member_id=m.member_id and p.soldout='no'
 		order by p.used_product_id desc;
 	</select>
 	
@@ -34,7 +35,7 @@
 		(select used_favorites_id from used_favorites 
 		where member_id=#{member_id} and used_product_id=#{used_product_id}) as favorites_id
 		from used_product p, member m
-		where p.member_id=m.member_id and p.used_product_id=#{used_product_id};
+		where p.member_id=m.member_id and m.user_grade!=7 and p.used_product_id=#{used_product_id};
 	</select>
 	
 	<!-- 상품의 상태를 판매완료로 변경 soldout처리 -->
@@ -56,7 +57,7 @@
 		where p.used_product_id=f.used_product_id and f.member_id=#{used_product_id}) as favorites_id
 		from used_product p, used_product_img i, member m, used_tag t
 		where p.used_product_id=i.used_product_id and i.used_img_index=0 and t.used_product_id=p.used_product_id and tag_name=#{tag_name}
-		and p.member_id=m.member_id and p.soldout='no'
+		and p.member_id=m.member_id and m.user_grade!=7 and p.soldout='no'
 		order by p.used_product_id desc;
 	</select>
 	
@@ -68,7 +69,7 @@
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
 		from used_product p, used_product_img i, member m
-		where p.used_product_id=i.used_product_id and i.used_img_index=0 and 
+		where p.used_product_id=i.used_product_id and i.used_img_index=0 and m.user_grade!=7 and
 		p.member_id=m.member_id and p.soldout='no' and used_product_name like concat('%', #{used_product_name}, '%')
 		order by p.used_product_id desc;
 	</select>
@@ -81,7 +82,7 @@
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
 		from used_product p, used_product_img i, member m
-		where p.used_product_id=i.used_product_id and i.used_img_index=0 and 
+		where p.used_product_id=i.used_product_id and i.used_img_index=0 and m.user_grade!=7 and
 		p.member_id=m.member_id and p.soldout='no' and store_id=#{storename}<!-- 여기도 꼼수 씀  -->
 		order by p.used_product_id desc;
 	</select>
@@ -94,7 +95,7 @@
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
 		from used_product p, used_product_img i, member m
-		where p.used_product_id=i.used_product_id and i.used_img_index=0 and 
+		where p.used_product_id=i.used_product_id and i.used_img_index=0 and m.user_grade!=7 and
 		p.member_id=m.member_id and p.soldout='no' and storename like concat('%', #{storename}, '%')
 		order by p.used_product_id desc;
 	</select>
@@ -107,7 +108,7 @@
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
 		from used_product p, used_product_img i, member m
-		where p.used_product_id=i.used_product_id and i.used_img_index=0 and 
+		where p.used_product_id=i.used_product_id and i.used_img_index=0 and m.user_grade!=7 and
 		p.member_id=m.member_id and p.soldout='no' and used_product_price <![CDATA[<=]]> #{used_product_price}
 		order by p.used_product_id desc;
 	</select>
@@ -120,7 +121,7 @@
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_member, (select used_favorites_id from used_favorites f 
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
 		from used_product p, used_product_img i, member m
-		where p.used_product_id=i.used_product_id and i.used_img_index=0 and 
+		where p.used_product_id=i.used_product_id and i.used_img_index=0 and m.user_grade!=7 and
 		p.member_id=m.member_id and p.soldout='no' and used_product_price <![CDATA[>=]]> #{used_product_price}
 		order by p.used_product_id desc;
 	</select>
@@ -134,7 +135,7 @@
 		where p.used_product_id=f.used_product_id and f.member_id=#{member_id}) as favorites_id
 		from used_product p, used_product_img i, member m, used_favorites f
 		where p.used_product_id=i.used_product_id and i.used_img_index=0 and 
-		p.member_id=m.member_id and p.soldout='no' and m.user_grade!=8 and f.used_product_id=p.used_product_id and f.member_id=#{member_id}
+		p.member_id=m.member_id and p.soldout='no' and m.user_grade!=7 and f.used_product_id=p.used_product_id and f.member_id=#{member_id}
 		order by p.used_product_id desc
 	</select>
 	

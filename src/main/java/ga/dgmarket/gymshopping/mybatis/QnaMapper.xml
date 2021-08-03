@@ -23,7 +23,7 @@
 	
 	<!-- 게시물 목록 -->
 	<select id="selectAll" resultType="Qna">
-		select  (select count(*)-1 from qna where team=q.team group by team) as cnt, 
+		select  (select count(*)-1 from qna where team=q.team group by team) as cnt, user_grade,
 		m.storename as writer, q.qna_id, m.member_id, q.title, q.content, q.team, q.step, q.depth, q.regdate
 		from qna q, member m
 		where q.member_id=m.member_id
