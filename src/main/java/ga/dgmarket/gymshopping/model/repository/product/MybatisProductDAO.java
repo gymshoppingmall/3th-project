@@ -17,9 +17,34 @@ public class MybatisProductDAO implements ProductDAO{
 		return sqlSessionTemplate.selectList("Product.selectAll");
 	}
 	
-	public List selectNewItem() {
+	public List selectNewItem() {//메인에서 신상품 진열 from.도균
 		return sqlSessionTemplate.selectList("Product.selectNewItem");
 	}
+	
+	@Override
+	public List selectEquipment() {// 운동기구 페이지 from.도균
+		return sqlSessionTemplate.selectList("Product.selectEquipment");
+	}
+
+	@Override
+	public List selectWear() {//의류 페이지 from.도균
+		return sqlSessionTemplate.selectList("Product.selectWear");
+	}
+
+	@Override
+	public List selectAccessory() {// 악세서리 페이지 from.도균
+		return sqlSessionTemplate.selectList("Product.selectAccessory");
+	}
+
+	@Override
+	public List selectFood() { // 보조식품 페이지 from.도균
+		return sqlSessionTemplate.selectList("Product.selectFood");
+	}
+	
+	
+	
+	
+	
 
 	@Override
 	public Product select(int product_id) {
@@ -58,5 +83,7 @@ public class MybatisProductDAO implements ProductDAO{
 	public Product selectForDaysCount(int days) {
 		return sqlSessionTemplate.selectOne("Product.selectForDaysCount",days);
 	}
+
+
 
 }
