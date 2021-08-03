@@ -79,12 +79,22 @@ public class MybatisMemberDAO implements MemberDAO{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void update2(Member member) {
 		int result=sqlSessonTemplate.update("Member.update2",member);
 		if(result==0) {
 			throw new DMLException("탈퇴실패");
 		}
 		
+=======
+	public List selectGoodUser() {
+		return sqlSessonTemplate.selectList("Member.selectGoodUser");
+	}
+
+	@Override
+	public List selectBadUser() {
+		return sqlSessonTemplate.selectList("Member.selectBadUser");
+>>>>>>> 1e5e50088df60f3fc5105a3dc8fae66f900d92aa
 	}
 
 	

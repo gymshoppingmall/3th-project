@@ -61,12 +61,12 @@
   <a href="/member/qna/list">QnA</a>
   <div class="top_navi_topnav-right">
   	<% if (top_navi_member == null){ %> <!-- 로그인 중이 아니라면 -->
-	    <a href="#search">로그인</a>
-	    <a href="#about">회원가입</a>
+	    <a href="/member/loginform">로그인</a>
+	    <a href="/member/registform">회원가입</a>
     <% } else { %>
     	<a href="/member/join/detail?member_id=<%=top_navi_member.getMember_id() %>">회원정보</a>
     	<a href="/member/used/main">중고마켓</a>
-    	<a href="#search">로그아웃</a>    	
+    	<a href="/member/main">로그아웃</a>    	
     <% } %>
   </div>
 </div>

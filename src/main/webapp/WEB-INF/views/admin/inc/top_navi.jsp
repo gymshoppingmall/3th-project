@@ -10,9 +10,6 @@
     <li class="nav-item">
       <a class="nav-link" href="/admin/main/index">관리자메인</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/main/qna">Q&A관리</a>
-    </li>
     <!-- Dropdown -->
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -31,8 +28,8 @@
       </a>
       <div class="dropdown-menu">
         <a class="dropdown-item" href="/admin/main/member">전체관리</a>
-        <a class="dropdown-item" href="#">우수회원</a>
-        <a class="dropdown-item" href="#">블랙리스트</a>
+        <a class="dropdown-item" href="/admin/main/member/good">우수회원</a>
+        <a class="dropdown-item" href="/admin/main/member/bad">블랙리스트</a>
       </div>
     </li>
     <div class="top_navi_topnav-right">

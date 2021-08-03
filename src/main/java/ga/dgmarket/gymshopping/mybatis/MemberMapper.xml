@@ -47,5 +47,14 @@
 		storename=#{storename}, profile_img=#{profile_img}, user_grade=#{user_grade} 
 		where member_id=#{member_id}
 	</update>
+	<select id="selectGoodUser" resultType="Member">
+	<![CDATA[
+		select * from member where user_grade > 1 and user_grade < 4
+	]]>
+	</select>
+	<select id="selectBadUser" resultType="Member">
+		select * from member where user_grade > 7
+	</select>
+	
 
 </mapper>

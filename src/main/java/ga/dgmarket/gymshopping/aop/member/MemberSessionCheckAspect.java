@@ -25,7 +25,7 @@ public class MemberSessionCheckAspect {
 		Object result = null;
 		if(uri.equals("/member/loginform") || uri.equals("/member/login") || uri.equals("/member/main")
 				|| uri.equals("/member/registform") || uri.equals("/member/memberIdChk") 
-				|| uri.equals("/member/main/regist")) {
+				|| uri.equals("/member/main/regist") || uri.equals("/member/logout")) {
 			result = joinPoint.proceed();
 		}else {
 			memberSession = request.getSession();

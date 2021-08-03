@@ -51,7 +51,6 @@ import ga.dgmarket.gymshopping.model.service.usedproduct.UsedProductService;
 @Controller
 public class MemberController {
 	
-
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired
 	private MemberService memberService;
@@ -88,6 +87,14 @@ public class MemberController {
 	      
 	      return "redirect:/member/main";
 		
+	}
+	
+	//로그아웃을 눌렀을 때 member세션을 지워버리고 메인으로 전송 from.성일
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("member", null); //지워버리기
+		return "redirect:/member/main";
 	}
 	
 	
@@ -304,5 +311,4 @@ public class MemberController {
 		model.addAttribute("e", e); // 에러객체 담기
 		return "error/result";
 	}
-
 }

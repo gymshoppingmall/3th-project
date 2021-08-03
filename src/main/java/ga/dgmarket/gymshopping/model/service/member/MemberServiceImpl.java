@@ -67,9 +67,19 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void update2(Member member) {
 		memberDAO.update2(member);
 		
+=======
+	public List selectGoodUser() {
+		return memberDAO.selectGoodUser();
+	}
+
+	@Override
+	public List selectBadUser() {
+		return memberDAO.selectBadUser();
+>>>>>>> 1e5e50088df60f3fc5105a3dc8fae66f900d92aa
 	}
 
 	
