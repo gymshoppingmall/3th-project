@@ -14,4 +14,6 @@ public interface ProductService {
 	public List selectForCategory();
 	/* 하루에 등록된 상품 수를 가져오기*/
 	public List selectTodayRegisted();
+	public Product selectForDays(int days);
+	public Product selectForDaysCount(int days);
 }

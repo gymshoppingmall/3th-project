@@ -40,6 +40,24 @@ public class MemberController {
 		model.addAttribute("cnt",cnt);
 		return "admin/main/member";
 	}
+	//우수 회원 가져오기
+	@GetMapping("/main/member/good")
+	public String good_member(Model model, HttpServletRequest request) {
+		List memberList = memberService.selectGoodUser();
+		int cnt = memberService.countUser();
+		model.addAttribute("memberList",memberList);
+		model.addAttribute("cnt",cnt);
+		return "admin/main/member";
+	}
+	//블랙리스트 / 탈퇴회원 가져오기
+	@GetMapping("/main/member/bad")
+	public String bad_member(Model model, HttpServletRequest request) {
+		List memberList = memberService.selectBadUser();
+		int cnt = memberService.countUser();
+		model.addAttribute("memberList",memberList);
+		model.addAttribute("cnt",cnt);
+		return "admin/main/member";
+	}
 	//단일 회원 가져오기
 	@GetMapping("/main/member/detail")
 	public String getDetail(int member_id, Model model, HttpServletRequest request) {

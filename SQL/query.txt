@@ -50,5 +50,20 @@ group by p.top_category_id, tc.top_name  ;
 select COUNT(product_id) as cnt from product where regdate > date_format(curdate( ), '%Y-%m-%d %H:%i:%s' ) ;
 
 --n일 전 데이터
-select COUNT(product_id) as cnt from product where regdate >=(CURDATE()-INTERVAL 1 DAY);
+select COUNT(product_id) as cnt from product where regdate >=(CURDATE()-INTERVAL n DAY)
+and regdate <=(CURDATE()-INTERVAL n-1 DAY);
 
+--거래 된 상품
+create table soldproduct (
+sold_id int primary key auto_increment
+, product_id int
+, price int
+, ea int
+, member_id int
+, constraint productsold
+ foreign key (product_id)
+ references product (product_id)
+, constraint memberbuy
+foreign key (member_id)
+references member (member_id)
+)default character set utf8;

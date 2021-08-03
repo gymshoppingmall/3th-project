@@ -50,4 +50,13 @@ public class MybatisProductDAO implements ProductDAO{
 		return sqlSessionTemplate.selectList("Product.selectTodayRegisted");
 	}
 
+	@Override
+	public Product selectForDays(int days) {
+		return sqlSessionTemplate.selectOne("Product.selectForDays",days);
+	}
+	@Override
+	public Product selectForDaysCount(int days) {
+		return sqlSessionTemplate.selectOne("Product.selectForDaysCount",days);
+	}
+
 }

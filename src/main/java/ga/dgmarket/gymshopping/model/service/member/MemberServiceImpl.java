@@ -64,5 +64,15 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.updateByAdmin(member);
 	}
 
+	@Override
+	public List selectGoodUser() {
+		return memberDAO.selectGoodUser();
+	}
+
+	@Override
+	public List selectBadUser() {
+		return memberDAO.selectBadUser();
+	}
+
 	
 }
