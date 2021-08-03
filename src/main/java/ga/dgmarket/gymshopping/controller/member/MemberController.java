@@ -51,7 +51,6 @@ import ga.dgmarket.gymshopping.model.service.usedproduct.UsedProductService;
 @Controller
 public class MemberController {
 	
-
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired
 	private MemberService memberService;
@@ -301,5 +300,4 @@ public class MemberController {
 		model.addAttribute("e", e); // 에러객체 담기
 		return "error/result";
 	}
-
 }
