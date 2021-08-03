@@ -165,14 +165,14 @@ function loadReview(){
                     <a class="nav-link" href="/member/used/main/favorites?member_id=<%=storeMember.getMember_id()%>"><h5>찜목록</h5></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><h5>채팅목록</h5></a>
+                    <a class="nav-link" href="javascript:bootbox.alert('1:1채팅은 서비스는 9월 오픈 예정입니다.', function(){});"><h5>채팅목록</h5></a>
                 </li>
                 <%  }else{ %>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><h5>판매목록</h5></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><h5>1 : 1 대화하기</h5></a>
+                    <a class="nav-link" href="javascript:bootbox.alert('1:1채팅은 서비스는 9월 오픈 예정입니다.', function(){});"><h5>1 : 1 대화하기</h5></a>
                 </li>
                 <% } %><!-- 다른 사람의 상점일 때 보이는 메뉴 -->
             </ul>

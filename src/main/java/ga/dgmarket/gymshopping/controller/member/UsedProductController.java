@@ -79,6 +79,7 @@ public class UsedProductController {
 	}
 	
 	//상품의 상세페이지 요청을 처리하는 메서드
+	//상품을 상세보기 한 유저의 세션에 최근 본 상품의 정보를 담아주기
 	@GetMapping("/used/product/detail")
 	public String getDetail(HttpServletRequest request, Model model, int used_product_id) {
 		Map<String, Object> map = usedProductService.getDetail(request, used_product_id);
@@ -127,6 +128,22 @@ public class UsedProductController {
 	@ResponseBody
 	public String delfavorites(HttpServletRequest request, int used_favorites_id) {
 		usedProductService.delFavorites(request, used_favorites_id);
+		return "";
+	}
+	
+	//최근 본 목록에 들어있는 세션 지우기
+	@GetMapping("/used/product/delSession")
+	@ResponseBody
+	public String delSession(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("id1", null);
+		session.setAttribute("id2", null);
+		session.setAttribute("id3", null);
+		session.setAttribute("img1", null);
+		session.setAttribute("img2", null);
+		session.setAttribute("img3", null);
+		
+		
 		return "";
 	}
 	

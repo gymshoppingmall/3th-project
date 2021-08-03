@@ -1,8 +1,30 @@
-<%@page import="java.util.Map"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	List<Map> historyList = (List) session.getAttribute("historyList");
+	List<String> side_navi_img_list = new ArrayList();
+	List<Integer> side_navi_id_list = new ArrayList();
+
+	String img1 = (String) session.getAttribute("img1");
+	String img2 = (String) session.getAttribute("img2");
+	String img3 = (String) session.getAttribute("img3");
+
+	
+	if(img3 != null && img3 != ""){
+		side_navi_img_list.add(img3);
+		side_navi_id_list.add((Integer)session.getAttribute("id3"));
+	}
+	
+	if(img2 != null && img2 != ""){
+		side_navi_img_list.add(img2);
+		side_navi_id_list.add((Integer)session.getAttribute("id2"));
+	}
+	
+	if(img1 != null && img1 != ""){
+		side_navi_img_list.add(img1);
+		side_navi_id_list.add((Integer)session.getAttribute("id1"));
+	}
+
 %>
 <script>
 var controllDiv;
@@ -24,17 +46,39 @@ $(function(){
         var divTop = controllDiv.offsetTop+window.scrollY;
         controllDiv.style.top = divTop+"px";
     });
+    
+    $("#x").on("click", function(){
+    	console.log("gd");
+    	$.ajax({
+    		"url" : "/member/used/product/delSession",
+    		"type" : "get",
+    		success : function(){
+    			document.getElementById("imgBox").innerHTML = "";
+    		}
+    	});
+    });
 });
+
 </script>
 <div id="controllDiv" style="width: 150px; position: absolute; border: 2px solid black; text-align: center;">
-	<div><strong>최근 본 상품 </strong><span onclick="">x<span></div>
-
-	<% //if (historyList != null){%>
-		<% //for(int i = 0; i < historyList.size()-1; i ++){ %>
-		<% //Map map = (Map)historyList.get(i) %>
-		<!-- 
-			이미지 태그와 onclick이용해서 product_detail로 이동 시킬 예정
-		 -->
-		<% //} %>
-	<% //} %>
+	<div><strong>최근 본 상품 </strong><span id="x">x<span></div>
+	<div id="imgBox">
+	<% for(int i = 0; i < side_navi_img_list.size(); i++){ %>
+		<img alt="" src="/resources/data/used/product/img/<%=side_navi_img_list.get(i)%>"
+			style="width: 140px; height: 120px;" onclick="location.href='/member/used/product/detail?used_product_id=<%=side_navi_id_list.get(i)%>'">
+	<% } %>
+	</div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
