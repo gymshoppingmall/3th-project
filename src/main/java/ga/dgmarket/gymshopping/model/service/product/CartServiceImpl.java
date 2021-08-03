@@ -20,8 +20,8 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public List selectAll() {
-		return cartDAO.selectAll();
+	public List selectAll(int member_id) {
+		return cartDAO.selectAll(member_id);
 	}
 
 	@Override

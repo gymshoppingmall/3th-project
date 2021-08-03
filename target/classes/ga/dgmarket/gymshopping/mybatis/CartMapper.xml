@@ -9,7 +9,10 @@
 	
 	<!-- 해당 회원의 카트목록 가져오기  -->
 	<select id="selectAll" parameterType="int" resultType="Cart">
-		select * from cart where member_id=#{member_id} 
+		select product_img, product_name, price, ea
+		from member m, product p , cart c
+		where m.member_id=c.member_id and p.product_id=c.product_id
+		and c.member_id=#{member_id}
 	</select>	
 
 	<!-- Product 와 조인해서 가져오기 -->

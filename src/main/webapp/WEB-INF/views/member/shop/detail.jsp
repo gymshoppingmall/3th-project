@@ -151,7 +151,7 @@
                 <div class="col-sm-5" id="product-block"></div>
                 <div class="col-sm-7" id="product-cart">
                     <div class="row">
-                        <div class="col-sm-4" style="padding: 5px;"><button type="button" class="btn btn-dark" id="detail-bt">장바구니 가기</button></div>
+                        <div class="col-sm-4" style="padding: 5px;"><button type="button" class="btn btn-dark" id="detail-bt" onclick="location.href='/member/cart/list'">장바구니 가기</button></div>
                         <div class="col-sm-4" style="padding: 5px;"><button type="button" class="btn btn-light"  id="detail-bt" onClick="addCart()">장바구니담기</button></div>
                         <div class="col-sm-4" style="padding: 5px;"><button type="button" class="btn btn-light"  id="detail-bt">관심상품</button></div>
                     </div>
@@ -185,13 +185,12 @@ function changePrice(a){
 
 /* 장바구니에 담기(비동기) */
 function addCart(){
-	//기존 폼을 전송하겠다..
 	var json={
 		product_id:$("#detail-form input[name='product_id']").val(),
 		member_id:$("#detail-form input[name='member_id']").val(), 
 		ea:$("#detail-form input[name='ea']").val()
 	};
-	//var formData = $("#cart-form").serialize(); //product_id=5&member_id=1&ea=5  querystring 화됨
+	
 	console.log("전송할 데이터는 ",json);
 	
 	$.ajax({
@@ -202,8 +201,8 @@ function addCart(){
 		success:function(result, status, xhr){
 			console.log("서버로 부터 전송된 데이터 ", json);
 			if(result.resultCode==1){
-				if(confirm("장바구니에 상품이 담겼습니다.\n장바구니로 이동하실래요?")){
-					location.href="/member/cart";
+				if(confirm("장바구니에 상품이 담겼습니다.\n장바구니로 이동하시겠습니까??")){
+					location.href="/member/cart/list";
 				}
 			}else if(result.resultCode==0){
 				alert("장바구니에 상품이 담기지 않았습니다.\n문제가 지속될 경우 관리자에 문의하세요");

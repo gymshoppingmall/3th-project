@@ -51,7 +51,7 @@
 	
 	
 	<select id="select" resultMap="ProductTopCategoryDetail" parameterType="int">
-		select product_id, product_name , product_img, price, brand ,tc.top_category_id , top_name , product_inven , product_detail
+		select product_id, product_name , product_img, price, brand , tc.top_category_id , top_name , product_inven , product_detail
 		from product p , top_category tc 
 		where p.top_category_id = tc.top_category_id
 		and product_id = #{product_id}
