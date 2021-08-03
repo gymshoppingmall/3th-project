@@ -29,8 +29,14 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void update(Member member) throws DMLException{
-		memberDAO.update(member);
 		
+		if(member.getPassword().equals("")||member.getPassword()==null) {
+			System.out.println(member.getPassword());
+			memberDAO.update_noPass(member);
+		}else {
+			memberDAO.update(member);			
+		}
+	
 	}
 
 	/*
@@ -66,6 +72,7 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.updateByAdmin(member);
 	}
 
+	//user_grade 8로 바꾸는 작업(탈퇴)
 	@Override
 	public void update2(Member member) {
 		memberDAO.update2(member);
@@ -79,6 +86,7 @@ public class MemberServiceImpl implements MemberService{
 	public List selectBadUser() {
 		return memberDAO.selectBadUser();
 	}
+
 
 	
 }
