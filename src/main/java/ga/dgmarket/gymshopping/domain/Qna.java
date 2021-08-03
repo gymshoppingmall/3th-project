@@ -14,4 +14,5 @@ public class Qna {
 	private int depth;
 	private String writer;
 	private int cnt;
+	private int user_grade;
 }

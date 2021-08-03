@@ -269,7 +269,6 @@ function loadReview(){
 				        </thead>
 				        <tbody>
 				        	<%for(int i = 0; i < reviewList.size(); i++){ %>
-				        		<%if(i > 4) break; %>
 				        		<% UsedReview review = (UsedReview)reviewList.get(i); %>
 				        		<%if(review.getWriter_id() == member.getMember_id()) {%>
 						        	<tr class="reviewTr" style="background-color: ivory;" onclick="deleteReview(<%= review.getUsed_review_id()%>)">

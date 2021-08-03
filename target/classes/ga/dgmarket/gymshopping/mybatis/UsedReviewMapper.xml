@@ -6,7 +6,7 @@
 	<select id="selectAll" resultType="UsedReview" parameterType="int">
 		select r.used_review_id, r.writer_id, r.content, r.regdate, m.storename as writer 
 		from used_review r, member m
-		where r.writer_id=m.member_id and m.user_grade!=8 and
+		where r.writer_id=m.member_id and m.user_grade!=7 and
 		r.member_id=#{member_id} order by r.used_review_id desc
 	</select>
 	
