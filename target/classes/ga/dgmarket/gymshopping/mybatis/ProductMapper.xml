@@ -27,11 +27,40 @@
 		select * from product where product_id=#{product_id}
 	</select>
 	-->
-
+	
 	<!-- 신제품 전시를 위한 목록불러오기 from.도균-->
 	<select id="selectNewItem" resultType="Product">
 		select * from product order by product_id desc limit 4;
 	</select>	
+	
+	<!-- 운동기구 목록 불러오기 from.도균-->
+	<select id="selectEquipment" resultType="Product">
+		select * from product where top_category_id=2 order by product_id desc;
+	</select>
+	
+	
+	<!-- 스포츠의류 목록 불러오기 from.도균-->
+	<select id="selectWear" resultType="Product">
+		select * from product where top_category_id=3 order by product_id desc;
+	</select>
+	
+	
+	<!-- 악세서리 목록 불러오기 from.도균-->
+	<select id="selectAccessory" resultType="Product">
+		select * from product where top_category_id=4 order by product_id desc;
+	</select>
+	
+	
+	<!-- 보조식품 목록 불러오기 from.도균-->
+	<select id="selectFood" resultType="Product">
+		select * from product where top_category_id=5 order by product_id desc;
+	</select>
+	
+	
+	
+	
+	
+
 	
 	
 

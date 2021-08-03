@@ -67,10 +67,11 @@ public class CartController {
 			HttpSession session=request.getSession();
 			Member member=(Member)session.getAttribute("member");
 			int member_id= member.getMember_id();
-			System.out.println(member_id);
-
+			
+			System.out.println(member);
+			
 			List cartList=cartService.selectAllJoin(member_id); // 서비스에 일시켜 리스트로 받기
-			System.out.println(cartList);
+			
 			
 			request.setAttribute("cartList", cartList);  //리퀘스트에 저장
 			

@@ -241,16 +241,66 @@
 
 
 
-/* footer */
-#footer{
-    line-height: 200px;
-    margin-top: 20px;
-    font-size: 50px;
-    font-weight: bold;
+/***********************************************************
+푸터
+***********************************************************/
+
+#footer #line1{
+    border: 0px;
+    height: 3px;
+    background: rgb(53, 53, 53);
     width: 100%;
-    float: left;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+#footer #line2{
+    border: 0px;
+    height: 3px;
+    background: rgb(206, 206, 206);
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#company-cs{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-right: 2px solid rgb(206, 206, 206);
+    height: 100%;
+}
+#company-cs span{
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+
+#company-bank{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 100%;
+}
+
+#company-bank span{
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+#company_info{
+    width: 100%;
     height: 200px;
-    background: rgba(126, 130, 127, 0.867);
+}
+
+#company_info .graycolor{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(116, 116, 116);
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
