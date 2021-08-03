@@ -1142,6 +1142,7 @@ button::-moz-focus-inner {
 						value="<%=member.getMember_id()%>"> 
 						<input type="hidden"
 						name="profile_img" value="<%=member.getProfile_img()%>">
+						<input type="hidden" name="user_grade" value="<%=member.getUser_grade()%>">
 					<div class="main">
 						<div class="form-left-to-w3l">
 							<input type="text" class="id_input" name="user_id" required=""

@@ -17,7 +17,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -42,6 +41,7 @@ import ga.dgmarket.gymshopping.model.common.file.FileManager;
 import ga.dgmarket.gymshopping.model.email.DM;
 import ga.dgmarket.gymshopping.model.email.EmailSender;
 import ga.dgmarket.gymshopping.model.service.member.MemberService;
+import ga.dgmarket.gymshopping.model.service.member.UserSha256;
 import ga.dgmarket.gymshopping.model.service.product.ProductService;
 import ga.dgmarket.gymshopping.model.service.usedproduct.UsedProductService;
 
@@ -51,7 +51,6 @@ import ga.dgmarket.gymshopping.model.service.usedproduct.UsedProductService;
 @Controller
 public class MemberController {
 	
-
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired
 	private MemberService memberService;
@@ -67,9 +66,6 @@ public class MemberController {
 	
 	@Autowired
 	private EmailSender emailSender;
-	
-	@Inject
-	private BCryptPasswordEncoder pwdEncoder;
 
 	// 로그인 폼 요청 처리--하연--
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
@@ -79,37 +75,25 @@ public class MemberController {
 
 	// 로그인 요청 처리--하연--
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Member member, Model model, HttpServletRequest request, RedirectAttributes ra) {
+	public String login(Member member, Model model, HttpServletRequest request, RedirectAttributes ra, HttpSession session) {
+		// 3단계: 일 시키기
+	      Member obj = memberService.login(member);
 
-		// HttpServletRequest를 사용하면 값을 받아 올수 있다.
-		HttpSession session = request.getSession();
-		Member obj = memberService.login(member);
-			
-		// 이렇게 안하면 db에 없는 아이디를 입력하고 로그인하면 에러코드 발생
-		if(obj == null ) { 
-			model.addAttribute("msg", "아이디 또는 비밀번호가 잘못되었습니다.");
-			model.addAttribute("url", "loginform");
-			ra.addFlashAttribute("result", "loginFalse");
-			return "member/login/alert";
-		}
-			
-		logger.info("원래 비밀번호 : " + obj.getPassword());
-		logger.info("로그인할때 입력한 비밀번호 : " + member.getPassword());
-			
+	      // 4단계: 저장
+	      session.setAttribute("member", obj);
+	      model.addAttribute("member", obj);
+	      
+	      System.out.println("로그인시 넘어갈 멤버 정보는"+obj);
+	      
+	      return "redirect:/member/main";
 		
-		boolean passwordMatch = pwdEncoder.matches(member.getPassword(), obj.getPassword());
-		logger.info("원래 비밀번호와 로그인할 때 입력한 비밀번호가 같으면 트루 : " + passwordMatch);
-		if(obj != null && passwordMatch == true) {
-			session.setAttribute("member", obj);
-			model.addAttribute("member", obj);
-			ra.addFlashAttribute("result", "loginOK");
-		} else {
-			session.setAttribute("member", null);
-			model.addAttribute("msg", "아이디 또는 비밀번호가 잘못되었습니다.");
-			model.addAttribute("url",  "loginform");
-			ra.addFlashAttribute("result", "loginFalse");
-			return "member/login/alert";
-		}
+	}
+	
+	//로그아웃을 눌렀을 때 member세션을 지워버리고 메인으로 전송 from.성일
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("member", null); //지워버리기
 		return "redirect:/member/main";
 	}
 	
@@ -143,7 +127,7 @@ public class MemberController {
 	// 아이디 중복 검사--하연--
 		@RequestMapping(value = "/memberIdChk", method = RequestMethod.POST)
 		@ResponseBody
-		public String memberIdChkPOST(Member member) throws Exception{
+		public String memberIdChkPOST(Member member, HttpServletRequest request) throws Exception{
 			int result = memberService.idCheck(member.getUser_id());
 			
 			if(result != 0) {
@@ -156,27 +140,31 @@ public class MemberController {
 	// 회원가입 요청--하연--
 	@RequestMapping(value="/main/regist", method=RequestMethod.POST)
 	public String join(Member member, HttpServletRequest request, RedirectAttributes ra) {
-		String PlaintextPassword = member.getPassword();
-		String encryptionPassword = pwdEncoder.encode(PlaintextPassword);
-		member.setPassword(encryptionPassword);
-
 		// VO에 등록한 MultipartFile 객체에 업로드된 파일이 이미 들어있으므로 개발자는 이 객체를 이용하여 업로드된 파일을 원하는대로
-		// 제어하면 된다
-		MultipartFile photo = member.getPhoto();
-		ServletContext context = request.getServletContext();
-		long time = System.currentTimeMillis();// 현재 날짜 구하기
+	      // 제어하면 된다
+	      MultipartFile photo = member.getPhoto();
+	      ServletContext context = request.getServletContext();
+	      long time = System.currentTimeMillis();// 현재 날짜 구하기
 
-		// 원하는 위치에 파일 저장하기
-		String filename = time + "." + fileManager.getExt(photo.getOriginalFilename());
-		fileManager.saveFile(context, filename, photo);
-		System.out.println(filename);
-		member.setProfile_img(filename);
-		
-		memberService.regist(member);
+	      // 원하는 위치에 파일 저장하기
+	      String filename = time + "." + fileManager.getExt(photo.getOriginalFilename());
+	      fileManager.saveFile(context, filename, photo);
+	      System.out.println(filename);
+	      member.setProfile_img(filename);
+	      
+	      // 암호 확인
+			System.out.println("첫번째:" + member.getPassword());
+			// 비밀번호 암호화 (sha256
+			String encryPassword = UserSha256.encrypt(member.getPassword());
+			member.setPassword(encryPassword);
+			System.out.println("두번째:" + member.getPassword());
 
-		ra.addFlashAttribute("result", "registerOK");
-		
-		return "member/login/loginform";
+
+	      memberService.regist(member);
+	      HttpSession session = request.getSession();
+	      session.setAttribute("member", member);
+	      
+	      return "member/login/loginform";
 			
 	}
 
@@ -196,7 +184,29 @@ public class MemberController {
 	@RequestMapping(value="/join/update", method=RequestMethod.POST)
 	public String update(Member member, HttpServletRequest request, Model model, HttpSession session, RedirectAttributes ra) {
 		System.out.println("지금 멤버 프로필 이미지는 "+member.getProfile_img());
-		System.out.println("member's photoe "+member.getPhoto().getOriginalFilename().length());
+	      System.out.println("member's photoe "+member.getPhoto().getOriginalFilename().length());
+	      int leng=member.getPhoto().getOriginalFilename().length();
+	      
+	      if(leng>0) {
+	         ServletContext context = request.getServletContext();
+	         fileManager.deleteFile(context, member.getProfile_img());
+
+	         long time = System.currentTimeMillis();// 현재 날짜 구하기
+
+	         // 원하는 위치에 파일 저장하기
+	         String filename = time + "." + fileManager.getExt(member.getPhoto().getOriginalFilename());
+	         fileManager.saveFile(context, filename, member.getPhoto());
+	         member.setProfile_img(filename);
+	         
+	      }
+	      memberService.update(member);
+
+	      return "redirect:/member/main";
+	}
+	
+	//회원탈퇴요청처리2
+	@RequestMapping(value="/join/del", method=RequestMethod.POST)
+	public String update2(Member member, HttpServletRequest request, HttpSession session, Model model, RedirectAttributes ra) {
 		int leng=member.getPhoto().getOriginalFilename().length();
 		
 		if(leng>0) {
@@ -212,29 +222,29 @@ public class MemberController {
 			
 		}
 		
-		String PlaintextPassword = member.getPassword();
-		System.out.println(PlaintextPassword);
-		String encryptionPassword = pwdEncoder.encode(PlaintextPassword);
-		System.out.println(encryptionPassword);
-		member.setPassword(encryptionPassword);
-		memberService.update(member);
-		ra.addFlashAttribute("result", "updateOK");
-
-		return "redirect:/member/main";
-	}
-
-	// 회원탈퇴요청처리--하연--
-	@PostMapping("/join/del")
-	public String delete(Member member, HttpServletRequest request, HttpSession session, Model model) {
-		memberService.delete(member.getMember_id());
-		fileManager.deleteFile(request.getServletContext(), member.getProfile_img());
-
+		memberService.update2(member);
+		
 		session.invalidate();
 		model.addAttribute("msg", "회원탈퇴가 완료되었습니다. 이용해주셔서 감사합니다!");
 		model.addAttribute("url",  "/member/main");
 		
 		return "member/login/alert";
 	}
+
+	/*
+	// 회원탈퇴요청처리--하연--
+	@PostMapping("/join/del")
+	public String delete(Member member, HttpServletRequest request, HttpSession session, Model model) {
+		memberService.delete(member.getMember_id());
+		fileManager.deleteFile(request.getServletContext(), member.getProfile_img());
+		
+		session.invalidate();
+		model.addAttribute("msg", "회원탈퇴가 완료되었습니다. 이용해주셔서 감사합니다!");
+		model.addAttribute("url",  "/member/main");
+		
+		return "member/login/alert";
+	}
+	*/
 	
 	//이메일--하연--
 	@RequestMapping("/certifiedMail")
@@ -301,5 +311,4 @@ public class MemberController {
 		model.addAttribute("e", e); // 에러객체 담기
 		return "error/result";
 	}
-
 }

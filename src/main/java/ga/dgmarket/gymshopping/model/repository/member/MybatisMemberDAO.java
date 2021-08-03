@@ -42,6 +42,7 @@ public class MybatisMemberDAO implements MemberDAO{
 		
 	}
 
+	/*
 	@Override
 	public void delete(int member_id) {
 		int result=sqlSessonTemplate.delete("Member.delete",member_id);
@@ -50,6 +51,7 @@ public class MybatisMemberDAO implements MemberDAO{
 		}
 		
 	}
+	*/
 
 	@Override
 	public List selectAll() {
@@ -74,6 +76,24 @@ public class MybatisMemberDAO implements MemberDAO{
 	@Override
 	public void updateByAdmin(Member member) {
 		sqlSessonTemplate.update("Member.updateByAdmin",member);
+	}
+
+	//user_grade 8로 바꾸는 작업(탈퇴)
+	@Override
+	public void update2(Member member) {
+		int result=sqlSessonTemplate.update("Member.update2",member);
+		if(result==0) {
+			throw new DMLException("탈퇴실패");
+		}
+	}
+		
+	public List selectGoodUser() {
+		return sqlSessonTemplate.selectList("Member.selectGoodUser");
+	}
+
+	@Override
+	public List selectBadUser() {
+		return sqlSessonTemplate.selectList("Member.selectBadUser");
 	}
 
 	

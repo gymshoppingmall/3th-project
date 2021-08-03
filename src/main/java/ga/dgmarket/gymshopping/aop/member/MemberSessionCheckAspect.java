@@ -10,10 +10,11 @@ import ga.dgmarket.gymshopping.exception.MemberExistException;
 //관리자 기능을 이루는 모든 기능마다 공통 로직으로 작동하는 세션검증코드
 public class MemberSessionCheckAspect {
 	public Object sessionCheck(ProceedingJoinPoint joinPoint) throws Throwable{
-		
+		System.out.println(joinPoint+" : 조인포인트뭐야");
 		Object[] args = joinPoint.getArgs();
 		HttpServletRequest request = null;
 		HttpSession memberSession = null; 
+		System.out.println(args+" : args뭐야");
 		for(Object obj : args) {
 			if(obj instanceof HttpServletRequest) {
 				request = (HttpServletRequest)obj;
@@ -24,7 +25,7 @@ public class MemberSessionCheckAspect {
 		Object result = null;
 		if(uri.equals("/member/loginform") || uri.equals("/member/login") || uri.equals("/member/main")
 				|| uri.equals("/member/registform") || uri.equals("/member/memberIdChk") 
-				|| uri.equals("/member/main/regist")) {
+				|| uri.equals("/member/main/regist") || uri.equals("/member/logout")) {
 			result = joinPoint.proceed();
 		}else {
 			memberSession = request.getSession();
