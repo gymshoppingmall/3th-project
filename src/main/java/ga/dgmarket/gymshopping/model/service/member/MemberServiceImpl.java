@@ -27,13 +27,15 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	//패스워드 입력 없이 업데이트할 경우 else로 넘어감
 	@Override
 	public void update(Member member) throws DMLException{
-		
+		//넘어온 member 패스워드 찍어보기
 		if(member.getPassword().equals("")||member.getPassword()==null) {
-			System.out.println(member.getPassword());
 			memberDAO.update_noPass(member);
 		}else {
+			String encryPassword = UserSha256.encrypt(member.getPassword());
+			member.setPassword(encryPassword);
 			memberDAO.update(member);			
 		}
 	

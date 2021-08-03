@@ -101,7 +101,7 @@ public class MemberController {
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate(); //지워버리기
-		return "redirect:/member/main";
+		return "/member/main";
 	}
 	
 	
@@ -209,8 +209,7 @@ public class MemberController {
 	        // 암호 확인
 			System.out.println("첫번째:" + member.getPassword());
 			// 비밀번호 암호화 (sha256)
-			String encryPassword = UserSha256.encrypt(member.getPassword());
-			member.setPassword(encryPassword);
+			
 			System.out.println("두번째:" + member.getPassword());
 	      
 	      memberService.update(member);
