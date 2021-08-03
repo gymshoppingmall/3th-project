@@ -95,7 +95,7 @@ public class MemberController {
 	      return "redirect:/member/main";
 		
 	}
-	
+	/*
 	//로그아웃을 눌렀을 때 member세션을 지워버리고 메인으로 전송 from.성일
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
@@ -103,7 +103,7 @@ public class MemberController {
 		session.invalidate(); //지워버리기
 		return "/member/main";
 	}
-	
+	*/
 	
 	//멤버 메인 페이지 요청 및 리퀘스트에 회원정보,신상품,중고상품 저장 --도균--
 	@GetMapping("/main")
@@ -309,7 +309,11 @@ public class MemberController {
 		
 		return authCodes;
 	}
-
+	//로그아웃 처리 
+	@GetMapping("/logout")
+	public String logout_member(HttpServletRequest request) {
+		return "member/login/out";
+	}
 	// 위의 요청을 처리하는 메서드 중에서 어느것 하나라도 예외가 발생하면 아래의 메서드가 동작하게 됨
 	@ExceptionHandler(MemberExistException.class)
 	public String handleException(MemberExistException e, Model model) {
