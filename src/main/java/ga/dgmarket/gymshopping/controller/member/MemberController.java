@@ -85,7 +85,7 @@ public class MemberController {
 	      
 	      System.out.println("로그인시 넘어갈 멤버 정보는"+obj);
 	      
-	      return "redirect:/member/main";
+	      return "member/login/join/logindummy";
 		
 	}
 	/*
