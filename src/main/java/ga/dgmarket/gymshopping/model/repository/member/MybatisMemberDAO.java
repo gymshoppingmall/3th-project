@@ -20,7 +20,7 @@ public class MybatisMemberDAO implements MemberDAO{
 	public Member login(Member member) throws MemberExistException{
 		Member obj=sqlSessonTemplate.selectOne("Member.login",member);
 		if(obj==null) {
-			throw new MemberExistException("관리자 정보가 올바르지 않음");
+			throw new MemberExistException("로그인에 실패하였습니다");
 		}
 		return obj;
 	}
@@ -94,6 +94,15 @@ public class MybatisMemberDAO implements MemberDAO{
 	@Override
 	public List selectBadUser() {
 		return sqlSessonTemplate.selectList("Member.selectBadUser");
+	}
+
+	@Override
+	public void update_noPass(Member member) {
+		int result=sqlSessonTemplate.update("Member.update_noPass",member);
+		if(result==0) {
+			throw new DMLException("수정실패");
+		}
+		
 	}
 
 	

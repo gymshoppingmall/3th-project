@@ -1155,12 +1155,12 @@ button::-moz-focus-inner {
 						<div class="main">
 							<div class="form-left-to-w3l">
 								<input type="password" name="password" id="password" required=""
-									value="<%=member.getPassword()%>">
+									value="">
 								<div class="clear"></div>
 							</div>
 							<div class="form-right-w3ls ">
 								<input type="password" id="confirm_password" required=""
-									value="<%=member.getPassword()%>">
+									value="">
 							</div>
 						</div>
 						<div class="form-left-to-w3l">
