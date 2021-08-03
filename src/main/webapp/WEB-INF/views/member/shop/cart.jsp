@@ -3,8 +3,8 @@
 <%@page import="ga.dgmarket.gymshopping.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-	List<Cart> cartList=(List)request.getAttribute("cartList");
-	System.out.println("카트리스트"+cartList);
+   List<Cart> cartList=(List)request.getAttribute("cartList");
+   System.out.println("카트리스트"+cartList);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,11 +12,11 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!-- jQuery -->
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Favicon  -->
@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="/resources/style.css">
 <!-- 폰트어썸 -->
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 
 <!-- Responsive CSS -->
 <link href="/resources/css/responsive.css" rel="stylesheet">
@@ -40,9 +40,9 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+   integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+   crossorigin="anonymous">
 <!-- 커스텀 CSS -->
 <link rel="stylesheet" href="/resources/css/style.css">
 
@@ -50,13 +50,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
-	href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Pen+Script&family=Single+Day&display=swap"
-	rel="stylesheet">
+   href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Jua&family=Nanum+Pen+Script&family=Single+Day&display=swap"
+   rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
-	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@700&display=swap"
-	rel="stylesheet">
+   href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@700&display=swap"
+   rel="stylesheet">
 <!--     
     font-family: 'Black Han Sans', sans-serif;
     font-family: 'Jua', sans-serif;
@@ -69,11 +69,11 @@
 <link rel="icon" href="img/reallogo.png">
 </head>
 <body>
-	<!-- 헤더 시작 -->
-	<div id="header">
-		<%@include file="../inc/top_navi.jsp"%>
-	</div>
-	<!-- 헤더 끝 -->
+   <!-- 헤더 시작 -->
+   <div id="header">
+      <%@include file="../inc/top_navi.jsp"%>
+   </div>
+   <!-- 헤더 끝 -->
             <!-- 장바구니 왼쪽 섹션 시작 -->
             <div class="row">
                 <div><i class="fas fa-check-circle" style="margin-left: 30px; font-size: 25px; color: purple;"></i></div>
@@ -86,9 +86,9 @@
             <!-- 아이템 1개 시작 -->
                 <div class="col-sm-9" style="overflow: scroll; height: 100%" >
                     <div class="row">
-			            <%for(int i=0; i<cartList.size(); i++){ %>
-			            <%Cart cart = cartList.get(i); %>
-			            <input type="hidden" id="price_<%=i %>" value=<%=cart.getProduct().getPrice()%>>
+                     <%for(int i=0; i<cartList.size(); i++){ %>
+                     <%Cart cart = cartList.get(i); %>
+                     <input type="hidden" id="price_<%=i %>" value=<%=cart.getProduct().getPrice()%>>
                         <div class="col-sm-2" id="cart-check">
                             <i class="fas fa-check-circle" style="margin-left: 15px; font-size: 25px; color: purple;"></i>
                             <img src="/resources/img/img1.jpg" class="img-thumbnail" id="product-thumbnail">
@@ -103,10 +103,10 @@
                             <i class="fas fa-plus" id="plus" onclick="changePrice(1,<%=i%>)"></i>
                             </div>
                         </div>
-                        <div class="col-sm-3" style="margin-top: 50px; margin-left: 5%; font-size: 18px;" id="total_price_<%=i%>">
+                        <div class="col-sm-3" name="total_price" style="margin-top: 50px; margin-left: 5%; font-size: 18px;" id="total_price_<%=i%>">
                             <%=cart.getProduct().getPrice()*cart.getEa()%>원
                         </div>
-		                <%} %>
+                      <%} %>
                     </div>
                 </div>
                 <!-- 아이템 한개 끝 -->
@@ -121,14 +121,13 @@
                     <div id="location"><button type="button" class="btn btn-outline-success">배송지 변경</button></div>
                     <div class="row" style="height: 140px; padding-top: 20px; margin-top: 50px; background: rgb(240, 240, 240);">
                         <div class="col-sm-7" style="font-size: 15px; line-height: 30px; padding-left: 50px; ">상품금액</div>
-                        <div class="col-sm-5" style="font-size: 20px;  text-align: right;" >
+                        <div class="col-sm-5" id ="real_total_price" style="font-size: 20px;  text-align: right;" >
                         <%int totalprice=0; %>
                         <%for(int i=0; i<cartList.size(); i++){ %>
                         <%Cart cart = cartList.get(i);%>
                         <%totalprice+=cart.getProduct().getPrice()*cart.getEa();%>
                         <%} %>
                         <%=totalprice%>원
-                        
                         </div>
                         <div class="col-sm-7" style="font-size: 15px; line-height: 30px; padding-left: 50px;">상품할인금액</div>
                         <div class="col-sm-5" style="font-size: 20px;  text-align: right;">-2,000원</div>
@@ -148,35 +147,41 @@
 <script>
 /* 수량 변경시 가격변경*/
 function changePrice(a,b){
-	//수량 int형으로 변환
-	var ea= $("#ea_"+b).text();
-	var price=$("#price_"+b).val();
-	ea=ea*1+a;
-	price=price*1
-	console.log("받아온 가격은",price);
-	
-	if(ea==0){
-		return
-	}
-	//갯수 갱신
-	var product_ea = document.getElementById("ea_"+b);
-	product_ea.innerHTML=ea;
-	//하나의 아이템의 총액 갱신
-	var total_price= document.getElementById("total_price_"+b);
-	total_price.innerHTML=ea*price
-	//전체 총액 갱신
+		//수량 int형으로 변환
+		var ea= $("#ea_"+b).text();
+		var price=$("#price_"+b).val();
+		ea=ea*1+a;
+		price=price*1
+		
+		if(ea==0){
+		   return
+		}
+		//갯수 갱신
+		var product_ea = document.getElementById("ea_"+b);
+		product_ea.innerHTML=ea;
+		//하나의 아이템의 총액 갱신
+		var total_price= document.getElementById("total_price_"+b);
+		total_price.innerHTML=ea*price+"원"
+		//전체 총액 갱신
+		var len = $("div[name='total_price']").length;
+		var basket_price = 0;
+		for(var i = 0; i < len; i++){
+			var div=$("div[name='total_price']")[i];
+			var text = div.innerText;
+			var pure_price=text.substring(0, text.length-1);
+			basket_price += pure_price*1;
 
+		}
+		console.log(basket_price);
+		var real_total_price= document.getElementById("real_total_price");
+		real_total_price.innerHTML=basket_price+"원"
 		
-		
-	}
-	
-	
+
 
 }
 </script>
 </body>
 </html>
-
 
 
 
