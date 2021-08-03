@@ -165,7 +165,10 @@ function changePrice(a,b){
 	var total_price= document.getElementById("total_price_"+b);
 	total_price.innerHTML=ea*price+"원"
 	//전체 총액 갱신
-	
+	var str = total_price.innerHTML
+	console.log(str.length);
+	str.substring(0,str.length-1);
+	console.log(str.substring(0,str.length-1));
 	
 	
 

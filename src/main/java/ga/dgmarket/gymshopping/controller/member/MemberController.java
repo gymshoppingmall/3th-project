@@ -316,7 +316,7 @@ public class MemberController {
 	}
 	// 위의 요청을 처리하는 메서드 중에서 어느것 하나라도 예외가 발생하면 아래의 메서드가 동작하게 됨
 	@ExceptionHandler(MemberExistException.class)
-	public String handleException(MemberExistException e, Model model) {
+	public String handleException(MemberExistException e, Model model, HttpServletRequest request) {
 		model.addAttribute("result", "false");// 에러객체 저장
 
 		return "member/login/loginform";
