@@ -1,10 +1,11 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Cart"%>
 <%@page import="java.util.List"%>
 <%@page import="ga.dgmarket.gymshopping.domain.Member"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%
-   List<Cart> cartList=(List)request.getAttribute("cartList");
-   System.out.println("카트리스트"+cartList);
+	List<Cart> cartList=(List)request.getAttribute("cartList");
+	Member member=(Member)session.getAttribute("member");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,9 +76,9 @@
    </div>
    <!-- 헤더 끝 -->
             <!-- 장바구니 왼쪽 섹션 시작 -->
-            <div class="row">
+            <div class="row" style="margin-top: 20px">
                 <div><i class="fas fa-check-circle" style="margin-left: 30px; font-size: 25px; color: purple;"></i></div>
-                <div class="col-sm-1+1/2" style="margin-left: 1%;">전체선택(1/1)</div>
+                <div class="col-sm-1+1/2" style="margin-left: 1%;">전체선택(<%=cartList.size()%>/<%=cartList.size()%>)</div>
                 <div class="" style="color: rgb(157, 157, 157); font-weight: bold;">&nbsp;&nbsp;&nbsp;I</div>
                 <div class="col-sm-1" style="padding-left: 0px;">&nbsp;&nbsp;선택삭제</div>
             </div>
@@ -117,7 +118,7 @@
                         <i class="fas fa-map-marker-alt" ></i>
                         배송지
                     </div>
-                    <div style="height: 100px;">서울 송파구 올림픽로 300</div>
+                    <div style="height: 100px;"><%=member.getAddr() %></div>
                     <div id="location"><button type="button" class="btn btn-outline-success">배송지 변경</button></div>
                     <div class="row" style="height: 140px; padding-top: 20px; margin-top: 50px; background: rgb(240, 240, 240);">
                         <div class="col-sm-7" style="font-size: 15px; line-height: 30px; padding-left: 50px; ">상품금액</div>
@@ -172,7 +173,6 @@ function changePrice(a,b){
 			basket_price += pure_price*1;
 
 		}
-		console.log(basket_price);
 		var real_total_price= document.getElementById("real_total_price");
 		real_total_price.innerHTML=basket_price+"원"
 		

@@ -6,7 +6,15 @@ import ga.dgmarket.gymshopping.domain.Product;
 
 public interface ProductService {
 	public List selectAll();
-	public List selectNewItem(); 
+	
+	
+	public List selectNewItem(); //메인에서 신상품 진열
+	public List selectEquipment(); // 운동기구 페이지
+	public List selectWear(); // 의류 페이지
+	public List selectAccessory(); // 악세서리 페이지
+	public List selectFood(); // 보조식품 페이지
+	
+
 	public Product select(int product_id);
 	public void regist(Product product);
 	public void update(Product product);
