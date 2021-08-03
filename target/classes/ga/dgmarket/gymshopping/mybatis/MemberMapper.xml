@@ -20,12 +20,17 @@
 	<update id="update" parameterType="Member">
 		update member set user_id=#{user_id}, password=#{password}, name=#{name},
 		storename=#{storename}, profile_img=#{profile_img}, phone=#{phone},
-		addr=#{addr}, email=#{email} where member_id=#{member_id}
+		addr=#{addr}, email=#{email}, user_grade=#{user_grade} where member_id=#{member_id}
 	</update>
-
+	
+	<update id="update2" parameterType="Member">
+		update member set user_grade=8 where member_id=#{member_id}
+	</update>
+	<!--  
 	<delete id="delete" parameterType="int">
 		delete from member where member_id=#{member_id}
 	</delete>
+	-->
 
 	<!-- 아이디 중복검사 -->
   	<select id="idCheck" resultType="int" parameterType="String">

@@ -33,11 +33,13 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 
+	/*
 	@Override
 	public void delete(int member_id) throws DMLException{
 		memberDAO.delete(member_id);
 		
 	}
+	*/
 
 	@Override
 	public List selectAll() {
@@ -62,6 +64,12 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void updateByAdmin(Member member) {
 		memberDAO.updateByAdmin(member);
+	}
+
+	@Override
+	public void update2(Member member) {
+		memberDAO.update2(member);
+		
 	}
 
 	

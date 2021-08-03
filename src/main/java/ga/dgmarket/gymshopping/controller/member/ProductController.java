@@ -36,7 +36,7 @@ public class ProductController {
 		
 	//상세보기에서 장바구니로 요청 --도균--
 		@GetMapping()
-		public String cartform() {
+		public String cartform(HttpServletRequest request) {
 			//3단계 : 일시키기
 			
 			

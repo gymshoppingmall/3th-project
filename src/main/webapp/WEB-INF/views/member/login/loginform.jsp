@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -476,6 +477,8 @@ p {
 			form.password.focus();//포커스를 Password박스로 이동.
 			return;
 		}
+		
+		
 
 		//서버에 로그인 요청
 		$("form").attr({
@@ -516,6 +519,7 @@ p {
 									<label>Password</label> <input type="password" name="password"
 										placeholder="" required="">
 								</div>
+								
 								<button type="button" class="btn btn-style mt-3">로그인</button>
 							</form>
 							<p class="already">
