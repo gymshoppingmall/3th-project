@@ -112,6 +112,14 @@ public class MemberController {
 		return "redirect:/member/main";
 	}
 	
+	//로그아웃을 눌렀을 때 member세션을 지워버리고 메인으로 전송 from.성일
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("member", null); //지워버리기
+		return "redirect:/member/main";
+	}
+	
 	
 	//멤버 메인 페이지 요청 및 리퀘스트에 회원정보,신상품,중고상품 저장 --도균--
 	@GetMapping("/main")
