@@ -29,9 +29,9 @@
 		addr=#{addr}, email=#{email}, user_grade=#{user_grade} where member_id=#{member_id}
 	</update>
 	
-	<!-- user_grade 8 로 바꾸는 작업(탈퇴)-->
+	<!-- user_grade 7 로 바꾸는 작업(탈퇴)-->
 	<update id="update2" parameterType="Member">
-		update member set user_grade=8 where member_id=#{member_id}
+		update member set user_grade=7 where member_id=#{member_id}
 	</update>
 	<!--  
 	<delete id="delete" parameterType="int">

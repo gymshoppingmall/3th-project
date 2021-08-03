@@ -67,6 +67,7 @@ public class MemberController {
 	@Autowired
 	private EmailSender emailSender;
 
+
 	// 로그인 폼 요청 처리--하연--
 	@RequestMapping(value = "/loginform", method = RequestMethod.GET)
 	public String loginForm(HttpServletRequest request) {
@@ -76,24 +77,21 @@ public class MemberController {
 	// 로그인 요청 처리--하연--
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Member member, Model model, HttpServletRequest request, RedirectAttributes ra, HttpSession session) {
-		// 3단계: 일 시키기
-		// 비밀번호 암호화
 		String user_pw = member.getPassword();
 		member.setPassword(UserSha256.encrypt(user_pw));
 
 		// 암호화 확인
-		System.out.println("user_pw : " + member.getPassword());
-
-	      Member obj = memberService.login(member);
-
-	      // 4단계: 저장
-	      session.setAttribute("member", obj);
-	      model.addAttribute("member", obj);
-	      
-	      System.out.println("로그인시 넘어갈 멤버 정보는"+obj);
-	      
-	      return "redirect:/member/main";
+		logger.info("원래 비밀번호 : " + UserSha256.encrypt(user_pw));
+		logger.info("로그인할때 입력한 비밀번호 : " + member.getPassword());
 		
+			Member obj = memberService.login(member);
+			session.setAttribute("member", obj);
+			model.addAttribute("member", obj);
+			
+			System.out.println("로그인시 넘어갈 멤버 정보는"+obj);
+ 
+	      return "redirect:/member/main";
+
 	}
 	
 	//로그아웃을 눌렀을 때 member세션을 지워버리고 메인으로 전송 from.성일
@@ -218,7 +216,7 @@ public class MemberController {
 	      return "redirect:/member/main";
 	}
 	
-	//회원탈퇴요청처리2
+	//회원탈퇴요청처리2--하연--
 	@RequestMapping(value="/join/del", method=RequestMethod.POST)
 	public String update2(Member member, HttpServletRequest request, HttpSession session, Model model, RedirectAttributes ra) {
 		int leng=member.getPhoto().getOriginalFilename().length();
