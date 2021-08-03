@@ -1,107 +1,161 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>득근 에러!!!!</title>
 
-    <!-- Favicon  -->
-    <link rel="icon" href="/resources/img/reallogo.png">
-    
-    <!-- Font awesome -->
-    <link href="/resources/css/font-awesome.css" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link href="/resources/css/bootstrap.css" rel="stylesheet">   
-    <!-- SmartMenus jQuery Bootstrap Addon CSS -->
-    <link href="/resources/css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
-    <!-- Product view slider -->
-    <link rel="stylesheet" type="text/css" href="/resources/css/jquery.simpleLens.css">    
-    <!-- slick slider -->
-    <link rel="stylesheet" type="text/css" href="/resources/css/slick.css">
-    <!-- price picker slider -->
-    <link rel="stylesheet" type="text/css" href="/resources/css/nouislider.css">
-    <!-- Theme color -->
-    <link id="switcher" href="/resources/css/theme-color/default-theme.css" rel="stylesheet">
-    <!-- Top Slider CSS -->
-    <link href="/resources/css/sequence-theme.modern-slide-in.css" rel="stylesheet" media="all">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <!-- Main style sheet -->
-    <link href="/resources/css/style1.css" rel="stylesheet">    
+	<title>404 HTML Template by Colorlib</title>
 
-    <!-- Google Font -->
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-    
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="css/style.css" />
 
-  </head>
-  <body>   
-   
-  <!-- 에러메세지 -->
-  <section id="aa-error">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="aa-error-area">
-            <h2>404</h2>
-            <span>죄송합니다. 페이지를 찾을 수 없습니다.</span>
-            <p>잘못 된 요청입니다. 잠시 후 시도해 주십시오.</p>
-            <a href="#">득근! 홈페이지로 가기</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- / 404 error section -->
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+<style type="text/css">
+	* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
 
-  <!-- Subscribe section -->
-  <section id="aa-subscribe">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="aa-subscribe-area">
-            <h3>문의사항을 남길 이메일 주소를 알려주세요!</h3>
-            <form action="" class="aa-subscribe-form">
-              <input type="email" name="" id="" placeholder="Enter your Email">
-              <input type="submit" value="발송">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- / Subscribe section -->
+body {
+  padding: 0;
+  margin: 0;
+}
 
+#notfound {
+  position: relative;
+  height: 100vh;
+}
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/resources/js/bootstrap.js"></script>  
-    <!-- SmartMenus jQuery plugin -->
-    <script type="text/javascript" src="/resources/js/jquery.smartmenus.js"></script>
-    <!-- SmartMenus jQuery Bootstrap Addon -->
-    <script type="text/javascript" src="/resources/js/jquery.smartmenus.bootstrap.js"></script>  
-    <!-- To Slider JS -->
-    <script src="/resources/js/sequence.js"></script>
-    <script src="/resources/js/sequence-theme.modern-slide-in.js"></script>  
-    <!-- Product view slider -->
-    <script type="text/javascript" src="/resources/js/jquery.simpleGallery.js"></script>
-    <script type="text/javascript" src="/resources/js/jquery.simpleLens.js"></script>
-    <!-- slick slider -->
-    <script type="text/javascript" src="/resources/js/slick.js"></script>
-    <!-- Price picker slider -->
-    <script type="text/javascript" src="/resources/js/nouislider.js"></script>
-    <!-- Custom js -->
-    <script src="/resources/js/custom.js"></script> 
-  
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
 
-  </body>
+.notfound {
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.notfound .notfound-404 {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0px auto 50px;
+}
+
+.notfound .notfound-404>div:first-child {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #ffa200;
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+          transform: rotate(45deg);
+  border: 5px dashed #000;
+  border-radius: 5px;
+}
+
+.notfound .notfound-404>div:first-child:before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  top: -5px;
+  -webkit-box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.1) inset;
+          box-shadow: 0px 0px 0px 5px rgba(0, 0, 0, 0.1) inset;
+  border-radius: 5px;
+}
+
+.notfound .notfound-404 h1 {
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+  font-weight: 700;
+  margin: 0;
+  font-size: 90px;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  left: 50%;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+}
+
+.notfound h2 {
+  font-family: 'Cabin', sans-serif;
+  font-size: 33px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 7px;
+}
+
+.notfound p {
+  font-family: 'Cabin', sans-serif;
+  font-size: 16px;
+  color: #000;
+  font-weight: 400;
+}
+
+.notfound a {
+  font-family: 'Cabin', sans-serif;
+  display: inline-block;
+  padding: 10px 25px;
+  background-color: #8f8f8f;
+  border: none;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.notfound a:hover {
+  background-color: #2c2c2c;
+}
+	
+</style>
+
+</head>
+
+<body>
+
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404">
+				<div></div>
+				<h1>404</h1>
+			</div>
+			<h2>Page not found</h2>
+			<p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+			<a href="/member/main">득근! 홈페이지로 가기</a>
+		</div>
+	</div>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>

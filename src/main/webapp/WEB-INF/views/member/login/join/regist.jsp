@@ -1094,7 +1094,7 @@ button::-moz-focus-inner {
 					<div class="main">
 						<div class="form-left-to-w3l">
 							<input class="id_input" type="text" name="user_id"
-								placeholder="ID" required="">
+								placeholder="ID" required=" 숫자, 영문 대소문자만 가능합니다." maxlength='15'>
 						</div>
 						<div>
 							<span class="id_input_re_1">사용 가능한 아이디입니다.</span> <span
@@ -1103,20 +1103,20 @@ button::-moz-focus-inner {
 						<div class="main">
 							<div class="form-left-to-w3l">
 								<input type="password" name="password" placeholder="Password"
-									id="password" required="">
+									id="password" required="" maxlength='15' minlength = "6">
 								<div class="clear"></div>
 							</div>
 							<div class="form-right-w3ls ">
 								<input type="password" placeholder="Confirm Password"
-									id="confirm_password" required="">
+									id="confirm_password" required="" maxlength='15' minlength = "6">
 							</div>
 						</div>
 						<div class="form-left-to-w3l">
-							<input type="text" name="name" placeholder="Name" required="">
+							<input type="text" name="name" placeholder="Name" required="" maxlength='15'>
 						</div>
 						<div class="form-left-to-w3l">
 							<input type="text" name="storename" placeholder="Storename"
-								required="">
+								required="" maxlength='15'>
 						</div>
 						<label for="store_id" style="color:red">하단의 문자는 랜덤으로 지정된 고객님의 스토어 id입니다. 수정은 어렵습니다.</label><br>
 						<div class="form-left-to-w3l">
@@ -1134,14 +1134,14 @@ button::-moz-focus-inner {
 								onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 							<input type="text" id="sample6_address" placeholder="주소" readonly><br>
 							<input type="text" id="sample6_detailAddress" placeholder="상세주소"
-								name=""> <input type="text" id="sample6_extraAddress"
+								name="" maxlength='20'> <input type="text" id="sample6_extraAddress"
 								placeholder="참고항목" readonly> <input type="hidden"
 								name="addr" placeholder="addr" required="" value="">
 						</div>
 						<div class="mail_check_wrap">
 						<div class="form-right-w3ls">
 							<input type="email" name="email" id="email" class="email" placeholder="Email" required=""
-								onmousedown="sendAddr()">
+								onmousedown="sendAddr()" maxlength='25'>
 						</div>
 						<!-- 
 							<input type="button" name="btemail" id="btemail" class="btemail" value="이메일 인증"><br>
@@ -1364,6 +1364,8 @@ button::-moz-focus-inner {
 					  event.preventDefault();
           }
         });
+				
+		
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
