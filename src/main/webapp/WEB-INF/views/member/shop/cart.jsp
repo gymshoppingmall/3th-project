@@ -163,9 +163,12 @@ function changePrice(a,b){
 	product_ea.innerHTML=ea;
 	//하나의 아이템의 총액 갱신
 	var total_price= document.getElementById("total_price_"+b);
-	total_price.innerHTML=ea*price+"원"
+	total_price.innerHTML=ea*price
 	//전체 총액 갱신
-	
+
+		
+		
+	}
 	
 	
 
