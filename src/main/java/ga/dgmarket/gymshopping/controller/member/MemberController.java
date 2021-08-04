@@ -170,7 +170,7 @@ public class MemberController {
 	      HttpSession session = request.getSession();
 	      session.setAttribute("member", member);
 	      
-	      return "redirect:/member/login/loginform";
+	      return "redirect:/member/loginform";
 			
 	}
 

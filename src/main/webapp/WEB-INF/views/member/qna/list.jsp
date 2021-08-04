@@ -222,6 +222,10 @@ window.onclick = function(event) {
 
 //게시글 등록
 function regist(){
+	if($("#notice_content").val() == ""){
+		bootbox.alert("댓글을 입력해주세요.", function(){});
+		return;
+	}
 	$("#form1").attr({
 		action : "/member/qna/regist",
 		method : "POST"
@@ -231,6 +235,10 @@ function regist(){
 
 //댓글 등록 요청
 function reply(){
+	if($("#reply_content").val() == ""){
+		bootbox.alert("댓글을 입력해주세요.", function(){});
+		return;			
+	}
 	$("#form2").attr({
 		action : "/member/qna/reply",
 		method : "POST"
@@ -302,7 +310,6 @@ function loadNotice(){
 
 $(function(){
 	loadNotice();
-	
 });
 </script>
 </head>
@@ -383,7 +390,7 @@ $(function(){
 			<h1>게시글 작성하기</h1>
 			<hr>
 			<label for="psw-repeat"><b>내용</b></label>
-			<textarea name="content"  maxlength="50" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
+			<textarea id="notice_content"  maxlength="50" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
 			<input type="hidden" name="member_id" value=<%=member.getMember_id()%>>
 			<div class="clearfix">
 				<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">취소</button>
@@ -400,7 +407,7 @@ $(function(){
 			<h1>답글 작성하기</h1>
 			<hr>
 			<label for="psw-repeat"><b>답변의 내용을 입력하세요.</b></label>
-			<textarea name="content" maxlength="50" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
+			<textarea id="reply_content" maxlength="50" cols="30" rows="10" name="content" style="width: 100%;" placeholder="게시글의 내용을 입력하세요."></textarea>
 			<input type="hidden" name="member_id" value=<%=member.getMember_id()%>>
 			<input type="hidden" name="qna_id" id="form2_qna_id" value="">
 
