@@ -139,14 +139,11 @@
 		order by p.used_product_id desc
 	</select>
 	
-	
-	
-	
 	<!-- 메인화면에 나올 최신순위 4개 리스트 from.도균-->
 	<select id="selectMainList" resultType="UsedProductExtend">
 		select p.used_product_id, p.used_product_name, p.used_product_price, i.used_img
-		from used_product p, used_product_img i 
-		where p.used_product_id=i.used_product_id and used_img_index=0 
+		from used_product p, used_product_img i, member m
+		where p.used_product_id=i.used_product_id and used_img_index=0 and m.member_id=p.member_id and m.user_grade != 7
 		order by p.used_product_id desc limit 4;
 	</select>	
 </mapper>

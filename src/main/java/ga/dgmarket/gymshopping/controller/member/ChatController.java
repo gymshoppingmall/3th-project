@@ -11,10 +11,6 @@ public class ChatController {
 	
 	@GetMapping("/used/chat/list")
 	public String chatList(HttpServletRequest request) {
-
-		
-		
-		
 		return "member/used/chat/chat";
 	}
 }

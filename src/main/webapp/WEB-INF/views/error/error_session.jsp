@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>404 HTML Template by Colorlib</title>
+	<title>세션이 만료 됐습니다. 다시 로그인 해주세요.</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
@@ -148,11 +149,11 @@ body {
 		<div class="notfound">
 			<div class="notfound-404">
 				<div></div>
-				<h1>404</h1>
+				<h1>Error</h1>
 			</div>
-			<h2>Page not found</h2>
-			<p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-			<a href="/member/main">득근! 홈페이지로 가기</a>
+			<h2>Session Error</h2>
+			<p>세션이 만료 됐습니다. 로그인 후 이용해 주세요.</p>
+			<a href="/member/loginform">득근! 로그인 하러 가기</a>
 		</div>
 	</div>
 

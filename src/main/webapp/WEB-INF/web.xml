@@ -50,6 +50,14 @@
 			<param-value>/WEB-INF/spring/appServlet/member-context.xml
 			</param-value>
 		</init-param>
+		
+		<!-- 404 에러를 캐치 -->
+		<init-param>
+			<param-name>throwExceptionIfNoHandlerFound</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- 404 에러를 캐치 -->
+		
 		<load-on-startup>1</load-on-startup>
 		<async-supported>true</async-supported><!-- 웹 소켓을 위한 비동기 지원 설정 -->
 	</servlet>
@@ -67,6 +75,14 @@
 			<param-value>/WEB-INF/spring/appServlet/admin-context.xml
 			</param-value>
 		</init-param>
+		
+		<!-- 404 에러를 캐치 -->
+		<init-param>
+			<param-name>throwExceptionIfNoHandlerFound</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- 404 에러를 캐치 -->
+		
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>

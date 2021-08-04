@@ -149,14 +149,14 @@
                 <div class="card-body">
                     <h4 class="card-title"><%=usedProduct.getUsed_product_name()%></h4>
                     <p class="card-text"><%=usedProduct.getUsed_product_price() %>원</p>
-                    <a href="#" class="btn btn-primary">둘러보기</a>
+                    <a href="/member/used/product/detail?used_product_id=<%=usedProduct.getUsed_product_id()%>" class="btn btn-primary">둘러보기</a>
                 </div>
             </div>
 		<%} %>  
     </div>
     <!-- 중고상품 상품진열 끝 -->
 	<!--  푸터 시작   -->
-	<%-- <%@include file="../inc/footer.jsp" %> --%>
+	<%@include file="../inc/footer.jsp" %>
 	<!--  푸터 끝   -->
 
     

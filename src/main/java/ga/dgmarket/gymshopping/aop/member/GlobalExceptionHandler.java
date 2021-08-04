@@ -12,6 +12,6 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(MemberExistException.class)
 	public String handleException(MemberExistException e, Model model) {
 		model.addAttribute("e",e);
-		return "redirect:/member/loginform";
+		return "error/error_session";
 	}
 }
