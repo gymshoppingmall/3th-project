@@ -1115,42 +1115,44 @@ button::-moz-focus-inner {
 							<input type="text" name="name" placeholder="Name" required="" maxlength='15'>
 						</div>
 						<div class="form-left-to-w3l">
-							<input type="text" name="storename" placeholder="Storename"
+							<input type="text" name="storename" placeholder="상점에 이용하실 상점명을 입력하세요."
 								required="" maxlength='15'>
 						</div>
-						<label for="store_id" style="color:red">하단의 문자는 랜덤으로 지정된 고객님의 스토어 id입니다. 수정은 어렵습니다.</label><br>
 						<div class="form-left-to-w3l">
-							<input type="text" name="store_id" id="store_id" required=""
+							<input type="hidden" name="store_id" id="store_id" required=""
 								value="" readonly>
 						</div>
-
+						<!-- 
 						<div class="form-left-to-w3l">
 							<input type="text" name="phone" id="phone" placeholder="phone"
 								required="" maxlength="13">
 						</div>
+						 -->
 						<div class="form-left-to-w3l">
 							<input type="text" id="sample6_postcode" placeholder="우편번호"
 								readonly> <input type="button"
 								onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 							<input type="text" id="sample6_address" placeholder="주소" readonly><br>
 							<input type="text" id="sample6_detailAddress" placeholder="상세주소"
-								name="" maxlength='20'> <input type="text" id="sample6_extraAddress"
+								name="" maxlength="20"> <input type="text" id="sample6_extraAddress"
 								placeholder="참고항목" readonly> <input type="hidden"
 								name="addr" placeholder="addr" required="" value="">
 						</div>
+						<!-- 
 						<div class="mail_check_wrap">
 						<div class="form-right-w3ls">
 							<input type="email" name="email" id="email" class="email" placeholder="Email" required=""
 								onmousedown="sendAddr()" maxlength='25'>
 						</div>
+						 -->
 						<!-- 
 							<input type="button" name="btemail" id="btemail" class="btemail" value="이메일 인증"><br>
 							<input type="text" name="writechk" class="writechk" id="writechk" value="" style="margin: 10px 0px 0px 0px;" ><br>
 							<span id="explainsp" style="padding:8px; display:inline-block; color:red">*메일로 보내드린 인증번호 6자리를 입력해주세요*</span>
 							<input type="hidden" name="emailchk" class="emailchk" id="emailchk" value="">
-							-->
 
 						</div>
+							-->
 						</div>
 			</div>
 			<div class="art-left-w3ls">
@@ -1207,10 +1209,10 @@ button::-moz-focus-inner {
 			alert("상점의 사진을 선택해주세요!");
 			return false;
 		}else{
+			sendAddr(); //주소 채우기
 			return true;
 		}
 	}
-
 		// Random Code 생성
 		$('input[name=store_id]')
 				.attr(
@@ -1257,10 +1259,12 @@ button::-moz-focus-inner {
 					}); // ajax 종료
 				});// function 종료
 				
+				/*
 				//핸드폰번호 자동 하이픈 생성
 				$(document).on("keyup", "#phone", function() {
 					$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 				});
+				*/
 				
 				//파일이름
 				$(document).on("change", ".file-input", function(){
@@ -1316,56 +1320,6 @@ button::-moz-focus-inner {
 					}
 					reader.readAsDataURL(input.files[0]);
 				}
-
-				//이메일
-				$("#btemail").click(function(){
-					
-					console.log("전송중?");
-					var user_email=$(".email").val();
-					
-					var key;//인증키
-					var bool=true;
-					
-					if(bool){
-						$.ajax({
-							url:"<c:url value='/member/certifiedMail'>",
-							type:"post",
-							dataType:"json",
-							data:{"user_email":email},
-							success:function(result, status, xhr){
-								alert("인증번호 발송");
-								key=result;
-								bool=false;
-							},
-							error:function(result, status, error){
-								alert("Error : "+status+error);
-							}
-						});
-						$(".writechk").show();
-						$(".btemail").val("인증번호 확인");
-						
-						$(".writechk").keyup(function(){
-							var userContent=$(".writechk").val();
-							
-							if(userContent==key){
-								alert("인증성공");
-								$("#emailchk").val("Y");//DB에 저장할거라 숨겨져있음(Y or N)
-								$("#btemail").val("인증완료");
-								$("#btemail").attr("disabled", true); //읽기전용으로 전환
-								$(".writechk").attr("disabled", true);
-							}else{
-								$("#emailchk").val("N");
-								$("#btemail").val("인증번호 재발송");
-								event.preventDefault();
-							}
-            });
-          }else{
-            alert("test=>false");
-					  event.preventDefault();
-          }
-        });
-				
-		
 	</script>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

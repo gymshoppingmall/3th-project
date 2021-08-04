@@ -8,6 +8,7 @@ if(result!=null && result.equals("false")){
 <%
 out.print("<script>");
 out.print("alert('올바르지 않은 정보입니다.');");
+out.print("location.href='/member/loginform';");
 out.print("</script>");
 %>
 <%} %>
@@ -523,7 +524,7 @@ p {
 								<button type="button" class="btn btn-style mt-3">로그인</button>
 							</form>
 							<p class="already">
-								계정이 없으신가요? <a href="/member/registform">회원가입</a>
+								계정이 없으신가요? <a href="/member/registform">회원가입</a>/<a href="/member/main">비회원으로</a>
 							</p>
 						</div>
 					</div>

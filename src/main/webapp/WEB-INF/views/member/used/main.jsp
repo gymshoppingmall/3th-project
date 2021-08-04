@@ -95,7 +95,6 @@ function loadProduct(e){
 
 //찜을 추가하는 메서드
 function addFavorites(used_product_id){
-	console.log("add들어옴");
 	//class를
 	//danger로 바꿔주고 onclick을 delFavorites으로 바꿔줘야함
 	//그리고 반환값으로 방금 넣은 last index번호를 받자
@@ -142,7 +141,6 @@ function delFavorites(used_product_id, used_favorites_id){
 </head>
 <body>
 	<%@ include file="../inc/top_navi.jsp" %>
-
 	<!-- 중고거래 top_navi -->
 	<%@ include file="./inc/top_navi.jsp" %>
 	<!-- 중고거래 side_controll -->

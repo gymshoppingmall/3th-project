@@ -1,8 +1,11 @@
 package ga.dgmarket.gymshopping.aop.member;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import ga.dgmarket.gymshopping.exception.MemberExistException;
 
@@ -14,4 +17,10 @@ public class GlobalExceptionHandler {
 		model.addAttribute("e",e);
 		return "error/error_session";
 	}
+	
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public String handle(HttpServletRequest request, NoHandlerFoundException e) {
+		return "error/error_404";
+	}
+	
 }

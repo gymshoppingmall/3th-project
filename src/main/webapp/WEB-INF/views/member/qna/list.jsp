@@ -293,6 +293,17 @@ function deleteReply(qna_id){
 	});
 }
 
+function loadNotice(){
+    $(".main_notice:hidden").slice(0, 10).show();
+    if($(".main_notice:hidden").length == 0){
+        $("#notice_bt").css("display", "none");
+    }
+}
+
+$(function(){
+	loadNotice();
+	
+});
 </script>
 </head>
 <body>
@@ -321,7 +332,7 @@ function deleteReply(qna_id){
 	<% for(Qna qna : qnaList) {%> <!-- 꺼내온 게시글 만큼 돌리기 -->
 		<% String regdate = qna.getRegdate().substring(0, 10); %>		
 		<% if(qna.getDepth() == 0 ){ %> <!-- 원글이라면 -->
-			<tr style="background-color: #f2f2f2;">
+			<tr class="main_notice" style="background-color: #f2f2f2; display: none;">
 				<td><button id="<%= qna.getQna_id() %>" class="reply_bt" onclick="document.getElementById('id02').style.display='block'; changeQna_id(<%= qna.getQna_id() %>)">답변달기</button></td>
 			<% if(qna.getMember_id() == member.getMember_id()){ %> <!-- 내가 작성한 글이라면 -->
 				<td onclick="deleteQna(<%=qna.getQna_id()%>)"><%= qna.getContent() %></td>
@@ -359,7 +370,8 @@ function deleteReply(qna_id){
 	<% } %>
 	<tr>
 		<td colspan="6">
-			<button onclick="document.getElementById('id01').style.display='block'" style ="width: 10%">게시글 작성</button>
+			<button onclick="document.getElementById('id01').style.display='block'" style ="width: 10%; float: right;">게시글 작성</button>
+			<button onclick="loadNotice()" id="notice_bt" style ="width: 10%">더보기</button>
 		</td>
 	</tr>
 </table>

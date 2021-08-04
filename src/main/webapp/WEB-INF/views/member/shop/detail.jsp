@@ -128,7 +128,7 @@
                                 	<input type="hidden" name="product_id" value="<%=product.getProduct_id()%>">
                                     <input type="hidden" name="member_id" value="<%=member.getMember_id()%>">
                                 	<span class="qty-minus" ondragstart="false" style="cursor: pointer;" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false; "><i class="fa fa-minus" aria-hidden="true" onclick="changePrice(-1);"></i></span>
-                                    <input type="number" ondragstart="false" class="qty-text" id="qty" step="1" min="1" max="12" name="ea" value="1">
+                                    <input type="number" style="background-color: white;" ondragstart="false" class="qty-text" id="qty" step="1" min="1" max="12" name="ea" value="1" disabled/>
                                     <span class="qty-plus" ondragstart="false" style="cursor: pointer;"onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false; "><i class="fa fa-plus" aria-hidden="true" onclick="changePrice(1);"></i></span>
                                 </div>
                             </form>
