@@ -1173,17 +1173,18 @@ button::-moz-focus-inner {
 							<input type="text" name="storename" required=""
 								value="<%=member.getStorename()%>" maxlength='15'>
 						</div>
-						<label for="store_id" style="color:red">하단의 문자는 랜덤으로 지정된 고객님의 스토어 id입니다. 수정은 어렵습니다.</label><br>
 						<div class="form-left-to-w3l">
-							<input type="text" name="store_id" required=""
+							<input type="hidden" name="store_id" required=""
 								value="<%=member.getStore_id()%>" readonly>
 						</div>
-
+						<!-- 
 						<div class="form-left-to-w3l">
 						<label for="phone" style="color:black; font-size:15px; font-weight: bold;">Phone</label>
 							<input type="text" name="phone" id="phone" required=""
 								value="<%=member.getPhone()%>" maxlength="13">
 						</div>
+						 -->
+						
 						<div class="form-left-to-w3l">
 						<label for="sample6_postcode" style="color:black; font-size:15px; font-weight: bold;">우편번호</label>
 							<input type="text" id="sample6_postcode" placeholder="우편번호" value=""
