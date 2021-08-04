@@ -35,8 +35,8 @@ public class OrderController {
 		session.setAttribute("order", order);
 		
 		
-//		Member member=(Member)session.getAttribute("member");
-//		cartService.afterOrderDelete(member.getMember_id());
+		Member member=(Member)session.getAttribute("member");
+		cartService.afterOrderDelete(member.getMember_id());
 
 		ResponseEntity<String> entity=new ResponseEntity<String>("ok", HttpStatus.OK);
 		return entity;
@@ -44,9 +44,7 @@ public class OrderController {
 	
 	@GetMapping("/shop/order")
 	public String getList(HttpServletRequest request) {
-		
-		
-		
+
 		return ("/member/shop/order");
 	}
 

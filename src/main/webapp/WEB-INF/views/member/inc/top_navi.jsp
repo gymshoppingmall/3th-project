@@ -65,6 +65,7 @@
 	    <a href="/member/registform">회원가입</a>
     <% } else { %>
     	<a href="/member/join/detail?member_id=<%=top_navi_member.getMember_id() %>">회원정보</a>
+    	<a href="/member/cart/list">장바구니</a>
     	<a href="/member/used/main">중고마켓</a>
     	<a href="/member/logout">로그아웃</a>    	
     <% } %>

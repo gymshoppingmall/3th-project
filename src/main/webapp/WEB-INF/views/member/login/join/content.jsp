@@ -1201,8 +1201,7 @@ button::-moz-focus-inner {
 								name="addr" required="" value="<%=member.getAddr()%>">
 						</div>
 						<div class="form-right-w3ls">
-						<label for="email" style="color:black; font-size:15px; font-weight: bold;">Email</label>
-							<input type="email" name="email" required=""
+							<input type="hidden" name="email" required=""
 								value="<%=member.getEmail()%>" maxlength='25'>
 								<!-- 
 							<input type="button"
