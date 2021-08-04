@@ -25,12 +25,18 @@ public class MybatisCartDAO implements CartDAO{
 
 	//카트 목록 불러오기
 	public List selectAll(int member_id) {
-		return sqlSessionTemplate.selectList("Cart.selectAllJoin", member_id);
+		return sqlSessionTemplate.selectList("Cart.selectAll", member_id);
 	}
 
 	@Override
 	public List selectAllJoin(int member_id) {
 		return sqlSessionTemplate.selectList("Cart.selectAllJoin", member_id);
+	}
+	
+	//주문완료 후 장바구니DB 삭제
+	@Override
+	public void afterOrderDelete(int member_id) {
+		sqlSessionTemplate.delete("Cart.afterOrderDelete", member_id);
 	}
 
 	@Override
@@ -50,5 +56,6 @@ public class MybatisCartDAO implements CartDAO{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 }

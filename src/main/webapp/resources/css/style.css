@@ -104,7 +104,7 @@
 }
 
 #product-choice{
-    height: 700px;
+    height: 600px;
 }
 .top-line{
     height:3px;
@@ -144,7 +144,6 @@
 
 #product-cart{
     height: 200px;
-    margin-top: 20px;
 }
 
 #detail-bt{
