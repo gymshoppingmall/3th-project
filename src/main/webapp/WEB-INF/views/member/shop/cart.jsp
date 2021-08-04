@@ -201,7 +201,7 @@ $(function(){
                      <input type="hidden" id="price_<%=i %>" value=<%=cart.getProduct().getPrice()%>>
                         <div class="col-sm-2" id="cart-check">
                             <i class="fas fa-check-circle" style="margin-left: 15px; font-size: 25px; color: purple;"></i>
-                            <img src="/resources/img/img1.jpg" class="img-thumbnail" id="product-thumbnail">
+                            <img src="/resources/data/product/img/<%cart.getProduct().getProduct_img()%>" class="img-thumbnail" id="product-thumbnail">
                         </div>
                         <div class="col-sm-3" id="cart-detail" name="item_name">
                             <%=cart.getProduct().getProduct_name() %>

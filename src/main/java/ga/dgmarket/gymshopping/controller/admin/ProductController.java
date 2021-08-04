@@ -67,7 +67,7 @@ public class ProductController {
 		ServletContext context = request.getServletContext();
 		Long time = System.currentTimeMillis();
 		String filename = time+"."+fileManager.getExt(photo.getOriginalFilename());
-		fileManager.saveFile(context, photo, "product/img/");
+		fileManager.saveFile(context, photo, "product/img");
 		product.setProduct_img(filename);
 		productService.regist(product);
 		

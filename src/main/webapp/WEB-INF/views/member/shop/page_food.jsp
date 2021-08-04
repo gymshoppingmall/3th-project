@@ -83,7 +83,7 @@
         <form>
         	<%for(Product product : foodList){ %>
             <div class="card" style="width:300px">
-                <img class="card-img-top" src="/resources/img/img1.jpg" alt="Card image">
+                <img class="card-img-top" src="/resources/data/product/img/<%=product.getProduct_img()%>" alt="Card image">
                 <div class="card-body">
                     <h4 class="card-title"><%=product.getProduct_name() %></h4>
                     <input type="hidden" name="product_img" value="이미지">

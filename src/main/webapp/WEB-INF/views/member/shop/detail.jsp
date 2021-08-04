@@ -69,7 +69,7 @@
             <!-- 상세보기 설명 시작-->
             <div class="row" id="product-desc">
                 <div class="col-sm-5" id="product-img"> 
-                    <img class="img-fluid" src="/resources/img/img15.jpg" alt="Chania">
+                    <img class="img-fluid" src="/resources/data/product/img/<%=product.getProduct_img()%>" alt="Chania">
                 </div>
                 <div class="col-sm-7" id="product-choice">
                     <hr class="top-line">

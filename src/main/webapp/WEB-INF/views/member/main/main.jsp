@@ -83,7 +83,7 @@
         <form>
         	<%for(Product product : productNewList){ %>
             <div class="card" style="width:300px">
-                <img class="card-img-top" src="/resources/img/img1.jpg" alt="Card image">
+                <img class="card-img-top" src="/resources/data/product/img/<%=product.getProduct_img() %>" alt="Card image">
                 <div class="card-body">
                     <h4 class="card-title"><%=product.getProduct_name() %></h4>
                     <input type="hidden" name="product_img" value="이미지">
@@ -143,9 +143,9 @@
     <!-- 중고상품 상품진열 -->
     <div class="product1">
         <div class="product-suggestion">인기 중고</div>
-        <%for(UsedProduct usedProduct : UsedProductNewList){ %>
+        <%for(UsedProductExtend usedProduct : UsedProductNewList){ %>
             <div class="card" style="width:300px">
-                <img class="card-img-top" src="/resources/img/img16.jpg" alt="Card image">
+                <img class="card-img-top" src="/resources/data/used/product/img/<%=usedProduct.getUsed_img()%>" alt="Card image">
                 <div class="card-body">
                     <h4 class="card-title"><%=usedProduct.getUsed_product_name()%></h4>
                     <p class="card-text"><%=usedProduct.getUsed_product_price() %>원</p>
