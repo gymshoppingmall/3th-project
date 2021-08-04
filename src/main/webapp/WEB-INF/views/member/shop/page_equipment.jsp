@@ -98,7 +98,9 @@
 
     
     
-    <div id="footer">푸터 올 곳</div>
+    <!--  푸터 시작   -->
+	<%@include file="../inc/footer.jsp" %>
+	<!--  푸터 끝   -->
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

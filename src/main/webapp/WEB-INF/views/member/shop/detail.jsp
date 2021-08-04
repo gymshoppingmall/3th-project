@@ -163,7 +163,7 @@
         </div>
         <div class="col-sm-2" ></div>
     </div>
-    <!-- <div id="footer">푸터 올 곳</div> -->
+    <div id="footer">푸터 올 곳</div>
 <script>
 
 /* 수량 변경시 가격변경*/

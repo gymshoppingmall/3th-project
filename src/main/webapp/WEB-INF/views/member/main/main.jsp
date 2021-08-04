@@ -156,7 +156,7 @@
     </div>
     <!-- 중고상품 상품진열 끝 -->
 	<!--  푸터 시작   -->
-	<%-- <%@include file="../inc/footer.jsp" %> --%>
+	<%@include file="../inc/footer.jsp" %>
 	<!--  푸터 끝   -->
 
     
