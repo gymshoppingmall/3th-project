@@ -222,7 +222,6 @@ function delFavorites(used_favorites_id){
                             <%} else {%>
                             	<p><h5><strong>상태 변경</strong></h5></p> 
 	                            <div class="btn-group" style="width : 100%;">
-                            		<button type="button" class="btn btn-success" onclick="soldout(<%=productExtend.getUsed_product_id()%>)">거래완료</button>
                            	 		<button type="button" class="btn btn-success" onclick="del(<%=productExtend.getUsed_product_id()%>)">상품삭제</button>
                         		</div>
                             <% } %>

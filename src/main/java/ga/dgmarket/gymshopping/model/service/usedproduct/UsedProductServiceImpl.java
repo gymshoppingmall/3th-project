@@ -167,6 +167,7 @@ public class UsedProductServiceImpl implements UsedProductService{
 	//favorites[count] 가져오기
 	@Override
 	public Map getDetail(HttpServletRequest request, int used_product_id) {
+		
 		UsedProductExtend productExtend = new UsedProductExtend();
 		Member member = (Member)request.getSession().getAttribute("member");
 		
@@ -177,6 +178,8 @@ public class UsedProductServiceImpl implements UsedProductService{
 		UsedProductExtend usedProductExtend = usedProductDAO.getDetail(productExtend); //상품정보+찜 정보 가져오기
 		UsedFavorites usedFavorites =usedProductDAO.getFavoritesCount(used_product_id); //찜 갯수가져오기
 		List<UsedProductImg> imgList = usedProductImgDAO.getProductImg(used_product_id);//이미지 가져오기
+		
+		sessionAddProduct(request, imgList.get(0)); //세션에 방금 본 상품의 정보 담기
 		
 		addSessionProduct(request, imgList.get(0)); //세션에 상품 정보 넣기		
 		
@@ -189,6 +192,33 @@ public class UsedProductServiceImpl implements UsedProductService{
 		
 		
 		return map;
+	}
+	
+	//사용자가 제품 상세보기를 했을 때 세션에 상품 정보 담아두기!
+	public void sessionAddProduct(HttpServletRequest request, UsedProductImg img) {
+		HttpSession session = request.getSession();	
+		String img1 = (String) session.getAttribute("img1");
+		String img2 = (String) session.getAttribute("img2");
+		String img3 = (String) session.getAttribute("img3");
+		
+		if(img1 == null || img1 == "") { //첫번째 이미지가 비었다면 채워주기
+			session.setAttribute("img1", img.getUsed_img()); //이미지
+			session.setAttribute("id1", img.getUsed_product_id()); //이미지 클릭 시 상품 상세보기로 이동할 id
+		}else if(img2 == null || img2 == "") {
+			session.setAttribute("img2", img.getUsed_img());
+			session.setAttribute("id2", img.getUsed_product_id());
+		}else if(img3 == null || img3 == "") {
+			session.setAttribute("img3", img.getUsed_img());
+			session.setAttribute("id3", img.getUsed_product_id());
+		}else {
+			session.setAttribute("img1", session.getAttribute("img2"));
+			session.setAttribute("img2", session.getAttribute("img3"));
+			session.setAttribute("img3", img.getUsed_img());
+			
+			session.setAttribute("id1", session.getAttribute("id2"));
+			session.setAttribute("id2", session.getAttribute("id3"));
+			session.setAttribute("id3", img.getUsed_product_id());
+		}
 	}
 	
 	//제품 상세보기를 할 때 최근 본 목록을 처리하는 메서드
@@ -225,6 +255,21 @@ public class UsedProductServiceImpl implements UsedProductService{
 	상품찜
 	상품주문삭제*/
 	public void delete(HttpServletRequest request, int used_product_id) {
+		//세션에 상품이 들어있다면 삭제
+		HttpSession session = request.getSession();
+		if((int)session.getAttribute("id1") == used_product_id) {
+			session.setAttribute("id1", null);
+			session.setAttribute("img1", null);
+		}else if((int)session.getAttribute("id2") == used_product_id) {
+			session.setAttribute("id2", null);
+			session.setAttribute("img2", null);
+		}else if((int)session.getAttribute("id3") == used_product_id) {
+			session.setAttribute("id3", null);
+			session.setAttribute("img3", null);
+		}
+		
+		
+		
 		ServletContext context = request.getServletContext();
 		
 		//이미지 삭제처리 [폴더 내의 이미지 삭제]

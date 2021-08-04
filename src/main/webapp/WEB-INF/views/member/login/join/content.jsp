@@ -1144,29 +1144,34 @@ button::-moz-focus-inner {
 						<input type="hidden" name="user_grade" value="<%=member.getUser_grade()%>">
 					<div class="main">
 						<div class="form-left-to-w3l">
+							<label for="user_id" style="color:black; font-size:15px; font-weight: bold;">ID</label>
 							<input type="text" class="id_input" name="user_id" required=""
-								value="<%=member.getUser_id()%>">
+								value="<%=member.getUser_id()%>" maxlength='15'>
 						</div>
 						<div>
-							<span class="id_input_re_1">사용 가능한 아이디입니다.</span> <span
-								class="id_input_re_2">아이디가 이미 존재합니다.</span>
+							<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
+							<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
 						</div>
 						<div class="main">
 							<div class="form-left-to-w3l">
-								<input type="password" name="password" id="password" required="" value="">
+								<label for="password" style="color:black; font-size:15px; font-weight: bold;">Password</label>
+								<input type="password" name="password" id="password" required="" value="" maxlength='15' minlength = "6">
 								<div class="clear"></div>
 							</div>
 							<div class="form-right-w3ls ">
-								<input type="password" id="confirm_password" required="" value="">
+							<label for="confirm_password" style="color:black; font-size:15px; font-weight: bold;">Confirm_password</label>
+								<input type="password" id="confirm_password" required="" value="" maxlength='15' minlength = "6">
 							</div>
 						</div>
 						<div class="form-left-to-w3l">
+						<label for="name" style="color:black; font-size:15px; font-weight: bold;">Name</label>
 							<input type="text" name="name" required=""
-								value="<%=member.getName()%>">
+								value="<%=member.getName()%>" maxlength='15'>
 						</div>
 						<div class="form-left-to-w3l">
+						<label for="storename" style="color:black; font-size:15px; font-weight: bold;">Storename</label>
 							<input type="text" name="storename" required=""
-								value="<%=member.getStorename()%>">
+								value="<%=member.getStorename()%>" maxlength='15'>
 						</div>
 						<label for="store_id" style="color:red">하단의 문자는 랜덤으로 지정된 고객님의 스토어 id입니다. 수정은 어렵습니다.</label><br>
 						<div class="form-left-to-w3l">
@@ -1175,22 +1180,29 @@ button::-moz-focus-inner {
 						</div>
 
 						<div class="form-left-to-w3l">
+						<label for="phone" style="color:black; font-size:15px; font-weight: bold;">Phone</label>
 							<input type="text" name="phone" id="phone" required=""
 								value="<%=member.getPhone()%>" maxlength="13">
 						</div>
 						<div class="form-left-to-w3l">
+						<label for="sample6_postcode" style="color:black; font-size:15px; font-weight: bold;">우편번호</label>
 							<input type="text" id="sample6_postcode" placeholder="우편번호" value=""
 								readonly> <input type="button"
 								onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+								<label for="phone" style="color:black; font-size:15px; font-weight: bold;">주소</label>
 							<input type="text" id="sample6_address" placeholder="주소" value="" readonly><br>
+							<label for="phone" style="color:black; font-size:15px; font-weight: bold;">상세주소</label>
 							<input type="text" id="sample6_detailAddress" placeholder="상세주소"
-								name="" value=""> <input type="text" id="sample6_extraAddress"
+								name="" value="" maxlength='20'> 
+								<label for="phone" style="color:black; font-size:15px; font-weight: bold;">참고항목</label>
+								<input type="text" id="sample6_extraAddress"
 								placeholder="참고항목" value="" readonly> <input type="hidden"
 								name="addr" required="" value="<%=member.getAddr()%>">
 						</div>
 						<div class="form-right-w3ls">
+						<label for="email" style="color:black; font-size:15px; font-weight: bold;">Email</label>
 							<input type="email" name="email" required=""
-								value="<%=member.getEmail()%>">
+								value="<%=member.getEmail()%>" maxlength='25'>
 								<!-- 
 							<input type="button"
 							onclick="" value="이메일 인증"><br>								
