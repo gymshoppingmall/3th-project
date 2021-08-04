@@ -195,29 +195,62 @@ public class UsedProductServiceImpl implements UsedProductService{
 	}
 	
 	//사용자가 제품 상세보기를 했을 때 세션에 상품 정보 담아두기!
-	public void sessionAddProduct(HttpServletRequest request, UsedProductImg img) {
+	public void sessionAddProduct(HttpServletRequest request, UsedProductImg obj) {
 		HttpSession session = request.getSession();	
 		String img1 = (String) session.getAttribute("img1");
 		String img2 = (String) session.getAttribute("img2");
 		String img3 = (String) session.getAttribute("img3");
+		String img = obj.getUsed_img();
+		int id = obj.getUsed_product_id();
 		
 		if(img1 == null || img1 == "") { //첫번째 이미지가 비었다면 채워주기
-			session.setAttribute("img1", img.getUsed_img()); //이미지
-			session.setAttribute("id1", img.getUsed_product_id()); //이미지 클릭 시 상품 상세보기로 이동할 id
-		}else if(img2 == null || img2 == "") {
-			session.setAttribute("img2", img.getUsed_img());
-			session.setAttribute("id2", img.getUsed_product_id());
-		}else if(img3 == null || img3 == "") {
-			session.setAttribute("img3", img.getUsed_img());
-			session.setAttribute("id3", img.getUsed_product_id());
-		}else {
-			session.setAttribute("img1", session.getAttribute("img2"));
-			session.setAttribute("img2", session.getAttribute("img3"));
-			session.setAttribute("img3", img.getUsed_img());
-			
-			session.setAttribute("id1", session.getAttribute("id2"));
-			session.setAttribute("id2", session.getAttribute("id3"));
-			session.setAttribute("id3", img.getUsed_product_id());
+			session.setAttribute("img1", img); //이미지
+			session.setAttribute("id1", id); //이미지 클릭 시 상품 상세보기로 이동할 id
+		}else if(img2 == null || img2 == "") { //두 번째 이미지가 비었다면 채워주기
+			//이미 들어있는 이미지가 중복되지 않을 때만 이미지 넣기
+			if(!img1.equals(img)) {
+				session.setAttribute("img2", img);
+				session.setAttribute("id2", id);
+			}
+		}else if(img3 == null || img3 == "") { //세 번째 이미지가 비었다면 채워주기
+			if(img1.equals(img)) { //만약 맨 밑 이미지가 지금 가져온 이미지와 같다면 위로 올려주기
+				session.setAttribute("img1", session.getAttribute("img2"));
+				session.setAttribute("id1", session.getAttribute("id2"));
+				
+				session.setAttribute("img2", img);
+				session.setAttribute("id2", id);
+			}else if(img2.equals(img)) { //이미 있는 이미지가 맨 위라면 아무 동작 ㄴㄴ
+			}else { //이미지가 중복 되지 않는다면 맨 위로 올리기
+				session.setAttribute("img3", img);
+				session.setAttribute("id3", id);
+			}
+		}else { //꽉 찼다면 채워주기
+			if(img3.equals(img)) { //이미 이미지가 가장 위에 있다면 아무 작업 하지 않기
+			}else if(img2.equals(img)) { //이미지가 2번째에 이미 있다면 3번째와 교체
+				session.setAttribute("img2", session.getAttribute("img3"));
+				session.setAttribute("id2", session.getAttribute("id3"));
+				
+				session.setAttribute("img3", img);
+				session.setAttribute("id3", id);
+			}else if(img1.equals(img)) {
+				session.setAttribute("img1", session.getAttribute("img2"));
+				session.setAttribute("id1", session.getAttribute("id2"));
+				
+				session.setAttribute("img2", session.getAttribute("img3"));
+				session.setAttribute("id2", session.getAttribute("id3"));
+				
+				session.setAttribute("img3", img);
+				session.setAttribute("id3", id);
+			}else {
+				session.setAttribute("img1", session.getAttribute("img2"));
+				session.setAttribute("img2", session.getAttribute("img3"));
+				session.setAttribute("img3", img);
+				
+				session.setAttribute("id1", session.getAttribute("id2"));
+				session.setAttribute("id2", session.getAttribute("id3"));
+				session.setAttribute("id3", id);
+				
+			}
 		}
 	}
 	
