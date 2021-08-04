@@ -36,6 +36,11 @@
 		delete from cart where cart_id=#{cart_id}
 	</delete>
 	
+	<!-- 주문완료 후 장바구니 삭제 -->
+	<delete id="afterOrderDelete" parameterType="int">
+		delete from cart where member_id=#{member_id};
+	</delete>
+	
 	<!-- 장바구니 비우기-->
 	<delete id="deleteAll" parameterType="Cart">
 		delete from cart where member_id=#{member_id}

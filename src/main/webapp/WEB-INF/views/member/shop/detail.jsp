@@ -136,18 +136,13 @@
                         <div class="col-md-3" id="total-price"><%=product.getPrice()%></div>
                     </div>
                     <hr style="margin: 0%; background: rgb(112, 112, 112);">
-<%--                     <div class="row">
-                        <div class="col-md-2" style=" margin-left: 15px;"></div>
-                        <div class="col-md-4" style="font-size: 25px; height: 50px;padding-left: 80px; margin-top: 20px;" >총 상품 금액</div>
-                        <div class="col-md-4" style="font-size: 25px; margin-left: 100px; margin-top: 20px;" id="total-price-with-shipping"><%=product.getPrice()*1%>원</div>
-                    </div> --%>
 
                 </div>
             </div>
             <!-- 상세보기 설명 끝 -->
 
             <!-- 상세보기 장바구니 시작-->
-            <div class="row" id="product-cart">
+            <div class="row" id="product-cart" style="height: 300px">
                 <div class="col-sm-5" id="product-block"></div>
                 <div class="col-sm-7" id="product-cart">
                     <div class="row">
@@ -163,7 +158,7 @@
         </div>
         <div class="col-sm-2" ></div>
     </div>
-    <div id="footer">푸터 올 곳</div>
+
 <script>
 
 /* 수량 변경시 가격변경*/
@@ -190,9 +185,7 @@ function addCart(){
 		member_id:$("#detail-form input[name='member_id']").val(), 
 		ea:$("#detail-form input[name='ea']").val()
 	};
-	
-	console.log("전송할 데이터는 ",json);
-	
+
 	$.ajax({
 		url:"/member/cart",
 		type:"POST",

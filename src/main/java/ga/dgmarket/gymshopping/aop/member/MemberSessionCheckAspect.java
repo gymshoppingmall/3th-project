@@ -27,7 +27,6 @@ public class MemberSessionCheckAspect {
 			result = joinPoint.proceed();
 		}else {
 			memberSession = request.getSession();
-			System.out.println(memberSession.getAttribute("member"));
 			if(memberSession.getAttribute("member")==null) {
 				throw new MemberExistException("로그인이 필요한 서비스입니다.");
 			}else {

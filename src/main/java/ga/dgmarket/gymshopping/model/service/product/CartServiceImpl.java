@@ -28,6 +28,10 @@ public class CartServiceImpl implements CartService{
 	public List selectAllJoin(int member_id) {
 		return cartDAO.selectAllJoin(member_id);
 	}
+	
+	public void afterOrderDelete(int member_id) {
+		cartDAO.afterOrderDelete(member_id);
+	}
 
 	@Override
 	public void update(Cart cart)  throws CartException{
@@ -43,5 +47,8 @@ public class CartServiceImpl implements CartService{
 	public void deleteAll(int member_id)   throws CartException{
 		cartDAO.deleteAll(member_id);
 	}
+
+	
+	
 	
 }

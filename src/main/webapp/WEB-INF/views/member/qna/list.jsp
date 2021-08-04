@@ -183,6 +183,10 @@ hr {
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <!-- bootbox cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.3.2/bootbox.min.js"></script>
+<!-- 커스텀 CSS -->
+<link rel="stylesheet" href="/resources/css/style.css">
+<!-- 폰트어썸 -->
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <script>
 function myFunction() {
 	var input, filter, table, tr, td, i, txtValue;
@@ -292,7 +296,11 @@ function deleteReply(qna_id){
 </script>
 </head>
 <body>
-<%@ include file="../inc/top_navi.jsp" %>
+	<%@ include file="../inc/top_navi.jsp" %>
+<!-- 케러셀 시작 -->
+	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="margin-top: 0px">
+		<%@include file="../inc/carousel.jsp" %>
+	</div>
 <div style="width: 80%; margin: auto;">
 <select name="" id="mySelect">
 	<option value="1" selected>내용</option>
@@ -391,5 +399,8 @@ function deleteReply(qna_id){
 		</div>
 	</form>
 </div>
+	<!--  푸터 시작   -->
+	<%@include file="../inc/footer.jsp" %>
+	<!--  푸터 끝   -->
 </body>
 </html>
